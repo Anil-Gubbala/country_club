@@ -17,6 +17,7 @@
 //start node server: run below commands
 - cd server
 - node index.js
+
 // start react server: run below commands
 - cd client
 - npm start
