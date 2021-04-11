@@ -4,7 +4,7 @@ import "../App.css";
 import { Redirect } from "react-router";
 import { useLoginValidate } from "../common/Validate";
 import Loading from "../common/Loading";
-import BasePage from "../common/BasePage";
+import Navi from "../common/Navi";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -36,7 +36,9 @@ export default function Login() {
     return <Redirect to="/"></Redirect>;
   }
   return (
-    <BasePage>
+    <div>
+      <Navi>
+      </Navi>
       <h1>Login</h1>
       <input
         type="text"
@@ -54,6 +56,6 @@ export default function Login() {
       />
       <button onClick={login}> Login </button>
       <div> {failMsg}</div>
-    </BasePage>
+    </div>
   );
 }
