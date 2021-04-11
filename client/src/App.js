@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { ErrorPath } from "./login/ErrorPath";
 import Main from "./public/Main";
-import Registration from "./login/Registration";
+import Registration from "./login/Register";
 import Login from "./login/Login";
 import Logout from "./login/Logout";
 import AdminHome from "./admin/AdminHome";

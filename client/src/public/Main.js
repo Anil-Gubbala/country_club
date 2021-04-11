@@ -10,7 +10,7 @@ import Loading from "../common/Loading";
 export default function Main() {
   const { loading, userData } = useLoginValidate();
   const role = userData ? userData.role : "";
-  
+
   if (loading) {
     return <Loading></Loading>;
   }
@@ -20,7 +20,6 @@ export default function Main() {
       {/* {role === "visitor" && <NormalUser />}
       {role === "mod" && <Mod />}
       {role === "admin" && <Admin />} */}
-      
     </div>
   );
 }

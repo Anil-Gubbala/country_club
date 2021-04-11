@@ -5,29 +5,37 @@ import { Link } from "react-router-dom";
 import Navi from "../common/Navi";
 
 export default function Registration() {
-  const [usernameReg, setUsernameReg] = useState("");
-  const [passwordReg, setPasswordReg] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [registered, setRegisterd] = useState(false);
+  const [message, setMessage] = useState("");
   Axios.defaults.withCredentials = true;
 
   const register = () => {
-    Axios.post("http://localhost:3001/register", {
-      username: usernameReg,
-      password: passwordReg,
-    })
-      .then((response) => {
-        console.log(response);
-        setRegisterd(true);
+    if (username.trim().length < 5 || password.trim().length < 5) {
+      setMessage("username & password should be minimum of 5 digits");
+    } else if (username.includes(" ")) {
+      setMessage("Space character not allowed")
+    } else {
+      Axios.post("http://localhost:3001/register", {
+        username: username,
+        password: password,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          setMessage("Registration success");
+          setRegisterd(true);
+        })
+        .catch((error) => {
+          setMessage(error.response.data.err);
+          setRegisterd(false);
+        });
+    }
   };
 
   if (registered) {
     return (
       <div className="main">
-        <div> Successfully registered</div>
+        <div> {message}</div>
         <Link to="/login">Go to Login Page</Link>
       </div>
     );
@@ -42,25 +50,25 @@ export default function Registration() {
           <input
             type="text"
             onChange={(e) => {
-              setUsernameReg(e.target.value);
+              setUsername(e.target.value);
             }}
           />
         </div>
         <div className="margin8">
           <label>Password</label>
           <input
-            type="text"
+            type="password"
             onChange={(e) => {
-              setPasswordReg(e.target.value);
+              setPassword(e.target.value);
             }}
           />
         </div>
         <div>
           <button className="marginAuto" onClick={register}>
-            {" "}
-            Register{" "}
+            Register
           </button>
         </div>
+        <div>{message}</div>
       </div>
     </div>
   );

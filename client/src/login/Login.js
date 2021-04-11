@@ -20,14 +20,15 @@ export default function Login() {
     Axios.post("http://localhost:3001/login", {
       username: username,
       password: password,
-    }).then((response) => {
-      if (response.data.message) {
-        setLoginStatus(false);
-        setFailMsg(response.data.message);
-      } else {
+    })
+      .then((response) => {
         setLoginStatus(true);
-      }
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoginStatus(false);
+        setFailMsg(error.response.data.err);
+      });
   };
   if (loading) {
     return <Loading></Loading>;
@@ -37,8 +38,7 @@ export default function Login() {
   }
   return (
     <div>
-      <Navi>
-      </Navi>
+      <Navi></Navi>
       <h1>Login</h1>
       <input
         type="text"
