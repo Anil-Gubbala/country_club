@@ -1,0 +1,27 @@
+.App {
+  text-align: center;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.margin8{
+  display: flex;
+  margin: 8px;
+}
+.displayFlex{
+  display: flex;
+}
+.alignCenter{
+  align-items: center;
+}
+.marginAuto{
+  margin:auto;
+}
+
+input {
+  width: 250px;
+  height: 40px;
+}
