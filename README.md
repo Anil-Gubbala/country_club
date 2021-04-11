@@ -1,4 +1,4 @@
-# 180B_Project
+# Country_club
 
 //prereqs
 - Install Git & Nodejs
