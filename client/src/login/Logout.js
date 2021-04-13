@@ -21,7 +21,6 @@ const Logout = () => {
   }else{
     return <>Please try again.</>
   }
-  
 };
 
 export default Logout;

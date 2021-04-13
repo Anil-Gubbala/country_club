@@ -10,7 +10,7 @@ export const useLoginValidate = () => {
   useEffect(() => {
     axios.get("http://localhost:3001/login").then((response) => {
         if (response.data.loggedIn === true) {
-          setUserData(response.data.user[0]);
+          setUserData(response.data.user);
         } else {
           setUserData({});
         }

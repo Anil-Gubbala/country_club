@@ -32,9 +32,11 @@ const setLogin = (req, res) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
-            req.session.user = result;
-            //console.log(req.session.user);
-            res.send(result);
+            req.session.user = {
+              username: result[0].username,
+              role: result[0].role,
+            };
+            res.send({ username: result[0].username, role: result[0].role });
           } else {
             res
               .status(404)
@@ -59,11 +61,9 @@ const registerUser = (req, res) => {
     db.query(SQL_USER.INSERT_USER, [username, hash], (err, result) => {
       if (err) {
         console.log(err);
-        res
-          .status(404)
-          .send({
-            err: err.errno === 1062 ? "Username already exists" : err.code,
-          });
+        res.status(404).send({
+          err: err.errno === 1062 ? "Username already exists" : err.code,
+        });
       } else {
         res.status(200).send({ success: true });
       }

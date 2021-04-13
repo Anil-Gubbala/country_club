@@ -7,5 +7,8 @@ const db = mysql.createConnection({
     database: "180B_Test",
     port: "3306"
   });
+   
+  //db.commit
+
 
 module.exports = db;
