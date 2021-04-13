@@ -1,7 +1,7 @@
 # Country_club
 
 ## prereqs ( commands for linux)
-- Install Git & Nodejs
+- Install Git & Nodejs 
 - Clone this repo to your local folder
 - install VS code (optional)
 
