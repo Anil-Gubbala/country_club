@@ -4,7 +4,6 @@
 - Install Git & Nodejs
 - Clone this repo to your local folder
 - install VS code (optional)
-- 
 
 ## install dependencies
 - cd server && npm install
@@ -24,7 +23,7 @@
 - node index.js
 
 ## start react server: run below commands
-- cd client
+- cd client 
 - npm start
 
 
