@@ -15,6 +15,8 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+//Adds session for each user
 app.use(
   session({
     key: "userId",
@@ -26,7 +28,10 @@ app.use(
     },
   })
 );
+//All node server requests handled here. 
 app.use("/", router);
+
+//Node port number
 app.listen(3001, () => {
   console.log("running server");
 });

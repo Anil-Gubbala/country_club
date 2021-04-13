@@ -12,7 +12,9 @@ import BasePage from "./common/BasePage";
 function App() {
   return (
     <BasePage>
-      <Router>
+      <Router
+      // Hanldes all url requests
+      >
         <Switch>
           <Route
             path="/registration"
