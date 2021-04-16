@@ -86,7 +86,9 @@ Create table event
     venue_id int,
     capacity int,
     no_of_participants int,
+  --user_id varchar(50),
     primary key (event_id),
+  --foreign key (user_id) references [user] (user_id) on update cascade on delete cascade,
     foreign key(venue_id) references venue(venue_id) on update cascade on delete cascade
 );
 
@@ -98,6 +100,7 @@ Create table event_booking
     booking_sate date,
     status varchar(25),
     primary key (booking_id),
+  --primary key(event_id,user_id),
     foreign key (user_id) references user (user_id) on update cascade on delete cascade,
     foreign key (event_id) references event (event_id) on update cascade on delete cascade
 );
@@ -125,7 +128,8 @@ CREATE TABLE reservation (
     no_of_ppl int,
     user_id varchar(50),
     dining_id varchar(50),
-foreign key (user_id) references member(user_id) on update cascade on delete cascade,
+	--primary key(user_id,dining_id),
+    foreign key (user_id) references member(user_id) on update cascade on delete cascade,
     foreign key (dining_id) references dining(dining_id) on update cascade on delete cascade
 );
 
@@ -143,7 +147,3 @@ CREATE TABLE party (
     foreign key (user_id) references member(user_id) on update cascade on delete cascade,
     foreign key (venue_id) references venue(venue_id) on update cascade on delete cascade
 );
-
-
-
-
