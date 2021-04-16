@@ -7,7 +7,7 @@ import Loading from "../common/Loading";
 import Navi from "../common/Navi";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [user_id, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
   const [loginStatus, setLoginStatus] = useState(false);
@@ -18,7 +18,7 @@ export default function Login() {
 
   const login = () => {
     Axios.post("http://localhost:3001/login", {
-      username: username,
+      user_id: user_id,
       password: password,
     })
       .then((response) => {
@@ -33,7 +33,7 @@ export default function Login() {
   if (loading) {
     return <Loading></Loading>;
   }
-  if (userData.username || loginStatus) {
+  if (userData.user_id || loginStatus) {
     return <Redirect to="/"></Redirect>;
   }
   return (
@@ -44,7 +44,7 @@ export default function Login() {
         type="text"
         placeholder="Username..."
         onChange={(e) => {
-          setUsername(e.target.value);
+          setUserId(e.target.value);
         }}
       />
       <input

@@ -10,7 +10,7 @@ export default function AdminHome() {
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
   }
-  if (!userData.username) {
+  if (!userData.user_id) {
     return redirectLogin();
   } else if (userData.role === "admin") {
     return (

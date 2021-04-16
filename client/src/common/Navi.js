@@ -16,14 +16,14 @@ const Navi = () => {
           register
         </Link>
       </div>
-      {!userData.username && (
+      {!userData.user_id && (
         <div className ="margin8">
           <Link to="/login" className="btn">
             login
           </Link>
         </div>
       )}
-      {userData.username && (
+      {userData.user_id && (
         <div  className ="margin8">
           <Link to="/logout" className="btn">
             logout

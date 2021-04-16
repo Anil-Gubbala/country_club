@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const db = require("../database/dbConnector");
-const SQL_USER = require("../database/userSql");
+const SQL_USER = require("../database/SQL/User/userSql");
 const saltRounds = 10;
 
 const getLogin = (req, res) => {
@@ -20,23 +20,23 @@ const logout = (req, res) => {
 };
 
 const setLogin = (req, res) => {
-  const username = req.body.username;
+  const user_id = req.body.user_id;
   const password = req.body.password;
   if (req.session.user) {
     res.send({ message: "already logged in" });
   } else {
-    db.query(SQL_USER.GET_USER_DETAILS, username, (err, result) => {
+    db.query(SQL_USER.GET_USER_DETAILS, user_id, (err, result) => {
       if (err) {
-        res.status(404).send({ err: err });
-      }
-      if (result.length > 0) {
+        res.status(404).send({ err: err.code });
+      } else if (result.length > 0) {
+        // pasword compare
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             req.session.user = {
-              username: result[0].username,
+              user_id: result[0].user_id,
               role: result[0].role,
             };
-            res.send({ username: result[0].username, role: result[0].role });
+            res.send({ user_id: result[0].user_id});
           } else {
             res
               .status(404)
@@ -51,23 +51,47 @@ const setLogin = (req, res) => {
 };
 
 const registerUser = (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const {
+    user_id,
+    first_name,
+    last_name,
+    street,
+    zip_code,
+    city,
+    email_id,
+    password,
+  } = req.body.userDetails;
+  // Hash password before store in daba
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
       console.log(err);
-      res.status(404).send({ err: err });
+      res.status(404).send({ err: err.message });
+      return;
+    } else {
+      db.query(
+        SQL_USER.INSERT_USER,
+        [
+          user_id,
+          first_name,
+          last_name,
+          email_id,
+          street,
+          city,
+          zip_code,
+          hash,
+        ],
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            res.status(404).send({
+              err: err.errno === 1062 ? "Username already exists" : err.code,
+            });
+          } else {
+            res.status(200).send({ success: true });
+          }
+        }
+      );
     }
-    db.query(SQL_USER.INSERT_USER, [username, hash], (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(404).send({
-          err: err.errno === 1062 ? "Username already exists" : err.code,
-        });
-      } else {
-        res.status(200).send({ success: true });
-      }
-    });
   });
 };
 module.exports = {
