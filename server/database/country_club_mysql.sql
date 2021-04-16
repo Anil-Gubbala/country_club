@@ -52,7 +52,7 @@ Create table sports
 
 Create table time_slot
 (
-	ts_id int not null,
+	ts_id varchar(15) not null,
 	slot_start_time time,
 	slot_end_time time,
 	sport_id varchar(50),
@@ -68,6 +68,7 @@ Create table sports_booking
 	sport_id varchar(50),
 	user_id varchar(50),
 	primary key(sport_id,user_id),
+	-- primary key(booking_id,sport_id,user_id),
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade,
 	foreign key (sport_id) references sports(sport_id) on delete cascade on update cascade
 );
