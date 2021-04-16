@@ -2,18 +2,20 @@ drop database  if exists countryclub;
 create database countryclub;
 use countryclub;
 
-Create table user (
-	user_id varchar(50) not null,
-	f_name varchar(100) not null,
-	l_name varchar(100) not null,
-	email_id varchar(120) not null,
-	street varchar(255) not null,
-	city varchar(255) not null,
-	zip_code varchar(20) not null,
-	password varchar(100) not null,
-	PRIMARY KEY (user_id)
-	# UNIQUE KEY email_id (email_id)
+CREATE TABLE user (
+  user_id varchar(50) NOT NULL,
+  f_name varchar(100) NOT NULL,
+  l_name varchar(100) NOT NULL,
+  email_id varchar(120) NOT NULL,
+  street varchar(255) NOT NULL,
+  city varchar(255) NOT NULL,
+  zip_code varchar(45) NOT NULL,
+  password varchar(100) NOT NULL,
+  auth_id int NOT NULL DEFAULT 0,
+  status int NOT NULL DEFAULT 0,
+  PRIMARY KEY (user_id)
 );
+
 
 Create table member
 (

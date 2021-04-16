@@ -12,12 +12,12 @@ export default function AdminHome() {
   }
   if (!userData.user_id) {
     return redirectLogin();
-  } else if (userData.role === "admin") {
+  } else if (userData.auth_id === 1) {
     return (
-      <BasePage>
-      <Navi></Navi>
-        <div>Add admin content</div>
-      </BasePage>
+      <div>
+        <Navi></Navi>
+        <div>Add admin content here</div>
+      </div>
     );
   } else {
     return redirectHome();

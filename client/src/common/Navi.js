@@ -23,13 +23,18 @@ const Navi = () => {
           </Link>
         </div>
       )}
-      {userData.user_id && (
+      {userData.user_id &&
         <div  className ="margin8">
           <Link to="/logout" className="btn">
             logout
           </Link>
         </div>
-      )}
+      }
+      {userData.user_id && (userData.auth_id === 1) && <div  className ="margin8">
+          <Link to="/admin" className="btn">
+            Admin
+          </Link>
+        </div>}
     </div>
   );
 };

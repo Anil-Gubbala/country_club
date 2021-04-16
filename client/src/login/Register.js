@@ -32,7 +32,7 @@ export default function Registration() {
         userDetails
       })
         .then((response) => {
-          setMessage("Registration success");
+          setMessage("Registration success. Contact admin for approval");
           setRegisterd(true);
         })
         .catch((error) => {

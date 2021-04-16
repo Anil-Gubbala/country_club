@@ -29,14 +29,18 @@ const setLogin = (req, res) => {
       if (err) {
         res.status(404).send({ err: err.code });
       } else if (result.length > 0) {
+        if(result[0].status == 0){
+          res.status(404).send({ err: "Contact Admin for approval [change user->status to 1 in db]" });
+          return;
+        }
         // pasword compare
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             req.session.user = {
               user_id: result[0].user_id,
-              role: result[0].role,
+              auth_id: result[0].auth_id
             };
-            res.send({ user_id: result[0].user_id});
+            res.send({ user_id: result[0].user_id , auth_id:result[0].auth_id});
           } else {
             res
               .status(404)
@@ -69,7 +73,7 @@ const registerUser = (req, res) => {
       return;
     } else {
       db.query(
-        SQL_USER.INSERT_USER,
+        SQL_USER.USER_REGISTER,
         [
           user_id,
           first_name,
