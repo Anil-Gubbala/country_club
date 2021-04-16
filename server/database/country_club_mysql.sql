@@ -11,8 +11,8 @@ Create table user (
 	city varchar(255) not null,
 	zip_code varchar(20) not null,
 	password varchar(100) not null,
-	PRIMARY KEY (user_id),
-	UNIQUE KEY email_id (email_id)
+	PRIMARY KEY (user_id)
+	# UNIQUE KEY email_id (email_id)
 );
 
 Create table member
