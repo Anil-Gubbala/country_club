@@ -17,6 +17,7 @@
  - server/database/
  - dbConnecter.js - db details
  - testDatabaseSql.js - test database creation queries.
+ - set root user password for database as test@123
 
 ## start node server: run below commands
 - cd server
