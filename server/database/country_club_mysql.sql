@@ -3,19 +3,25 @@ create database countryclub;
 use countryclub;
 
 create table user (
-  user_id varchar(10) NOT NULL,
-  f_name varchar(100) NOT NULL,
-  l_name varchar(100) NOT NULL,
-  email_id varchar(120) NOT NULL,
-  street varchar(255) NOT NULL,
-  city varchar(255) NOT NULL,
-  zip_code varchar(45) NOT NULL,
-  password varchar(100) NOT NULL,
-  auth_id int NOT NULL DEFAULT 0,
-  status int NOT NULL DEFAULT 0,
-  PRIMARY KEY (user_id)
+	-- user_no int auto_increment not null,
+  	-- user_id as 'USR' + right('000000' + convert(varchar(7), user_no), 7) persisted,
+	user_id varchar(10) not null unique,
+  	f_name varchar(100) not null,
+  	l_name varchar(100) not null,
+  	email_id varchar(120) not null,
+  	street varchar(255) not null,
+  	city varchar(255) not null,
+  	zip_code varchar(5) not null,
+  	password varchar(100) not null,
+  	is_admin bit default 0 not null,
+  	status varchar(25),
+  	primary key (user_id)
 );
 
+create table status
+(
+	status_name varchar(25) not null unique
+);
 
 create table member
 (
@@ -24,6 +30,12 @@ create table member
 	 start_date date not null,
 	 end_date date not null,
 	 foreign key (user_id) references user (user_id) on update cascade on delete cascade 
+);
+
+-- membership_type: used for dropdown
+create table membership_type
+(
+	membership_type varchar(50) not null unique
 );
 
 create table dependent
@@ -35,6 +47,12 @@ create table dependent
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade
 );
 
+-- relationship: used for dropdown
+create table relationship
+(
+	r_name varchar(50) not null unique
+);
+
 create table venue
 (
 	venue_id varchar(10) not null,
@@ -43,11 +61,19 @@ create table venue
 	primary key (venue_id)    
 );
 
+-- venue_type: used for dropdown
+create table venue_type
+(
+	venue_type varchar(25) not null unique
+);
+
 create table sports
 (
 	sport_id varchar(10) not null,
 	s_name varchar(50),
 	venue_id varchar(10),
+	start_time time,
+	end_time time,
 	primary key (sport_id),
 	foreign key(venue_id) references venue(venue_id) on update cascade on delete cascade
 );
@@ -55,8 +81,8 @@ create table sports
 create table time_slot
 (
 	ts_id varchar(10) not null,
-	slot_start_time time,
-	slot_end_time time,
+	start_time time,
+	end_time time,
 	primary key(ts_id)
 );
 
@@ -107,9 +133,12 @@ create table event_booking
 create table dining (
 	dining_id varchar(10) unique not null,
 	type varchar(25),
+	venue_id varchar(10),
 	capacity int,
-	booking_time time,
-	primary key (dining_id)
+	start_time time,
+	end_time time,
+	primary key (dining_id),
+	foreign key(venue_id) references venue(venue_id) on update cascade on delete cascade
 );
 
 create table reservation (
