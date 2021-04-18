@@ -5,36 +5,40 @@ import { useLoginValidate } from "./Validate";
 const Navi = () => {
   const {userData} = useLoginValidate();
   return (
-    <div className="displayFlex">
-      <div className ="margin8">
-        <Link to="/" className="btn">
-          Home
-        </Link>
-      </div>
-      <div className ="margin8">
-        <Link to="/registration" className="btn">
-          register
-        </Link>
-      </div>
-      {!userData.user_id && (
-        <div className ="margin8">
-          <Link to="/login" className="btn">
-            login
+    <div className="pure-menu pure-menu-horizontal">
+      <a href="#" class="pure-menu-heading pure-menu-link">Country Club</a>
+      <ul class="pure-menu-list">
+        <li className ="pure-menu-item">
+          <Link to="/" className="pure-menu-link">
+            Home
           </Link>
-        </div>
-      )}
-      {userData.user_id &&
-        <div  className ="margin8">
-          <Link to="/logout" className="btn">
-            logout
+        </li>
+        <li className ="pure-menu-item">
+          <Link to="/registration" className="pure-menu-link">
+            Register
           </Link>
-        </div>
-      }
-      {userData.user_id && (userData.auth_id === 1) && <div  className ="margin8">
-          <Link to="/admin" className="btn">
-            Admin
-          </Link>
-        </div>}
+        </li>
+        {!userData.user_id && (
+          <li className ="pure-menu-item">
+            <Link to="/login" className="pure-menu-link">
+              Login
+            </Link>
+          </li>
+        )}
+        {userData.user_id &&
+          <li  className ="pure-menu-item">
+            <Link to="/logout" className="pure-menu-link">
+              Logout
+            </Link>
+          </li>
+        }
+        {userData.user_id && (userData.auth_id === 1) && 
+          <li  className ="pure-menu-item">
+            <Link to="/admin" className="pure-menu-link">
+              Admin
+            </Link>
+          </li>}
+      </ul>
     </div>
   );
 };
