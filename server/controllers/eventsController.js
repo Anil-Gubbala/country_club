@@ -1,6 +1,15 @@
 const db = require("../database/dbConnector");
 const SQL_EVENTS = require("../database/SQL/Admin/eventSql");
 
+const getEvents = (req, res) => {
+    db.query(SQL_EVENTS.GET_EVENTS_LIST, (error, results, fields) => {
+        if (error) {
+          return console.error(error.message);
+        }
+        res.send(results);
+    });
+}
+
 const createEvent = (req, res) => {
     const {
         event_id,
@@ -45,6 +54,6 @@ const createEvent = (req, res) => {
 
 
 module.exports = {
-  createEvent
-
+  createEvent,
+  getEvents
 };

@@ -1,0 +1,43 @@
+import React, { useState } from "react";
+import BasePage from "../common/BasePage";
+import Axios from "axios";
+var rows = [];
+
+export default function EventList() {
+    Axios.defaults.withCredentials = true;
+    
+    const [loading, setLoading] = useState(true);
+    
+    Axios.get('http://localhost:3001/admin').then(function(res) {
+      console.log(res);
+      rows = res.data;
+      setLoading(false);
+    });
+    if (loading) {
+        return <BasePage> Loading data.... </BasePage>;
+    }
+    return (
+    <table className="pure-table pure-table-horizontal">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Event Name</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {rows.map(res =>
+                <tr key={res.event_id}>
+                  <td>#</td>
+                  <td>{res.event_name}</td>
+                  <td>{res.e_description}</td>
+                  <td>{res.start_date}</td>
+                  <td>{res.status}</td>
+                </tr>
+            )}
+        </tbody>
+    </table>
+    );
+}

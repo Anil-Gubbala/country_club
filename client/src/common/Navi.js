@@ -6,8 +6,8 @@ const Navi = () => {
   const {userData} = useLoginValidate();
   return (
     <div className="pure-menu pure-menu-horizontal">
-      <a href="#" class="pure-menu-heading pure-menu-link">Country Club</a>
-      <ul class="pure-menu-list">
+      <a href="#" className="pure-menu-heading pure-menu-link">Country Club</a>
+      <ul className="pure-menu-list">
         <li className ="pure-menu-item">
           <Link to="/" className="pure-menu-link">
             Home
