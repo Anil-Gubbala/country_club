@@ -14,8 +14,10 @@ const Logout = () => {
   if(loggedOut){
     return (
       <>
-        <div className="main">Successfully logged out</div>
-        <Link to="/">Go to Home Page</Link>
+        <div className="main">
+          <h1 style={{textAlign:"center"}}>Successfully logged out</h1>
+        </div>
+        <Link to="/" className="button-xlarge pure-button">Go to Home Page</Link>
       </>
     );
   }else{

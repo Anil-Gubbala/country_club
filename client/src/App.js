@@ -7,6 +7,7 @@ import Registration from "./login/Register";
 import Login from "./login/Login";
 import Logout from "./login/Logout";
 import AdminHome from "./admin/AdminHome";
+import AdminCreateEvent from "./admin/CreateEvent";
 import BasePage from "./common/BasePage";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" exact render={(props) => <Main />} />
           <Route path="/logout" exact render={(props) => <Logout />} />
           <Route path="/admin" exact render={(props) => <AdminHome />} />
+          <Route path="/admin/events/create" exact render={(props) => <AdminCreateEvent />} />
           <Route path="*">
             <ErrorPath></ErrorPath>
           </Route>

@@ -45,90 +45,98 @@ export default function Registration() {
   if (registered) {
     return (
       <div className="main">
-        <div> {message}</div>
-        <Link to="/login">Go to Login Page</Link>
+        <h1 style={{textAlign:"center"}}> {message}</h1>
+        <Link to="/login" className="button-xlarge pure-button">Go to Login Page</Link>
       </div>
     );
   }
   return (
     <div>
       <Navi></Navi>
-      <div className="alignCenter">
-        <h1>Registration</h1>
-        <div className="margin8">
-          <label>UserId</label>
+      <div className="pure-form pure-form-aligned">
+        <h1 style={{textAlign:"center"}}>Registration</h1>
+        <div className="pure-control-group">
+          <label for="aligned-name">UserId</label>
           <input
             type="text"
+            id="aligned-name"
             onChange={(e) => {
               setUserDetails({...userDetails,user_id:e.target.value});
             }}
           />
         </div>
-        <div className="margin8">
-          <label>Password</label>
+        <div className="pure-control-group">
+          <label for="aligned-password">Password</label>
           <input
             type="password"
+            id="aligned-password"
             onChange={(e) => {
               setUserDetails({...userDetails,password:e.target.value});
             }}
           />
         </div>
-        <div className="margin8">
-          <label>First Name</label>
+        <div className="pure-control-group">
+          <label for="aligned-fname">First Name</label>
           <input
             type="text"
+            id="aligned-fname"
             onChange={(e) => {
               setUserDetails({...userDetails,first_name:e.target.value});
             }}
           />
         </div>
-        <div className="margin8">
-          <label>Last Name</label>
+        <div className="pure-control-group">
+          <label for="aligned-lname">Last Name</label>
           <input
             type="text"
+            id="aligned-lname"
             onChange={(e) => {
               setUserDetails({...userDetails,last_name:e.target.value});
             }}
           />
         </div>
-        <div className="margin8">
-          <label>Email</label>
+        <div className="pure-control-group">
+          <label for="aligned-email">Email</label>
           <input
             type="text"
+            id="aligned-email"
             onChange={(e) => {
               setUserDetails({...userDetails,email_id:e.target.value});
             }}
           />
         </div>
-        <div className="margin8">
-          <label>Street</label>
+        <div className="pure-control-group">
+          <label for="aligned-street">Street</label>
           <input
             type="text"
+            id="aligned-street"
             onChange={(e) => {
               setUserDetails({...userDetails,street:e.target.value});
             }}
           />
         </div>
-        <div className="margin8">
-          <label>City</label>
+        <div className="pure-control-group">
+          <label for="aligned-city">City</label>
           <input
             type="text"
+            id="aligned-city"
             onChange={(e) => {
               setUserDetails({...userDetails,city:e.target.value});
             }}
           />
         </div>
-        <div className="margin8">
-          <label>Zip Code</label>
+        <div className="pure-control-group">
+          <label for="aligned-code">Zip Code</label>
           <input
             type="text"
+            id="aligned-code"
             onChange={(e) => {
               setUserDetails({...userDetails,zip_code:e.target.value});
             }}
           />
         </div>
-        <div>
-          <button className="marginAuto" onClick={register}>
+        <div className="pure-controls">
+          <button className="pure-button pure-button-primary" onClick={register}>
             Register
           </button>
         </div>
