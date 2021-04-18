@@ -5,6 +5,8 @@ import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { Link } from "react-router-dom";
+import EventList from './EventList';
+
 
 export default function AdminHome() {
   const { loading, userData } = useLoginValidate();
@@ -21,20 +23,7 @@ export default function AdminHome() {
         <Link to="/admin/events/create" className="pure-button pure-button-primary">Create New Event</Link>
         <br/>
         <br/>
-        <table class="pure-table pure-table-horizontal">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Event Name</th>
-                    <th>Description</th>
-                    <th>Start Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-        </table>
+        <EventList/>
       </div>
     );
   } else {

@@ -1,5 +1,5 @@
 const SQL_EVENT = {
-    GET_EVENT_List: "SELECT * FROM countryclub.event",
+    GET_EVENTS_LIST: "SELECT * FROM countryclub.event",
     CREATE_EVENT: "INSERT INTO countryclub.event(event_id,event_name, e_description, start_date, end_date, status, venue_id, capacity,no_of_participants,organised_by) VALUES (?,?,?,?,?,?,?,?,?,?);",
     READ_EVENT: "SELECT * FROM countryclub.event where event_id=?;",
     UPDATE_EVENT: "UPDATE countryclub.EVENT SET start_date=? where event_id=?;",

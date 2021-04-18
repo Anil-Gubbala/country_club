@@ -141,7 +141,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             />
           </div>
 
-          <div class="pure-controls">
+          <div className="pure-controls">
             <button className="pure-button pure-button-primary" onClick={createEvent}>
                 Create Event
             </button>
