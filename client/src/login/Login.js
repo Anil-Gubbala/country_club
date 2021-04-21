@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import "../App.css";
-import { Redirect } from "react-router";
+import { Redirect, useParams } from "react-router";
 import { useLoginValidate } from "../common/Validate";
 import Loading from "../common/Loading";
 import Navi from "../common/Navi";
@@ -25,7 +25,6 @@ export default function Login() {
         setLoginStatus(true);
       })
       .catch((error) => {
-        console.log(error);
         setLoginStatus(false);
         setFailMsg(error.response.data.err);
       });

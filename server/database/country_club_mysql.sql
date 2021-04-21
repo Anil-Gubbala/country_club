@@ -13,7 +13,7 @@ create table user (
   	city varchar(255) not null,
   	zip_code varchar(5) not null,
   	password varchar(100) not null,
-  	is_admin bit default 0 not null,
+  	auth_id bit default 0 not null,
   	status varchar(25),
   	primary key (user_id)
 );
@@ -57,7 +57,7 @@ create table venue
 (
 	venue_id varchar(10) not null,
 	venue_name varchar(50),
-	venue_type varchar(25),
+	venue_type int, -- 0:private_hall
 	primary key (venue_id)    
 );
 
@@ -166,3 +166,23 @@ Create table party (
 	foreign key (hosted_by) references member(user_id) on update cascade on delete cascade,
 	foreign key (hosted_at) references venue(venue_id) on update cascade on delete cascade
 );
+
+-- venue data. 
+INSERT INTO countryclub.venue
+(venue_id,
+venue_name,
+venue_type)
+VALUES
+(0,"hall_1",0);
+INSERT INTO countryclub.venue
+(venue_id,
+venue_name,
+venue_type)
+VALUES
+(1,"hall_2",1);
+INSERT INTO countryclub.venue
+(venue_id,
+venue_name,
+venue_type)
+VALUES
+(2,"hall_3",2);

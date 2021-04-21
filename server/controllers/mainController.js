@@ -38,9 +38,9 @@ const setLogin = (req, res) => {
           if (response) {
             req.session.user = {
               user_id: result[0].user_id,
-              auth_id: result[0].auth_id
+              auth_id: result[0].auth_id[0]
             };
-            res.send({ user_id: result[0].user_id , auth_id:result[0].auth_id});
+            res.send({ user_id: result[0].user_id , auth_id:result[0].auth_id[0]});
           } else {
             res
               .status(404)
