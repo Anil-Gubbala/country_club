@@ -56,7 +56,7 @@ export default function Registration() {
       <div className="pure-form pure-form-aligned">
         <h1 style={{textAlign:"center"}}>Registration</h1>
         <div className="pure-control-group">
-          <label for="aligned-name">UserId</label>
+          <label >UserId</label>
           <input
             type="text"
             id="aligned-name"
@@ -66,7 +66,7 @@ export default function Registration() {
           />
         </div>
         <div className="pure-control-group">
-          <label for="aligned-password">Password</label>
+          <label >Password</label>
           <input
             type="password"
             id="aligned-password"
@@ -76,7 +76,7 @@ export default function Registration() {
           />
         </div>
         <div className="pure-control-group">
-          <label for="aligned-fname">First Name</label>
+          <label>First Name</label>
           <input
             type="text"
             id="aligned-fname"
@@ -86,7 +86,7 @@ export default function Registration() {
           />
         </div>
         <div className="pure-control-group">
-          <label for="aligned-lname">Last Name</label>
+          <label >Last Name</label>
           <input
             type="text"
             id="aligned-lname"
@@ -96,7 +96,7 @@ export default function Registration() {
           />
         </div>
         <div className="pure-control-group">
-          <label for="aligned-email">Email</label>
+          <label >Email</label>
           <input
             type="text"
             id="aligned-email"
@@ -106,7 +106,7 @@ export default function Registration() {
           />
         </div>
         <div className="pure-control-group">
-          <label for="aligned-street">Street</label>
+          <label >Street</label>
           <input
             type="text"
             id="aligned-street"
@@ -116,7 +116,7 @@ export default function Registration() {
           />
         </div>
         <div className="pure-control-group">
-          <label for="aligned-city">City</label>
+          <label >City</label>
           <input
             type="text"
             id="aligned-city"
@@ -126,7 +126,7 @@ export default function Registration() {
           />
         </div>
         <div className="pure-control-group">
-          <label for="aligned-code">Zip Code</label>
+          <label >Zip Code</label>
           <input
             type="text"
             id="aligned-code"
