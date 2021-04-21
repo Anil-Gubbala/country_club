@@ -30,7 +30,7 @@ const setLogin = (req, res) => {
         res.status(404).send({ err: err.code });
       } else if (result.length > 0) {
         if(result[0].status == 0){
-          res.status(404).send({ err: "Contact Admin for approval [change user->status to 1 in db]" });
+          res.status(404).send({ err: "Contact Admin for approval" });
           return;
         }
         // pasword compare

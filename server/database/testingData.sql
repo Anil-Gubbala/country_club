@@ -72,7 +72,7 @@ insert into venue_type values('workshop');
 insert into venue_type values('ground');
 
 -- sports (sport_id, s_name, venue_id, start_time, end_time)
-insert into sports values(0000000001, 'Basket Ball', 0000000001, '08:00:00','120:00:00');
+insert into sports values(0000000001, 'Basket Ball', 0000000001, '08:00:00','20:00:00');
 insert into sports values(0000000002, 'Tennis', 0000000007, '08:00:00','20:00:00');
 insert into sports values(0000000003, 'Table Tennis', 0000000008, '08:00:00','20:00:00');
 insert into sports values(0000000004, 'Swimming', 0000000002, '08:00:00','20:00:00');

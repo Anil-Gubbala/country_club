@@ -13,10 +13,11 @@ app.use(
     credentials: true,
   })
 );
+// set & reset login cookies 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-//Adds session for each user
+//Adds session for each user login
 app.use(
   session({
     key: "userId",
