@@ -80,7 +80,7 @@ export default function Main() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <PrivateEventsList date={startDate}></PrivateEventsList>
+          <PrivateEventsList date={startDate.toJSON().substr(0, 10)}></PrivateEventsList>
         </AccordionDetails>
       </Accordion>
       <div>

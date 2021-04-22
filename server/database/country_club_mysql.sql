@@ -154,16 +154,16 @@ create table reservation (
 );
 
 Create table party (
-	party_id varchar(10) unique not null, 
+	party_id varchar(50) unique not null, 
 	hosted_by varchar(50) ,
 	p_name varchar(50),
 	hosted_at varchar(50),
 	start_date date,
 	end_date date,
 	no_of_attendees int,
-	status varchar(25),
+	status varchar(25) DEFAULT '0',
 	primary key (party_id),
-	foreign key (hosted_by) references member(user_id) on update cascade on delete cascade,
+	foreign key (hosted_by) references user(user_id) on update cascade on delete cascade,
 	foreign key (hosted_at) references venue(venue_id) on update cascade on delete cascade
 );
 

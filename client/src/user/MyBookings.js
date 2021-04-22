@@ -9,58 +9,62 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PrivateEventsHistory from "./private events/PrivateEventsHistory";
+import PrivateEventBookings from "./private events/PrivateEventBookings";
 
-export default function MyBookings(props) {
-  console.log(props);
+export default function MyBookings() {
   const { loading, userData } = useLoginValidate();
   if (loading) {
     return <Loading></Loading>;
+  }else if(userData.user_id){
+    return (
+      <Box>
+        <Navi></Navi>
+        <Accordion defaultExpanded={true}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Events</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+              <PrivateEventBookings></PrivateEventBookings>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion defaultExpanded={true}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography>Sports</Typography>
+          </AccordionSummary>
+          <AccordionDetails>Add sports component here</AccordionDetails>
+        </Accordion>
+        <Accordion defaultExpanded={true}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3a-content"
+            id="panel3a-header"
+          >
+            <Typography>Dining</Typography>
+          </AccordionSummary>
+          <AccordionDetails>Add Dining component here</AccordionDetails>
+        </Accordion>
+        <Accordion defaultExpanded={true}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3a-content"
+            id="panel3a-header"
+          >
+            <Typography>Private Events</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <PrivateEventsHistory></PrivateEventsHistory>
+          </AccordionDetails>
+        </Accordion>
+      </Box>
+    );
   }
-  return (
-    <Box>
-      <Navi></Navi>
-      <Accordion defaultExpanded={true}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Events</Typography>
-        </AccordionSummary>
-        <AccordionDetails>Add Events component here</AccordionDetails>
-      </Accordion>
-      <Accordion defaultExpanded={true}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>Sports</Typography>
-        </AccordionSummary>
-        <AccordionDetails>Add sports component here</AccordionDetails>
-      </Accordion>
-      <Accordion defaultExpanded={true}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3a-content"
-          id="panel3a-header"
-        >
-          <Typography>Dining</Typography>
-        </AccordionSummary>
-        <AccordionDetails>Add Dining component here</AccordionDetails>
-      </Accordion>
-      <Accordion defaultExpanded={true}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3a-content"
-          id="panel3a-header"
-        >
-          <Typography>Private Events</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <PrivateEventsHistory></PrivateEventsHistory>
-        </AccordionDetails>
-      </Accordion>
-    </Box>
-  );
+  
 }
