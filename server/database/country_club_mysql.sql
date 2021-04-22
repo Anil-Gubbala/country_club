@@ -179,10 +179,10 @@ INSERT INTO countryclub.venue
 venue_name,
 venue_type)
 VALUES
-(1,"hall_2",1);
+(1,"hall_2",0);
 INSERT INTO countryclub.venue
 (venue_id,
 venue_name,
 venue_type)
 VALUES
-(2,"hall_3",2);
+(2,"hall_3",0);
