@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
 import {
   Button,
+  Divider,
   FormControl,
   FormGroup,
   FormLabel,
@@ -151,7 +152,7 @@ export default function PrivateEventsList(props) {
         {data &&
           data.map((each) => {
             return (
-              <ListItem key={each.venue_id}>
+              <ListItem  key={each.venue_id} button={true}>
                 <ListItemText
                   primary={each.venue_name}
                   secondary={"Venue id: " + each.venue_id}
@@ -167,6 +168,7 @@ export default function PrivateEventsList(props) {
                     Select
                   </Button>
                 </ListItemSecondaryAction>
+               
               </ListItem>
             );
           })}

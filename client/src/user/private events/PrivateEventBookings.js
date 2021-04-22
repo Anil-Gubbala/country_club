@@ -28,7 +28,7 @@ export default function PrivateEventBookings() {
       {data &&
         data.map((each) => {
           return (
-            <ListItem key={each.party_id}>
+            <ListItem key={each.party_id} button={true}>
               <ListItemText primary={each.p_name} secondary={"Event on: " + each.start_date} />
               <ListItemSecondaryAction>
                 <Button variant="contained">Cancel</Button>
