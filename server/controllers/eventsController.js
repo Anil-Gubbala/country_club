@@ -52,8 +52,20 @@ const createEvent = (req, res) => {
 
 }
 
+const readEvent = (req, res) => {
+    let event_id=req.params.id;
+    db.query(SQL_EVENTS.READ_EVENT,[event_id], (error, results, fields) => {
+        if (error) {
+          return console.error(error.message);
+        }
+        res.send(results[0]);
+    });
+
+}
+
 
 module.exports = {
   createEvent,
-  getEvents
+  getEvents,
+  readEvent
 };

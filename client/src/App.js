@@ -8,6 +8,7 @@ import Login from "./login/Login";
 import Logout from "./login/Logout";
 import AdminHome from "./admin/AdminHome";
 import AdminCreateEvent from "./admin/CreateEvent";
+import AdminReadEvent from "./admin/ReadEvent";
 import BasePage from "./common/BasePage";
 import MyBookings from "./user/MyBookings";
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="/admin" exact render={(props) => <AdminHome />} />
           <Route path="/admin/events/create" exact render={(props) => <AdminCreateEvent />} />
           <Route path="/user/myBookings" exact render={(props) => <MyBookings />} />
+          <Route path="/admin/events/details/:id" exact render={(props) => <AdminReadEvent />} />
           <Route path="*">
             <ErrorPath></ErrorPath>
           </Route>
