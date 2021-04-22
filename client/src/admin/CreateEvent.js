@@ -52,6 +52,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
               }}
             />
           </div>
+          
           <div className="pure-control-group">
             <label for="aligned-description">Event Description</label>
             <input
@@ -146,6 +147,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
                 Create Event
             </button>
           </div>
+          
           <div>{message}</div>
         </div>
       </div>

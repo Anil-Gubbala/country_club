@@ -7,7 +7,6 @@ import BasePage from "../common/BasePage";
 import { Link } from "react-router-dom";
 import EventList from './EventList';
 
-
 export default function AdminHome() {
   const { loading, userData } = useLoginValidate();
   if (loading) {
