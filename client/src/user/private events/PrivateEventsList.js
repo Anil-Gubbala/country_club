@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import Alert from "@material-ui/lab/Alert";
 import {
   Button,
   FormControl,
+  FormGroup,
   FormLabel,
   InputLabel,
   List,
@@ -54,6 +56,7 @@ export default function PrivateEventsList(props) {
         setBookingMode(false);
         SetBookingSuccess(false);
         setSelectedVenue("");
+        setEventName("");
       })
       .catch((err) => {
         setException(true);
@@ -63,22 +66,22 @@ export default function PrivateEventsList(props) {
   if (bookingSuccess) {
     return (
       <div>
-        <FormControl>
-          <FormLabel> Booking successfull </FormLabel>
-        </FormControl>
-
-        <FormControl>
-          <Link
-            to="/user/myBookings"
-            onClick={() => {
-              setBookingMode(false);
-              SetBookingSuccess(false);
-            }}
-          >
-            {" "}
-            Go to My bookings{" "}
-          </Link>
-        </FormControl>
+        <FormGroup>
+          <FormControl>
+            <Alert severity="info">Booking successfull</Alert>
+          </FormControl>
+          <FormControl>
+            <Link className="margin8"
+              to="/user/myBookings"
+              onClick={() => {
+                setBookingMode(false);
+                SetBookingSuccess(false);
+              }}
+            >
+              Go to My bookings
+            </Link>
+          </FormControl>
+        </FormGroup>
       </div>
     );
   }
@@ -137,10 +140,10 @@ export default function PrivateEventsList(props) {
     );
   }
   if (exception) {
-    return <div> Invalid request : server side error </div>;
+    return <Alert severity="error">Invalid request : server side error</Alert>;
   }
   if (data.length === 0) {
-    return <div>No slots available to book today</div>;
+    return <Alert severity="info">No slots available to book today</Alert>;
   }
   return (
     <div className="width100">
@@ -149,14 +152,22 @@ export default function PrivateEventsList(props) {
           data.map((each) => {
             return (
               <ListItem key={each.venue_id}>
-              <ListItemText primary={each.venue_name} secondary={"Venue id: " + each.venue_id} />
-              <ListItemSecondaryAction>
-                <Button variant="contained" onClick={() => {
-                       setBookingMode(true);
-                       setSelectedVenue(each.venue_id);
-                     }}>Select</Button>
-              </ListItemSecondaryAction>
-            </ListItem>
+                <ListItemText
+                  primary={each.venue_name}
+                  secondary={"Venue id: " + each.venue_id}
+                />
+                <ListItemSecondaryAction>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      setBookingMode(true);
+                      setSelectedVenue(each.venue_id);
+                    }}
+                  >
+                    Select
+                  </Button>
+                </ListItemSecondaryAction>
+              </ListItem>
             );
           })}
       </List>

@@ -8,7 +8,8 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css";  
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import PrivateEventsList from "../user/private events/PrivateEventsList";
 
 export default function Main() {
@@ -24,17 +25,19 @@ export default function Main() {
   return (
     <div>
       <Navi></Navi>
-      <DatePicker
+      <DatePicker className="margin8"
         selected={startDate}
         onChange={(date) => setStartDate(date)}
         minDate={new Date()}
-        maxDate={addDays(new Date(), 30)}
+        maxDate={addDays(new Date(), 30)
+        }
       />
-      <Accordion defaultExpanded={true}>
+      <Accordion defaultExpanded={true} >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          style={{background:"lightcyan"}}
         >
           <Typography>Events</Typography>
         </AccordionSummary>
@@ -45,6 +48,7 @@ export default function Main() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
           id="panel2a-header"
+          style={{background:"lightcyan"}}
         >
           <Typography>Sports</Typography>
         </AccordionSummary>
@@ -58,6 +62,7 @@ export default function Main() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3a-content"
           id="panel3a-header"
+          style={{background:"lightcyan"}}
         >
           <Typography>
             Dining {userData.user_id ? "" : " (!Login to access this content)"}
@@ -73,6 +78,7 @@ export default function Main() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3a-content"
           id="panel3a-header"
+          style={{background:"lightcyan"}}
         >
           <Typography>
             Private Events{" "}
