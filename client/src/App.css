@@ -28,3 +28,8 @@ input {
   width: 250px;
   height: 40px;
 }
+
+tbody tr:hover {
+  background-color: yellow;
+  cursor : pointer
+}

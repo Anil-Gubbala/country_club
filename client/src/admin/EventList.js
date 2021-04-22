@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import BasePage from "../common/BasePage";
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
 var rows = [];
 
 export default function EventList() {
     Axios.defaults.withCredentials = true;
     
     const [loading, setLoading] = useState(true);
+    const history = useHistory();
+
+    const itemClick = (event) =>{
+        let id = event.target.parentElement.dataset.key;
+        history.push("/admin/events/details/" + id);
+    }
     
     Axios.get('http://localhost:3001/admin').then(function(res) {
       console.log(res);
@@ -29,7 +36,7 @@ export default function EventList() {
         </thead>
         <tbody>
             {rows.map(res =>
-                <tr key={res.event_id}>
+                <tr key={res.event_id} data-key={res.event_id} onClick={itemClick}>
                   <td>#</td>
                   <td>{res.event_name}</td>
                   <td>{res.e_description}</td>
