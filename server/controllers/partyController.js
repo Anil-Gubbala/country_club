@@ -3,7 +3,7 @@ const {
   PARTY_GET_VENUE,
   PARTY_INSERT,PARTY_MYBOOKINGS,
 } = require("../database/SQL/Party/privatePartySQL");
-const v4 = require("uuid/v4");
+const { v4: uuidv4 } = require("uuid");
 
 const partyGetVenues = (req, res) => {
   db.query(
