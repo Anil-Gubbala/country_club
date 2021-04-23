@@ -24,6 +24,9 @@ const Details = () => {
     }
     return (
       <fieldset>
+        <div class="pure-u-1-3"></div>
+
+        <div class="pure-u-1-3">
           <div className="pure-control-group">
             <label for="aligned-name">Event Name: </label>
             <label id="aligned-name">{detail.event_name}</label>
@@ -87,6 +90,12 @@ const Details = () => {
               </button>
             </div>
           </div>
+
+        </div>
+
+        <div class="pure-u-1-3"></div>
+
+          
       </fieldset>
     );
 }

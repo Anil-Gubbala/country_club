@@ -5,8 +5,6 @@
   display: flex;
   flex-direction: column;
   padding: 24px;
-  /* justify-content: center;
-  align-items: center; */
 }
 .margin8{
   display: flex;
@@ -25,10 +23,6 @@
   width:100%;
 }
 
-/* input {
-  width: 250px;
-  height: 40px;
-} */
 
 tbody tr:hover {
   background-color: yellow;
