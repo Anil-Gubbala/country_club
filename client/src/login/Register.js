@@ -42,7 +42,7 @@ export default function Registration() {
       userDetails.city.trim() === "" ||
       userDetails.street.trim() === "" ||
       userDetails.email_id.trim() === "" ||
-      userDetails.zip_code.length < 6
+      userDetails.zip_code.length < 5
     ) {
       setMessage("Input failed to match some requirements");
     } else if (
@@ -201,14 +201,14 @@ export default function Registration() {
         </FormControl>
         <FormControl>
           <TextField
-            helperText="6 digit zip code"
+            helperText="5 digit zip code"
             id="register-zip-code"
             label="ZIP Code"
             type="number"
             error={invalid.zip_code}
             onChange={(e) => {
               invalid.zip_code =
-                e.target.value.length !== 6 || e.target.value === ""
+                e.target.value.length !== 5 || e.target.value === ""
                   ? true
                   : false;
               setUserDetails({ ...userDetails, zip_code: e.target.value });

@@ -6,6 +6,7 @@ import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { Link } from "react-router-dom";
 import EventList from './EventList';
+import PendingUserList from "./PendingUserList";
 
 export default function AdminHome() {
   const { loading, userData } = useLoginValidate();
@@ -20,6 +21,9 @@ export default function AdminHome() {
         <Navi></Navi>
         <br/>
         <Link to="/admin/events/create" className="pure-button pure-button-primary">Create New Event</Link>
+        <br/>
+        <br/>
+        <PendingUserList/>
         <br/>
         <br/>
         <EventList/>

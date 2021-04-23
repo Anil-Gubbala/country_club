@@ -15,7 +15,7 @@ export default function EventList() {
         history.push("/admin/events/details/" + id);
     }
     
-    Axios.get('http://localhost:3001/admin').then(function(res) {
+    Axios.get('http://localhost:3001/admin/events').then(function(res) {
       console.log(res);
       rows = res.data;
       setLoading(false);
@@ -37,7 +37,7 @@ export default function EventList() {
         <tbody>
             {rows.map(res =>
                 <tr key={res.event_id} data-key={res.event_id} onClick={itemClick}>
-                  <td>#</td>
+                  <td>{res.event_id}</td>
                   <td>{res.event_name}</td>
                   <td>{res.e_description}</td>
                   <td>{res.start_date}</td>
