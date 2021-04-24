@@ -4,6 +4,8 @@ import redirectLogin from "../common/redirectLogin";
 import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
+import Axios from "axios";
+import "../App.css";
 
 export default function CreateEvent() {
   const { loading, userData } = useLoginValidate();
@@ -29,11 +31,25 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
     return redirectLogin();
   } else if (userData.auth_id === 1) {
 
-    
+    Axios.defaults.withCredentials = true;
 
     const createEvent = () => {
-        //on create function
-    };
+      debugger;
+      //eventDetails.event_id='E001';
+       
+          Axios.post("http://localhost:3001/admin/events/create", {
+            eventDetails,
+          })
+            .then((response) => {
+              setMessage("Event created successfully.");
+              setEventDetails(true);
+            })
+            .catch((error) => {
+              setMessage(error.response.data.err);
+              setEventDetails(false);
+            });
+      
+      };
     //Axios.defaults.withCredentials = true;
 
     return (
