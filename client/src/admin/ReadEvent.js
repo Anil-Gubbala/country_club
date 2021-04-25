@@ -7,103 +7,283 @@ import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { useParams } from 'react-router-dom';
 
-let detail = {};
-const Details = () => {
+let details = {};
+//let eventDetails = {};
 
-    Axios.defaults.withCredentials = true;
-    let { id } = useParams();
-    const [loading, setLoading] = useState(true);
-    
-    Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
+const ReadDetails = (props) => {
+  Axios.defaults.withCredentials = true;
+  const [loading, setLoading] = useState(true);
+  let { id } = useParams();
+
+  Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
       console.log(res);
-      detail = res.data;
+      details = res.data;
       setLoading(false);
     });
+
+  if (loading) {
+    return <BasePage> Loading data.... </BasePage>;
+  }
+
+  return (
+    <fieldset>
+      <div className="pure-u-1-3"></div>
+
+      <div className="pure-u-1-3">
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">Event Name: </label>
+          <label id="aligned-name">{details.event_name}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">Event Description: </label>
+          <label id="aligned-name">{details.e_description}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">Start Date: </label>
+          <label id="aligned-name">{details.start_date}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">End Date: </label>
+          <label id="aligned-name">{details.end_date}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">Event Status: </label>
+          <label id="aligned-name">{details.status}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">Event Venue: </label>
+          <label id="aligned-name">{details.venue_name}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">Event Capacity: </label>
+          <label id="aligned-name">{details.capacity}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">No of Participants: </label>
+          <label id="aligned-name">{details.no_of_participants}</label>
+        </div>
+
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">Event Organiser: </label>
+          <label id="aligned-name">{details.organized_by}</label>
+        </div>
+
+        <br/>
+        <br/>
+        <div className="pure-control-group">
+          <div className="pure-u-1-6">
+          </div>
+          <div className="pure-u-1-6">
+            <button className="pure-button pure-button-primary" 
+                  onClick={ () =>
+                            props.updateEvent()}>
+                Update Event
+            </button>
+          </div>
+          <div className="pure-u-1-6">
+          </div>
+          <div className="pure-u-1-6">
+            <button className="pure-button pure-button-error">
+                Delete Event
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="pure-u-1-3"></div>
+        
+    </fieldset>
+  );
+
+}
+
+const UpdateDetails = () => {
+    const [loading, setLoading] = useState(true);
+    const defaultValues = {
+      event_name: "",
+      e_description: "",
+      start_date: "",
+      end_date: "",
+      status: "",
+      venue_id: "",
+      capacity: "",
+      no_of_participants: "",
+      organized_by: "",
+    };
+    const [eventDetails, setEventDetails] = useState(defaultValues);
+    let { id } = useParams();
+
+    Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
+      console.log(res.data);
+      //setEventDetails(res.data);
+      setLoading(false);
+    });
+
     if (loading) {
-        return <BasePage> Loading data.... </BasePage>;
+      return <BasePage> Loading data.... </BasePage>;
     }
     return (
       <fieldset>
-        <div class="pure-u-1-3"></div>
 
-        <div class="pure-u-1-3">
+        <div className="pure-u-1-3"></div>
+
+        <div className="pure-u-1-3">
           <div className="pure-control-group">
-            <label for="aligned-name">Event Name: </label>
-            <label id="aligned-name">{detail.event_name}</label>
+            <label htmlFor="aligned-name">Event Name</label>
+            <input
+              type="text"
+              id="aligned-name" placeholder="Event Name" 
+              value={details.event_name}
+              onChange={(e) => {
+                debugger;
+                setEventDetails({...eventDetails,event_name:e.target.value});
+              }}
+            />
+          </div>
+          
+          <div className="pure-control-group">
+            <label htmlFor="aligned-description">Event Description</label>
+            <input
+              type="text"
+              id="aligned-description" placeholder="Event Description" 
+              value={details.e_description}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,e_description:e.target.value});
+              }}
+            />
           </div>
 
           <div className="pure-control-group">
-            <label for="aligned-name">Event Description: </label>
-            <label id="aligned-name">{detail.e_description}</label>
+            <label htmlFor="aligned-start-date">Event Start Date</label>
+            <input
+              type="date"
+              id="aligned-start-date"
+              value={details.start_date}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,start_date:e.target.value});
+              }}
+            />
           </div>
 
           <div className="pure-control-group">
-            <label for="aligned-name">Start Date: </label>
-            <label id="aligned-name">{detail.start_date}</label>
+            <label htmlFor="aligned-end-date">Event End Date</label>
+            <input
+              type="date"
+              id="aligned-end-date"
+              value={details.end_date}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,end_date:e.target.value});
+              }}
+            />
           </div>
 
           <div className="pure-control-group">
-            <label for="aligned-name">End Date: </label>
-            <label id="aligned-name">{detail.end_date}</label>
+            <label htmlFor="aligned-status">Event Status</label>
+            <input
+              type="text"
+              id="aligned-status" placeholder="Event Status" 
+              value={details.status}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,status:e.target.value});
+              }}
+            />
           </div>
 
           <div className="pure-control-group">
-            <label for="aligned-name">Event Status: </label>
-            <label id="aligned-name">{detail.status}</label>
+            <label htmlFor="aligned-venue">Venue</label>
+            <input
+              type="text"
+              id="aligned-venue" placeholder="Venue" 
+              value={details.venue_id}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,venue_id:1});
+              }}
+            />
           </div>
 
           <div className="pure-control-group">
-            <label for="aligned-name">Event Venue: </label>
-            <label id="aligned-name">{detail.venue_id}</label>
+            <label htmlFor="aligned-capacity">Capacity</label>
+            <input
+              type="text"
+              id="aligned-capacity" placeholder="Capacity" 
+              value={details.capacity}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,capacity:e.target.value});
+              }}
+            />
           </div>
 
           <div className="pure-control-group">
-            <label for="aligned-name">Event Capacity: </label>
-            <label id="aligned-name">{detail.capacity}</label>
+            <label htmlFor="aligned-participant">No of Participants</label>
+            <input
+              type="text"
+              id="aligned-participant" placeholder="No of Participants" 
+              value={details.no_of_participants}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,no_of_participants:e.target.value});
+              }}
+            />
           </div>
+
 
           <div className="pure-control-group">
-            <label for="aligned-name">No of Participants: </label>
-            <label id="aligned-name">{detail.no_of_participants}</label>
+            <label htmlFor="aligned-organiser">Organiser</label>
+            <input
+              type="text"
+              id="aligned-organiser" placeholder="Organiser"
+              value={details.organized_by}
+              onChange={(e) => {
+                //setEventDetails({...eventDetails,organized_by:e.target.value});
+              }}
+            />
           </div>
 
-          <div className="pure-control-group">
-            <label for="aligned-name">Event Organiser: </label>
-            <label id="aligned-name">{detail.organized_by}</label>
+          <div className="pure-controls">
+            <button className="pure-button pure-button-primary">
+                Update Event
+            </button>
           </div>
-
-          <br/>
-          <br/>
-          <div className="pure-control-group">
-            <div class="pure-u-1-6">
-            </div>
-            <div class="pure-u-1-6">
-              <button className="pure-button pure-button-primary" >
-                  Update Event
-              </button>
-            </div>
-            <div class="pure-u-1-6">
-            </div>
-            <div class="pure-u-1-6">
-              <button className="pure-button pure-button-error">
-                  Delete Event
-              </button>
-            </div>
-          </div>
-
         </div>
 
-        <div class="pure-u-1-3"></div>
-
+        <div className="pure-u-1-3"></div>
           
       </fieldset>
-    );
+    )
+
+}
+
+
+
+const Details = () => {
+    const [showDetails, setShowDetails] = useState(true);
+    const updateEvent = () => {
+      debugger;
+      setShowDetails(false);
+    }
+  
+    if (showDetails){
+      return (
+        <ReadDetails updateEvent={updateEvent}/>
+      )
+    } else {
+      return (
+        <UpdateDetails/>
+      )
+    }
+    
 }
 
 export default function ReadEvent() {
   Axios.defaults.withCredentials = true;
   const { loading, userData } = useLoginValidate();
-
   
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
