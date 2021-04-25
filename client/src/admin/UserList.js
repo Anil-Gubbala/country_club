@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 var rows = [];
 
-export default function PendingUserList() {
+export default function UserList() {
     Axios.defaults.withCredentials = true;
     
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ export default function PendingUserList() {
         history.push("/admin/users/details/" + id);
     }
     
-    Axios.get('http://localhost:3001/admin/pendingusers',).then(function(res) {
+    Axios.get('http://localhost:3001/admin/users',).then(function(res) {
       console.log(res);
       rows = res.data;
       setLoading(false);
@@ -27,7 +27,6 @@ export default function PendingUserList() {
     }
     return (
     <div>
-        <h4>Pending Users</h4>
         <table className="pure-table pure-table-horizontal">
             <thead>
                 <tr>

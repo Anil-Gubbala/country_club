@@ -11,7 +11,8 @@ import AdminCreateEvent from "./admin/CreateEvent";
 import AdminReadEvent from "./admin/ReadEvent";
 import BasePage from "./common/BasePage";
 import MyBookings from "./user/MyBookings";
-import AdminPendingUserDetails from "./admin/PendingUserDetails";
+import AdminUserDetails from "./admin/ViewUserDetails";
+import AdminUserList from "./admin/UserList";
 
 function App() {
   return (
@@ -32,7 +33,8 @@ function App() {
           <Route path="/admin/events/create" exact render={(props) => <AdminCreateEvent />} />
           <Route path="/user/myBookings" exact render={(props) => <MyBookings />} />
           <Route path="/admin/events/details/:id" exact render={(props) => <AdminReadEvent />} />
-          <Route path="/admin/pendingusers/details/:id" exact render={(props) => <AdminPendingUserDetails />} />
+          <Route path="/admin/users/details/:id" exact render={(props) => <AdminUserDetails />} />
+          <Route path="/admin/users" exact render={(props) => <AdminUserList />} />
           <Route path="*">
             <ErrorPath></ErrorPath>
           </Route>

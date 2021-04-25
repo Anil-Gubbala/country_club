@@ -23,6 +23,9 @@ export default function AdminHome() {
         <Link to="/admin/events/create" className="pure-button pure-button-primary">Create New Event</Link>
         <br/>
         <br/>
+        <Link to="/admin/user" className="pure-button pure-button-primary">Update User Details</Link>
+        <br/>
+        <br/>
         <PendingUserList/>
         <br/>
         <br/>
