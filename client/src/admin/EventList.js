@@ -15,7 +15,7 @@ export default function EventList() {
         history.push("/admin/events/details/" + id);
     }
     
-    Axios.get('http://localhost:3001/admin/events').then(function(res) {
+    Axios.get('http://localhost:3001/admin').then(function(res) {
       console.log(res);
       rows = res.data;
       setLoading(false);
