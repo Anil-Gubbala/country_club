@@ -61,7 +61,15 @@ const readEvent = (req, res) => {
         }
         res.send(results[0]);
     });
+}
 
+const getVenue = (req, res) => {
+    db.query(SQL_EVENTS.GET_VENUE, (error, results, fields) => {
+        if (error) {
+          return console.error(error.message);
+        }
+        res.send(results);
+    });
 }
 
 
@@ -69,5 +77,5 @@ module.exports = {
   createEvent,
   getEvents,
   readEvent,
-  
+  getVenue
 };
