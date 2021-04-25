@@ -27,13 +27,16 @@ create table member
 	 membership_type varchar(50) not null,
 	 start_date date not null,
 	 end_date date not null,
+	 foreign key (membership_type) references membership_type (type_id) on update cascade on delete cascade, 
 	 foreign key (user_id) references user (user_id) on update cascade on delete cascade 
 );
 
 -- membership_type: used for dropdown
 create table membership_type
 (
-	membership_type varchar(50) not null unique
+	type_id int not null unique,
+	name varchar(15) not null,
+	description varchar(25) not null
 );
 
 create table dependent
@@ -164,6 +167,7 @@ Create table party (
 	foreign key (hosted_by) references user(user_id) on update cascade on delete cascade,
 	foreign key (hosted_at) references venue(venue_id) on update cascade on delete cascade
 );
+
 
 alter table user auto_increment = 1001;
 alter table venue auto_increment = 1001;

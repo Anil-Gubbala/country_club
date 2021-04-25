@@ -81,7 +81,7 @@ export default function Main() {
           style={{background:"lightcyan"}}
         >
           <Typography>
-            Private Events{" "}
+            Private Event Slots{" "}
             {userData.user_id ? "" : " (!Login to access this content)"}
           </Typography>
         </AccordionSummary>

@@ -29,7 +29,7 @@ const partyInsert = (req, res) => {
   }
   db.query(
     PARTY_INSERT,
-    [v4(), req.session.user.user_id, req.body.event_name, req.body.venue_id,req.body.start_date,req.body.end_date,req.body.no_of_attendees],
+    [uuidv4(), req.session.user.user_id, req.body.event_name, req.body.venue_id,req.body.start_date,req.body.end_date,req.body.no_of_attendees],
     (error, result) => {
       if (error) {
         res.status(404).send({ err: error.code });

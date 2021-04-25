@@ -34,13 +34,6 @@ const Navi = () => {
             </Link>
           </li>
         )}
-        {userData.user_id && (
-          <li className="pure-menu-item">
-            <Link to="/user/myBookings" className="pure-menu-link">
-              My Bookings
-            </Link>
-          </li>
-        )}
         {userData.user_id && userData.auth_id === 1 && (
           <li className="pure-menu-item">
             <Link to="/admin" className="pure-menu-link">
@@ -48,6 +41,14 @@ const Navi = () => {
             </Link>
           </li>
         )}
+        {userData.user_id && (
+          <li className="pure-menu-item">
+            <Link to="/user/myBookings" className="pure-menu-link">
+              My Bookings
+            </Link>
+          </li>
+        )}
+
       </ul>
     </div>
   );

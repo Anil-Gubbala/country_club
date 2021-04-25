@@ -1,42 +1,47 @@
 import {
-  Button,
-  IconButton,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
 } from "@material-ui/core";
+import { DataGrid } from "@material-ui/data-grid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export default function PrivateEventBookings() {
-  const [data, setData] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const columns = [
+    { field: "p_name", headerName: "Event Name" , width:200},
+    { field: "start_date", headerName: "Start Date",width:200 },
+    { field: "end_date", headerName: "End Date" ,width:200},
+    { field: "hosted_at", headerName: "Venue" ,width:200},
+  ];
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:3001/user/partyGetBookings")
       .then((response) => {
-        setData(response.data);
+        setRows(response.data);
+        setLoading(false);
       })
       .catch((err) => {});
   }, []);
-  if (data.length === 0) {
+
+
+  if (rows.length === 0) {
     return <div>No recent booking history</div>;
   }
   return (
     <div className="width100">
-    <List >
-      {data &&
-        data.map((each) => {
-          return (
-            <ListItem key={each.party_id}>
-              <ListItemText primary={each.p_name} secondary={"Event on: " + each.start_date} />
-              <ListItemSecondaryAction>
-                <Button variant="contained">Cancel</Button>
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
-    </List>
-   </div>
+      <div style={{ height: 400, width: "100%" }}>
+        <DataGrid 
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          loading = {loading}
+          getRowId={(row) => row.party_id}
+          onRowSelected = {(rowData)=> {
+            console.log(rowData);
+          }}
+        />
+      </div>
+    </div>
   );
 }

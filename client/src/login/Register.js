@@ -3,7 +3,7 @@ import Axios from "axios";
 import "../App.css";
 import { Link } from "react-router-dom";
 import Navi from "../common/Navi";
-import { Button, FormControl, FormGroup, TextField } from "@material-ui/core";
+import { Button, FormControl, FormGroup, FormHelperText, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Registration() {
@@ -28,6 +28,7 @@ export default function Registration() {
     zip_code: "",
     street: "",
     city: "",
+    member_type: ""
   };
 
   const [userDetails, setUserDetails] = useState(defaultValues);
@@ -215,6 +216,23 @@ export default function Registration() {
             }}
           />
         </FormControl>
+        <FormControl >
+        {/* {<InputLabel htmlFor="register-member-type">Select MemberShip Type</InputLabel>} */}
+        <Select
+          id="register-member-type"
+          value={userDetails.member_type}
+          onChange={(e) => {
+            setUserDetails({ ...userDetails, member_type: e.target.value });
+          }}
+          defaultValue = {0}
+          inputProps={{ 'aria-label': 'Without label' }}
+        >u
+          <MenuItem value={0}>Silver</MenuItem>
+          <MenuItem value={1}>Gold</MenuItem>
+          <MenuItem value={2}>Platinum</MenuItem>
+        </Select>
+        <FormHelperText>Select Membership Type</FormHelperText>
+      </FormControl>
         <FormControl>
           <Button variant="contained" color="primary" onClick={register}>
             Register
