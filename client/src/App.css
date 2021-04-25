@@ -28,6 +28,17 @@
   width:100%;
 }
 
+
+.user-details{
+  text-align: center;
+}
+
+/* input {
+  width: 250px;
+  height: 40px;
+} */
+
+
 tbody tr:hover {
   background-color: rgb(114, 196, 235);
   cursor : pointer

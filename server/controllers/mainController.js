@@ -56,7 +56,7 @@ const setLogin = (req, res) => {
 
 const registerUser = (req, res) => {
   const {
-    user_id,
+    //user_id,
     first_name,
     last_name,
     street,
@@ -75,7 +75,7 @@ const registerUser = (req, res) => {
       db.query(
         SQL_USER.USER_REGISTER,
         [
-          user_id,
+          //user_id,
           first_name,
           last_name,
           email_id,

@@ -37,7 +37,7 @@ export default function EventList() {
         <tbody>
             {rows.map(res =>
                 <tr key={res.event_id} data-key={res.event_id} onClick={itemClick}>
-                  <td>#</td>
+                  <td>{res.event_id}</td>
                   <td>{res.event_name}</td>
                   <td>{res.e_description}</td>
                   <td>{res.start_date}</td>
