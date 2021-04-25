@@ -10,16 +10,16 @@ import "../App.css";
 export default function CreateEvent() {
   const { loading, userData } = useLoginValidate();
   const defaultValues = {
-    event_name: "",
-    e_description: "",
-    start_date: "",
-    end_date: "",
-    status: "",
-    venue_id: "",
-    capacity: "",
-    no_of_participants: "",
-    organized_by: "",
-};
+      event_name: "",
+      e_description: "",
+      start_date: "",
+      end_date: "",
+      status: "",
+      venue_id: "",
+      capacity: "",
+      no_of_participants: "",
+      organized_by: "",
+  };
 
 const [message, setMessage] = useState("");
 const [eventDetails, setEventDetails] = useState(defaultValues);
@@ -34,35 +34,30 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
     Axios.defaults.withCredentials = true;
 
     const createEvent = () => {
-      debugger;
-      //eventDetails.event_id='E001';
-       
-          Axios.post("http://localhost:3001/admin/events/create", {
-            eventDetails,
+        Axios.post("http://localhost:3001/admin/events/create", {
+          eventDetails,
+        })
+          .then((response) => {
+            setMessage("Event created successfully.");
+            setEventDetails(true);
           })
-            .then((response) => {
-              setMessage("Event created successfully.");
-              setEventDetails(true);
-            })
-            .catch((error) => {
-              setMessage(error.response.data.err);
-              setEventDetails(false);
-            });
-      
-      };
-    //Axios.defaults.withCredentials = true;
+          .catch((error) => {
+            setMessage(error.response.data.err);
+            setEventDetails(false);
+          });
+    };
 
     return (
-        <div>
+      <div>
         <Navi></Navi>
         <div className="pure-form pure-form-aligned">
           <h1 style={{textAlign:"center"}}>Create Event</h1>
 
-          <div class="pure-u-1-3"></div>
+          <div className="pure-u-1-3"></div>
 
-          <div class="pure-u-1-3">
+          <div className="pure-u-1-3">
             <div className="pure-control-group">
-              <label for="aligned-name">Event Name</label>
+              <label htmlFor="aligned-name">Event Name</label>
               <input
                 type="text"
                 id="aligned-name" placeholder="Event Name" 
@@ -73,7 +68,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
             
             <div className="pure-control-group">
-              <label for="aligned-description">Event Description</label>
+              <label htmlFor="aligned-description">Event Description</label>
               <input
                 type="text"
                 id="aligned-description" placeholder="Event Description" 
@@ -84,7 +79,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
 
             <div className="pure-control-group">
-              <label for="aligned-start-date">Event Start Date</label>
+              <label htmlFor="aligned-start-date">Event Start Date</label>
               <input
                 type="date"
                 id="aligned-start-date"
@@ -95,7 +90,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
 
             <div className="pure-control-group">
-              <label for="aligned-end-date">Event End Date</label>
+              <label htmlFor="aligned-end-date">Event End Date</label>
               <input
                 type="date"
                 id="aligned-end-date"
@@ -106,7 +101,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
 
             <div className="pure-control-group">
-              <label for="aligned-status">Event Status</label>
+              <label htmlFor="aligned-status">Event Status</label>
               <input
                 type="text"
                 id="aligned-status" placeholder="Event Status" 
@@ -117,7 +112,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
 
             <div className="pure-control-group">
-              <label for="aligned-venue">Venue</label>
+              <label htmlFor="aligned-venue">Venue</label>
               <input
                 type="text"
                 id="aligned-venue" placeholder="Venue" 
@@ -128,7 +123,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
 
             <div className="pure-control-group">
-              <label for="aligned-capacity">Capacity</label>
+              <label htmlFor="aligned-capacity">Capacity</label>
               <input
                 type="text"
                 id="aligned-capacity" placeholder="Capacity" 
@@ -139,7 +134,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
 
             <div className="pure-control-group">
-              <label for="aligned-participant">No of Participants</label>
+              <label htmlFor="aligned-participant">No of Participants</label>
               <input
                 type="text"
                 id="aligned-participant" placeholder="No of Participants" 
@@ -151,7 +146,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
 
 
             <div className="pure-control-group">
-              <label for="aligned-organiser">Organiser</label>
+              <label htmlFor="aligned-organiser">Organiser</label>
               <input
                 type="text"
                 id="aligned-organiser" placeholder="Organiser"
@@ -168,7 +163,7 @@ const [eventDetails, setEventDetails] = useState(defaultValues);
             </div>
           </div>
           
-          <div class="pure-u-1-3"></div>
+          <div className="pure-u-1-3"></div>
 
           <div>{message}</div>
         </div>

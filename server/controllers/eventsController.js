@@ -68,5 +68,6 @@ const readEvent = (req, res) => {
 module.exports = {
   createEvent,
   getEvents,
-  readEvent
+  readEvent,
+  
 };
