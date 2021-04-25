@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 
 export default function PrivateEventsList(props) {
+  axios.defaults.withCredentials = true;
   //const [data, setData] = useState([]);
   const [exception, setException] = useState(false);
   const [eventName, setEventName] = useState("");

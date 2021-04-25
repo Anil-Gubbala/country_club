@@ -5,7 +5,7 @@ use countryclub;
 create table user (
 	-- user_no int auto_increment not null,
   	-- user_id as 'USR' + right('000000' + convert(varchar(7), user_no), 7) persisted,
-	user_id varchar(10) not null unique,
+	user_id int auto_increment not null unique,
   	f_name varchar(25) not null,
   	l_name varchar(25) not null,
   	email_id varchar(25) not null,
@@ -13,8 +13,8 @@ create table user (
   	city varchar(25) not null,
   	zip_code varchar(6) not null,
   	password varchar(100) not null,
-  	auth_id bit default 0 not null,
-  	status varchar(25),
+  	auth_id bit default b'0' not null,
+  	status varchar(25) default 0 not null,
   	primary key (user_id)
 );
 
@@ -23,28 +23,30 @@ create table status
 	status_name varchar(25) not null unique
 );
 
+-- membership_type: used for dropdown
+create table membership_type
+(
+	type_id int not null unique,
+	name varchar(15) not null,
+	description varchar(50) not null
+);
+
 create table member
 (
-	 user_id varchar(10) unique not null,
-	 membership_type varchar(50) not null,
+	 user_id int unique not null,
+	 membership_type int not null,
 	 start_date date not null,
 	 end_date date not null,
 	 foreign key (membership_type) references membership_type (type_id) on update cascade on delete cascade, 
 	 foreign key (user_id) references user (user_id) on update cascade on delete cascade 
 );
 
--- membership_type: used for dropdown
-create table membership_type
-(
-	type_id int not null unique,
-	name varchar(15) not null,
-	description varchar(25) not null
-);
+
 
 create table dependent
 (
 	name varchar(100) not null,
-	user_id varchar(10) not null,
+	user_id int not null,
 	relationship varchar(50),
 	primary key (user_id, name),
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade
@@ -95,7 +97,7 @@ create table sports_booking
 	status varchar(25),
 	booking_date date,
 	sport_id varchar(10),
-	user_id varchar(10),
+	user_id int,
 	ts_id varchar(10),
 	primary key(booking_id),
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade,
@@ -114,7 +116,7 @@ create table event
 	venue_id varchar(10),
 	capacity int,
 	no_of_participants int,
-	organized_by varchar(50) not null,
+	organized_by int not null,
 	primary key (event_id),
 	foreign key(venue_id) references venue(venue_id) on update cascade on delete cascade,
 	foreign key (organized_by) references user (user_id) on update cascade on delete cascade
@@ -123,7 +125,7 @@ create table event
 create table event_booking
 (
 	booking_id varchar(10) unique not null,
-	user_id varchar(10),
+	user_id int,
 	event_id varchar(10),
 	booking_date date,
 	status varchar(25),
@@ -149,7 +151,7 @@ create table reservation (
 	reservation_date date,
 	status varchar(25),
 	no_of_ppl int,
-	user_id varchar(10),
+	user_id int,
 	dining_id varchar(10),
 	primary key(reservation_id),
 	foreign key (user_id) references member(user_id) on update cascade on delete cascade,
@@ -158,7 +160,7 @@ create table reservation (
 
 Create table party (
 	party_id varchar(50) unique not null, 
-	hosted_by varchar(50) ,
+	hosted_by int ,
 	p_name varchar(50),
 	hosted_at varchar(50),
 	start_date date,
@@ -171,15 +173,15 @@ Create table party (
 );
 
 
----------------------------------------------------------------
------DEFAUTL DATA--------------------
-------------------------------------------------------------------
+-- -------------------------------------------------------------
+-- ---DEFAUTL DATA--------------------
+-- ----------------------------------------------------------------
 -- venue data. 
 INSERT INTO venue (venue_id, venue_name,venue_type) VALUES(0,"hall_1",0);
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1,"hall_2",0);
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (2,"hall_3",0);
 -- membership_type
 
-INSERT INTO membership_type (type_id, description) VALUES (0, "Silver", "Can book all events except private hall");
-INSERT INTO membership_type (type_id, description) VALUES (1, "Gold", "Can book all events");
-INSERT INTO membership_type (type_id, description) VALUES (0, "Platinum", "Can book all events & ");
+INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "Can book all events except private hall");
+INSERT INTO membership_type (type_id, name,  description) VALUES (1, "Gold", "Can book all events");
+INSERT INTO membership_type (type_id, name,  description) VALUES (2, "Platinum", "Can book all events & ");

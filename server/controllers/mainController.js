@@ -29,7 +29,7 @@ const setLogin = (req, res) => {
       if (err) {
         res.status(404).send({ err: err.code });
       } else if (result.length > 0) {
-        if(result[0].status == 0){
+        if (result[0].status == 0) {
           res.status(404).send({ err: "Contact Admin for approval" });
           return;
         }
@@ -38,9 +38,12 @@ const setLogin = (req, res) => {
           if (response) {
             req.session.user = {
               user_id: result[0].user_id,
-              auth_id: result[0].auth_id[0]
+              auth_id: result[0].auth_id[0],
             };
-            res.send({ user_id: result[0].user_id , auth_id:result[0].auth_id[0]});
+            res.send({
+              user_id: result[0].user_id,
+              auth_id: result[0].auth_id[0],
+            });
           } else {
             res
               .status(404)
@@ -56,7 +59,7 @@ const setLogin = (req, res) => {
 
 const registerUser = (req, res) => {
   const {
-    user_id,
+    // user_id,
     first_name,
     last_name,
     street,
@@ -74,16 +77,7 @@ const registerUser = (req, res) => {
     } else {
       db.query(
         SQL_USER.USER_REGISTER,
-        [
-          user_id,
-          first_name,
-          last_name,
-          email_id,
-          street,
-          city,
-          zip_code,
-          hash,
-        ],
+        [first_name, last_name, email_id, street, city, zip_code, hash],
         (err, result) => {
           if (err) {
             console.log(err);

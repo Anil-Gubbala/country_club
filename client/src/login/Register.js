@@ -3,14 +3,23 @@ import Axios from "axios";
 import "../App.css";
 import { Link } from "react-router-dom";
 import Navi from "../common/Navi";
-import { Button, FormControl, FormGroup, FormHelperText, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  FormGroup,
+  FormHelperText,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 export default function Registration() {
+  Axios.defaults.withCredentials = true;
   const [registered, setRegisterd] = useState(false);
   const [message, setMessage] = useState("");
   const [invalid, setInvalid] = useState({
-    user_id: false,
+    // user_id: false,
     password: false,
     first_name: false,
     last_name: false,
@@ -20,7 +29,7 @@ export default function Registration() {
     city: false,
   });
   const defaultValues = {
-    user_id: "",
+    // user_id: "",
     password: "",
     first_name: "",
     last_name: "",
@@ -28,15 +37,14 @@ export default function Registration() {
     zip_code: "",
     street: "",
     city: "",
-    member_type: ""
+    member_type: 0,
   };
-
   const [userDetails, setUserDetails] = useState(defaultValues);
-  Axios.defaults.withCredentials = true;
+  
 
   const register = () => {
     if (
-      userDetails.user_id.trim().length < 5 ||
+      // userDetails.user_id.trim().length < 5 ||
       userDetails.password.trim().length < 5 ||
       userDetails.first_name.trim() === "" ||
       userDetails.last_name.trim() === "" ||
@@ -47,13 +55,13 @@ export default function Registration() {
     ) {
       setMessage("Input failed to match some requirements");
     } else if (
-      userDetails.user_id.includes(" ") ||
+      // userDetails.user_id.includes(" ") ||
       userDetails.email_id.includes(" ") ||
       userDetails.zip_code.includes(" ") ||
       userDetails.password.includes(" ")
     ) {
       setMessage(
-        "Space character not allowed in user_id, zip_code, password, email_id"
+        "Space character not allowed in zip_code, password, email_id"
       );
     } else {
       Axios.post("http://localhost:3001/register", {
@@ -84,7 +92,7 @@ export default function Registration() {
     <div>
       <Navi></Navi>
       <FormGroup>
-        <FormControl>
+        {/* <FormControl>
           <TextField
             helperText="5-10 characters"
             id="register-user-id"
@@ -92,34 +100,18 @@ export default function Registration() {
             type="text"
             error={invalid.user_id}
             onChange={(e) => {
-              invalid.user_id =
+              const validation =
                 e.target.value.length < 5 ||
                 e.target.value.length > 25 ||
                 e.target.value === ""
                   ? true
                   : false;
+              setInvalid({ ...invalid, user_id: validation });
               setUserDetails({ ...userDetails, user_id: e.target.value });
             }}
           />
-        </FormControl>
-        <FormControl>
-          <TextField
-            helperText="Minimum 5 characters"
-            id="register-password"
-            label="Password"
-            type="password"
-            error={invalid.password}
-            onChange={(e) => {
-              invalid.password =
-                e.target.value.length < 5 ||
-                e.target.value.length > 25 ||
-                e.target.value === ""
-                  ? true
-                  : false;
-              setUserDetails({ ...userDetails, password: e.target.value });
-            }}
-          />
-        </FormControl>
+        </FormControl> */}
+        
         <FormControl>
           <TextField
             helperText={invalid.first_name ? "1-25 characters" : ""}
@@ -128,10 +120,11 @@ export default function Registration() {
             type="text"
             error={invalid.first_name}
             onChange={(e) => {
-              invalid.first_name =
+              const validation =
                 e.target.value.length > 25 || e.target.value === ""
                   ? true
                   : false;
+              setInvalid({ ...invalid, first_name: validation });
               setUserDetails({ ...userDetails, first_name: e.target.value });
             }}
           />
@@ -144,11 +137,31 @@ export default function Registration() {
             type="text"
             error={invalid.last_name}
             onChange={(e) => {
-              invalid.last_name =
+              const validation =
                 e.target.value.length > 25 || e.target.value === ""
                   ? true
                   : false;
+              setInvalid({ ...invalid, last_name: validation });
               setUserDetails({ ...userDetails, last_name: e.target.value });
+            }}
+          />
+        </FormControl>
+        <FormControl>
+          <TextField
+            helperText="Minimum 5 characters"
+            id="register-password"
+            label="Password"
+            type="password"
+            error={invalid.password}
+            onChange={(e) => {
+              const validation =
+                e.target.value.length < 5 ||
+                e.target.value.length > 25 ||
+                e.target.value === ""
+                  ? true
+                  : false;
+              setInvalid({ ...invalid, password: validation });
+              setUserDetails({ ...userDetails, password: e.target.value });
             }}
           />
         </FormControl>
@@ -160,10 +173,11 @@ export default function Registration() {
             type="text"
             error={invalid.email_id}
             onChange={(e) => {
-              invalid.eamil_id =
+              const validation =
                 e.target.value.length > 25 || e.target.value === ""
                   ? true
                   : false;
+              setInvalid({ ...invalid, email_id: validation });
               setUserDetails({ ...userDetails, email_id: e.target.value });
             }}
           />
@@ -176,10 +190,11 @@ export default function Registration() {
             type="text"
             error={invalid.street}
             onChange={(e) => {
-              invalid.street =
+              const validation =
                 e.target.value.length > 25 || e.target.value === ""
                   ? true
                   : false;
+              setInvalid({ ...invalid, street: validation });
               setUserDetails({ ...userDetails, street: e.target.value });
             }}
           />
@@ -192,10 +207,11 @@ export default function Registration() {
             type="text"
             error={invalid.city}
             onChange={(e) => {
-              invalid.city =
+              const validation =
                 e.target.value.length > 25 || e.target.value === ""
                   ? true
                   : false;
+              setInvalid({ ...invalid, city: validation });
               setUserDetails({ ...userDetails, city: e.target.value });
             }}
           />
@@ -208,31 +224,32 @@ export default function Registration() {
             type="number"
             error={invalid.zip_code}
             onChange={(e) => {
-              invalid.zip_code =
+              const validation =
                 e.target.value.length !== 6 || e.target.value === ""
                   ? true
                   : false;
+              setInvalid({ ...invalid, zip_code: validation });
               setUserDetails({ ...userDetails, zip_code: e.target.value });
             }}
           />
         </FormControl>
-        <FormControl >
-        {/* {<InputLabel htmlFor="register-member-type">Select MemberShip Type</InputLabel>} */}
-        <Select
-          id="register-member-type"
-          value={userDetails.member_type}
-          onChange={(e) => {
-            setUserDetails({ ...userDetails, member_type: e.target.value });
-          }}
-          defaultValue = {0}
-          inputProps={{ 'aria-label': 'Without label' }}
-        >u
-          <MenuItem value={0}>Silver</MenuItem>
-          <MenuItem value={1}>Gold</MenuItem>
-          <MenuItem value={2}>Platinum</MenuItem>
-        </Select>
-        <FormHelperText>Select Membership Type</FormHelperText>
-      </FormControl>
+        <FormControl>
+          {/* {<InputLabel htmlFor="register-member-type">Select MemberShip Type</InputLabel>} */}
+          <Select
+            id="register-member-type"
+            value={userDetails.member_type}
+            onChange={(e) => {
+              setUserDetails({ ...userDetails, member_type: e.target.value });
+            }}
+            defaultValue={0}
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            <MenuItem value={0}>Silver</MenuItem>
+            <MenuItem value={1}>Gold</MenuItem>
+            <MenuItem value={2}>Platinum</MenuItem>
+          </Select>
+          <FormHelperText>Select Membership Type</FormHelperText>
+        </FormControl>
         <FormControl>
           <Button variant="contained" color="primary" onClick={register}>
             Register

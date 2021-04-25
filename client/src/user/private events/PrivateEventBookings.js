@@ -5,6 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export default function PrivateEventBookings() {
+  axios.defaults.withCredentials = true;
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const columns = [
