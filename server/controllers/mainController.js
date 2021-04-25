@@ -77,7 +77,16 @@ const registerUser = (req, res) => {
     } else {
       db.query(
         SQL_USER.USER_REGISTER,
-        [first_name, last_name, email_id, street, city, zip_code, hash],
+        [
+          //user_id,
+          first_name,
+          last_name,
+          email_id,
+          street,
+          city,
+          zip_code,
+          hash,
+        ],
         (err, result) => {
           if (err) {
             console.log(err);
