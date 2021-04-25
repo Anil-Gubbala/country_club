@@ -10,6 +10,11 @@
   display: flex;
   margin: 8px;
 }
+
+.margin10 {
+  margin: 10px;
+}
+
 .displayFlex{
   display: flex;
 }
@@ -23,9 +28,8 @@
   width:100%;
 }
 
-
 tbody tr:hover {
-  background-color: yellow;
+  background-color: rgb(114, 196, 235);
   cursor : pointer
 }
 

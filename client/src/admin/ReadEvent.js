@@ -143,7 +143,6 @@ const UpdateDetails = () => {
               id="aligned-name" placeholder="Event Name" 
               value={details.event_name}
               onChange={(e) => {
-                debugger;
                 setEventDetails({...eventDetails,event_name:e.target.value});
               }}
             />
@@ -265,7 +264,6 @@ const UpdateDetails = () => {
 const Details = () => {
     const [showDetails, setShowDetails] = useState(true);
     const updateEvent = () => {
-      debugger;
       setShowDetails(false);
     }
   
