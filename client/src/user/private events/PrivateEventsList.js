@@ -4,30 +4,30 @@ import { useEffect } from "react";
 import Alert from "@material-ui/lab/Alert";
 import {
   Button,
-  Divider,
   FormControl,
   FormGroup,
-  FormLabel,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
-  ListItemText,
-  MenuItem,
-  Select,
   TextField,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { DataGrid } from "@material-ui/data-grid";
 
 export default function PrivateEventsList(props) {
-  const [data, setData] = useState([]);
+  //const [data, setData] = useState([]);
   const [exception, setException] = useState(false);
-  const [selectedVenue, setSelectedVenue] = useState("");
   const [eventName, setEventName] = useState("");
   const [attendees, setAttendees] = useState(0);
   const [bookingMode, setBookingMode] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [bookingSuccess, SetBookingSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [rows, setRows] = useState([]);
+  const columns = [
+    { field: "venue_id", headerName: "Venue Number", width: 200 },
+    { field: "venue_name", headerName: "Venue Name", width: 200 },
+    { field: "capacity", headerName: "Venue Capacity", width: 200 },
+  ];
+  const [rowData, setRowData] = useState({});
+
   const handleBooking = () => {
     if (eventName === "" || attendees > 200) {
       setInvalid(true);
@@ -35,7 +35,7 @@ export default function PrivateEventsList(props) {
     } else {
       axios
         .post("http://localhost:3001/user/partyInsert", {
-          venue_id: selectedVenue,
+          venue_id: rowData.data.venue_id,
           event_name: eventName,
           start_date: props.date,
           end_date: props.date,
@@ -48,19 +48,22 @@ export default function PrivateEventsList(props) {
     }
   };
   useEffect(() => {
+    setLoading(true);
     axios
       .get("http://localhost:3001/user/partyGetVenues", {
         params: { date: props.date },
       })
       .then((response) => {
-        setData(response.data);
+        //setData(response.data);
+        setRows(response.data);
         setBookingMode(false);
         SetBookingSuccess(false);
-        setSelectedVenue("");
         setEventName("");
+        setLoading(false);
       })
       .catch((err) => {
         setException(true);
+        setLoading(false);
       });
   }, [props.date]);
 
@@ -72,7 +75,8 @@ export default function PrivateEventsList(props) {
             <Alert severity="info">Booking successfull</Alert>
           </FormControl>
           <FormControl>
-            <Link className="margin8"
+            <Link
+              className="margin8"
               to="/user/myBookings"
               onClick={() => {
                 setBookingMode(false);
@@ -143,36 +147,34 @@ export default function PrivateEventsList(props) {
   if (exception) {
     return <Alert severity="error">Invalid request : server side error</Alert>;
   }
-  if (data.length === 0) {
-    return <Alert severity="info">No slots available to book today</Alert>;
-  }
+  // if (data.length === 0) {
+  //   return <Alert severity="info">No slots available to book today</Alert>;
+  // }
   return (
     <div className="width100">
-      <List>
-        {data &&
-          data.map((each) => {
-            return (
-              <ListItem  key={each.venue_id} button={true}>
-                <ListItemText
-                  primary={each.venue_name}
-                  secondary={"Venue id: " + each.venue_id}
-                />
-                <ListItemSecondaryAction>
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      setBookingMode(true);
-                      setSelectedVenue(each.venue_id);
-                    }}
-                  >
-                    Select
-                  </Button>
-                </ListItemSecondaryAction>
-               
-              </ListItem>
-            );
-          })}
-      </List>
+      <div style={{ height: 400, width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={3}
+          loading={loading}
+          getRowId={(row) => row.venue_id}
+          onRowSelected={(rowData) => {
+            setRowData(rowData);
+          }}
+          autoHeight = "true"
+        />
+        <Button style= {{margin:"8px",display:"block",marginLeft:"auto"}}
+          variant="contained"
+          color="primary"
+          disabled={!(rowData && rowData.isSelected)}
+          onClick = {()=>{
+            setBookingMode(true);
+          }}
+        >
+          Proceed to Book
+        </Button>
+      </div>
     </div>
   );
 }

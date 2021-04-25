@@ -42,7 +42,7 @@ export default function Login() {
         <h1 style={{textAlign:"center"}}>Login</h1>
         <input
           type="text"
-          placeholder="Username..."
+          placeholder="UserID..."
           onChange={(e) => {
             setUserId(e.target.value);
           }}
@@ -57,7 +57,6 @@ export default function Login() {
         <button className="pure-button pure-button-primary" onClick={login}> Login </button>
         <div> {failMsg}</div>
       </div>
-      
     </div>
   );
 }

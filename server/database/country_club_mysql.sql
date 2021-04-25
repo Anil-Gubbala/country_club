@@ -29,13 +29,16 @@ create table member
 	 membership_type varchar(50) not null,
 	 start_date date not null,
 	 end_date date not null,
+	 foreign key (membership_type) references membership_type (type_id) on update cascade on delete cascade, 
 	 foreign key (user_id) references user (user_id) on update cascade on delete cascade 
 );
 
 -- membership_type: used for dropdown
 create table membership_type
 (
-	membership_type varchar(50) not null unique
+	type_id int not null unique,
+	name varchar(15) not null,
+	description varchar(25) not null
 );
 
 create table dependent
@@ -167,22 +170,16 @@ Create table party (
 	foreign key (hosted_at) references venue(venue_id) on update cascade on delete cascade
 );
 
+
+---------------------------------------------------------------
+-----DEFAUTL DATA--------------------
+------------------------------------------------------------------
 -- venue data. 
-INSERT INTO countryclub.venue
-(venue_id,
-venue_name,
-venue_type)
-VALUES
-(0,"hall_1",0);
-INSERT INTO countryclub.venue
-(venue_id,
-venue_name,
-venue_type)
-VALUES
-(1,"hall_2",0);
-INSERT INTO countryclub.venue
-(venue_id,
-venue_name,
-venue_type)
-VALUES
-(2,"hall_3",0);
+INSERT INTO venue (venue_id, venue_name,venue_type) VALUES(0,"hall_1",0);
+INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1,"hall_2",0);
+INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (2,"hall_3",0);
+-- membership_type
+
+INSERT INTO membership_type (type_id, description) VALUES (0, "Silver", "Can book all events except private hall");
+INSERT INTO membership_type (type_id, description) VALUES (1, "Gold", "Can book all events");
+INSERT INTO membership_type (type_id, description) VALUES (0, "Platinum", "Can book all events & ");

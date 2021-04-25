@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PrivateEventsHistory from "./private events/PrivateEventsHistory";
 import PrivateEventBookings from "./private events/PrivateEventBookings";
+import { Link } from "react-router-dom";
 
 export default function MyBookings() {
   const { loading, userData } = useLoginValidate();
@@ -65,6 +66,8 @@ export default function MyBookings() {
         </Accordion>
       </Box>
     );
+  }else{
+    return <Link to="/login"> Go to Login Page</Link>
   }
   
 }
