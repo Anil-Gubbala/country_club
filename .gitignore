@@ -1,1 +1,8 @@
-/.project
+/client/package-lock.json
+/server/database/dbConnector.js
+/server/package-lock.json
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store
