@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require("uuid");
 const partyGetVenues = (req, res) => {
   db.query(
     PARTY_GET_VENUE,
-    [0, req.query.date, req.query.date],
+    ['private_party', req.query.date, req.query.date],
     (error, result) => {
       if (error) {
         res.status(404).send({ err: error.code });

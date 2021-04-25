@@ -56,19 +56,22 @@ create table relationship
 	r_name varchar(50) not null unique
 );
 
+-- venue_type: used for dropdown
+create table venue_type
+(
+	venue_type varchar(25) not null unique -- party
+);
+
 create table venue
 (
 	venue_id int auto_increment not null,
 	venue_name varchar(50),
-	venue_type varchar(25) not null,
-	primary key (venue_id)    
+	venue_type varchar(25) not null, -- party
+	primary key (venue_id),
+	foreign key (venue_type) references venue_type (venue_type) on update cascade on delete cascade    
 );
 
--- venue_type: used for dropdown
-create table venue_type
-(
-	venue_type varchar(25) not null unique
-);
+
 
 create table sports
 (
@@ -182,16 +185,18 @@ alter table reservation auto_increment = 1001;
 alter table party auto_increment = 1001;
 
 -- -------------------------------------------------------------
--- ---DEFAUTL DATA--------------------
+-- ---DEFAUTL DATA (If Admin side add these insertion, we can remove from here)--------------------
 -- ----------------------------------------------------------------
+-- venue type
+INSERT INTO venue_type (venue_type) VALUES("private_party");
+
 -- venue data. 
-INSERT INTO venue (venue_id, venue_name,venue_type) VALUES(0,"hall_1",0);
-INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1,"hall_2",0);
-INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (2,"hall_3",0);
+INSERT INTO venue (venue_id, venue_name,venue_type) VALUES(0,"Hall 01","private_party");
+INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1,"Hall 02","private_party");
+INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (2,"Hall 03","private_party");
+
 -- membership_type
 
 INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "Can book all events except private hall");
 INSERT INTO membership_type (type_id, name,  description) VALUES (1, "Gold", "Can book all events");
 INSERT INTO membership_type (type_id, name,  description) VALUES (2, "Platinum", "Can book all events & ");
-
-
