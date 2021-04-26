@@ -21,7 +21,6 @@ const createEvent = (req, res) => {
         status,
         venue_id,
         capacity,
-        no_of_participants,
         organized_by
     } = req.body.eventDetails;
     db.query(
@@ -35,7 +34,6 @@ const createEvent = (req, res) => {
             status,
             venue_id,
             capacity,
-            no_of_participants,
             organized_by
          ],
          (err, result) => {
@@ -72,10 +70,47 @@ const getVenue = (req, res) => {
     });
 }
 
+const updateEvent = (req, res) => {
+    const {
+        event_name,
+        e_description,
+        start_date,
+        end_date,
+        status,
+        venue_id,
+        capacity,
+        organized_by,
+        event_id
+    } = req.body;
+    db.query(SQL_EVENTS.UPDATE_EVENT,
+        [
+            event_name,
+            e_description,
+            start_date,
+            end_date,
+            status,
+            venue_id,
+            capacity,
+            organized_by,
+            event_id
+         ], (error, results, fields) => {
+
+        if (error) {
+            console.log(err);
+            res.status(404).send({
+                err: err.errno === 1062 ? "Error creating new event" : err.code
+            });
+        } else {
+            res.status(200).send({ success : true });
+        }
+    });
+}
+
 
 module.exports = {
   createEvent,
   getEvents,
   readEvent,
-  getVenue
+  getVenue,
+  updateEvent
 };

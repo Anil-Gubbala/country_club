@@ -5,7 +5,7 @@ import redirectLogin from "../common/redirectLogin";
 import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory} from 'react-router-dom';
 
 let details = {};
 
@@ -67,11 +67,6 @@ const ReadDetails = (props) => {
         </div>
 
         <div className="pure-control-group">
-          <label htmlFor="aligned-name">No of Participants: </label>
-          <label id="aligned-name">{details.no_of_participants}</label>
-        </div>
-
-        <div className="pure-control-group">
           <label htmlFor="aligned-name">Event Organiser: </label>
           <label id="aligned-name">{details.organized_by}</label>
         </div>
@@ -84,7 +79,7 @@ const ReadDetails = (props) => {
           <div className="pure-u-1-6">
             <button className="pure-button pure-button-primary" 
                   onClick={ () =>
-                            props.updateEvent()}>
+                            props.updateEvent(details)}>
                 Update Event
             </button>
           </div>
@@ -106,32 +101,20 @@ const ReadDetails = (props) => {
 
 }
 
-const UpdateDetails = () => {
-    const [loading, setLoading] = useState(true);
-    const defaultValues = {
-      event_name: "",
-      e_description: "",
-      start_date: "",
-      end_date: "",
-      status: "",
-      venue_id: "",
-      capacity: "",
-      no_of_participants: "",
-      organized_by: "",
+const UpdateDetails = (props) => {
+  const history = useHistory();
+    const updateEvent = () => {
+      Axios.post("http://localhost:3001/admin/events/update", 
+        props.details,
+      )
+        .then((response) => {
+          history.push("/admin");
+        })
+        .catch((error) => {
+        });
+
     };
-    const [eventDetails, setEventDetails] = useState(defaultValues);
-    let { id } = useParams();
 
-    useEffect(() => {
-      Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
-        console.log(res.data);
-        setLoading(false);
-      });
-    }, []);
-
-    if (loading) {
-      return <BasePage> Loading data.... </BasePage>;
-    }
     return (
       <fieldset>
 
@@ -143,9 +126,9 @@ const UpdateDetails = () => {
             <input
               type="text"
               id="aligned-name" placeholder="Event Name" 
-              value={details.event_name}
+              value={props.details.event_name}
               onChange={(e) => {
-                setEventDetails({...eventDetails,event_name:e.target.value});
+                props.setDetails({...props.details,event_name:e.target.value});
               }}
             />
           </div>
@@ -155,9 +138,9 @@ const UpdateDetails = () => {
             <input
               type="text"
               id="aligned-description" placeholder="Event Description" 
-              value={details.e_description}
+              value={props.details.e_description}
               onChange={(e) => {
-                //setEventDetails({...eventDetails,e_description:e.target.value});
+                props.setDetails({...props.details,e_description:e.target.value});
               }}
             />
           </div>
@@ -167,9 +150,9 @@ const UpdateDetails = () => {
             <input
               type="date"
               id="aligned-start-date"
-              value={details.start_date}
+              value={props.details.start_date}
               onChange={(e) => {
-                //setEventDetails({...eventDetails,start_date:e.target.value});
+                props.setDetails({...props.details,start_date:e.target.value});
               }}
             />
           </div>
@@ -179,9 +162,9 @@ const UpdateDetails = () => {
             <input
               type="date"
               id="aligned-end-date"
-              value={details.end_date}
+              value={props.details.end_date}
               onChange={(e) => {
-                //setEventDetails({...eventDetails,end_date:e.target.value});
+                props.setDetails({...props.details,end_date:e.target.value});
               }}
             />
           </div>
@@ -191,9 +174,9 @@ const UpdateDetails = () => {
             <input
               type="text"
               id="aligned-status" placeholder="Event Status" 
-              value={details.status}
+              value={props.details.status}
               onChange={(e) => {
-                //setEventDetails({...eventDetails,status:e.target.value});
+                props.setDetails({...props.details,status:e.target.value});
               }}
             />
           </div>
@@ -203,9 +186,9 @@ const UpdateDetails = () => {
             <input
               type="text"
               id="aligned-venue" placeholder="Venue" 
-              value={details.venue_id}
+              value={props.details.venue_id}
               onChange={(e) => {
-                //setEventDetails({...eventDetails,venue_id:1});
+                props.setDetails({...props.details,venue_id:e.target.value});
               }}
             />
           </div>
@@ -215,40 +198,27 @@ const UpdateDetails = () => {
             <input
               type="text"
               id="aligned-capacity" placeholder="Capacity" 
-              value={details.capacity}
+              value={props.details.capacity}
               onChange={(e) => {
-                //setEventDetails({...eventDetails,capacity:e.target.value});
+                props.setDetails({...props.details,capacity:e.target.value});
               }}
             />
           </div>
-
-          <div className="pure-control-group">
-            <label htmlFor="aligned-participant">No of Participants</label>
-            <input
-              type="text"
-              id="aligned-participant" placeholder="No of Participants" 
-              value={details.no_of_participants}
-              onChange={(e) => {
-                //setEventDetails({...eventDetails,no_of_participants:e.target.value});
-              }}
-            />
-          </div>
-
 
           <div className="pure-control-group">
             <label htmlFor="aligned-organiser">Organiser</label>
             <input
               type="text"
               id="aligned-organiser" placeholder="Organiser"
-              value={details.organized_by}
+              value={props.details.organized_by}
               onChange={(e) => {
-                //setEventDetails({...eventDetails,organized_by:e.target.value});
+                props.setDetails({...props.details,organized_by:e.target.value});
               }}
             />
           </div>
 
           <div className="pure-controls">
-            <button className="pure-button pure-button-primary">
+            <button className="pure-button pure-button-primary" onClick={updateEvent}>
                 Update Event
             </button>
           </div>
@@ -265,7 +235,9 @@ const UpdateDetails = () => {
 
 const Details = () => {
     const [showDetails, setShowDetails] = useState(true);
-    const updateEvent = () => {
+    const [userDetails, setDetails] = useState({});
+    const updateEvent = (details) => {
+      setDetails(details);
       setShowDetails(false);
     }
   
@@ -275,7 +247,7 @@ const Details = () => {
       )
     } else {
       return (
-        <UpdateDetails/>
+        <UpdateDetails details={userDetails} setDetails={setDetails}/>
       )
     }
     
