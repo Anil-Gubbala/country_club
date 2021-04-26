@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const db = require("../database/dbConnector");
+const { MEMBER_GET } = require("../database/SQL/User/userSql");
 const SQL_USER = require("../database/SQL/User/userSql");
 const saltRounds = 10;
 
@@ -22,6 +23,7 @@ const logout = (req, res) => {
 const setLogin = (req, res) => {
   const user_id = req.body.user_id;
   const password = req.body.password;
+  let auth_id, member_type;
   if (req.session.user) {
     res.send({ message: "already logged in" });
   } else {
@@ -36,14 +38,46 @@ const setLogin = (req, res) => {
         // pasword compare
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
-            req.session.user = {
-              user_id: result[0].user_id,
-              auth_id: result[0].auth_id[0],
-            };
-            res.send({
-              user_id: result[0].user_id,
-              auth_id: result[0].auth_id[0],
-            });
+            auth_id = result[0].auth_id[0];
+            if (auth_id == 0) {
+              db.query(SQL_USER.MEMBER_GET, user_id, (err, result) => {
+                if (err) {
+                  res.status(404).send({ err: err.code });
+                  return;
+                }
+                member_type = result[0].member_type;
+                if (new Date(result[0].end_date) < new Date()) {
+                  res
+                    .status(404)
+                    .send({
+                      err: "Membership Expired. Contact Admin for extension",
+                    });
+                  return;
+                } else {
+                  req.session.user = {
+                    user_id: user_id,
+                    auth_id: auth_id,
+                    member_type: member_type,
+                  };
+                  res.send({
+                    user_id: user_id,
+                    auth_id: auth_id,
+                    member_type: member_type
+                  });
+                }
+              });
+            } else {
+              req.session.user = {
+                user_id: user_id,
+                auth_id: auth_id,
+                member_type: 2,
+              };
+              res.send({
+                user_id: user_id,
+                auth_id: auth_id,
+                member_type: 2
+              });
+            }
           } else {
             res
               .status(404)
