@@ -1,6 +1,6 @@
 const db = require("../database/dbConnector");
 const SQL_EVENTS = require("../database/SQL/Admin/eventSql");
-const { v4: uuidv4 } = require("uuid");
+//const { v4: uuidv4 } = require("uuid");
 
 const getEvents = (req, res) => {
     db.query(SQL_EVENTS.GET_EVENTS_LIST, (error, results, fields) => {
@@ -12,7 +12,7 @@ const getEvents = (req, res) => {
 }
 
 const createEvent = (req, res) => {
-    const event_id = uuidv4();
+    //const event_id = uuidv4();
     const {
         event_name,
         e_description,
@@ -26,7 +26,6 @@ const createEvent = (req, res) => {
     db.query(
         SQL_EVENTS.CREATE_EVENT,
         [
-            event_id,
             event_name,
             e_description,
             start_date,
