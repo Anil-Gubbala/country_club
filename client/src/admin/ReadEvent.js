@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import Axios from "axios";
 import { useLoginValidate } from "../common/Validate";
 import redirectLogin from "../common/redirectLogin";
@@ -8,18 +8,19 @@ import BasePage from "../common/BasePage";
 import { useParams } from 'react-router-dom';
 
 let details = {};
-//let eventDetails = {};
 
 const ReadDetails = (props) => {
   Axios.defaults.withCredentials = true;
   const [loading, setLoading] = useState(true);
   let { id } = useParams();
 
-  Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
-      console.log(res);
-      details = res.data;
-      setLoading(false);
-    });
+  useEffect(() => {
+    Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
+        console.log(res);
+        details = res.data;
+        setLoading(false);
+      });
+    }, []);
 
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
@@ -121,11 +122,12 @@ const UpdateDetails = () => {
     const [eventDetails, setEventDetails] = useState(defaultValues);
     let { id } = useParams();
 
-    Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
-      console.log(res.data);
-      //setEventDetails(res.data);
-      setLoading(false);
-    });
+    useEffect(() => {
+      Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
+        console.log(res.data);
+        setLoading(false);
+      });
+    }, []);
 
     if (loading) {
       return <BasePage> Loading data.... </BasePage>;

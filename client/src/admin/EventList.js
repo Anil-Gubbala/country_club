@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BasePage from "../common/BasePage";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -14,12 +14,13 @@ export default function EventList() {
         let id = event.target.parentElement.dataset.key;
         history.push("/admin/events/details/" + id);
     }
-    
-    Axios.get('http://localhost:3001/admin').then(function(res) {
-      console.log(res);
-      rows = res.data;
-      setLoading(false);
-    });
+    useEffect(() => {
+        Axios.get('http://localhost:3001/admin').then(function(res) {
+            console.log(res);
+            rows = res.data;
+            setLoading(false);
+        });
+    }, []);
     if (loading) {
         return <BasePage> Loading data.... </BasePage>;
     }
@@ -31,6 +32,7 @@ export default function EventList() {
                 <th>Event Name</th>
                 <th>Description</th>
                 <th>Start Date</th>
+                <th>End Date</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -41,6 +43,7 @@ export default function EventList() {
                   <td>{res.event_name}</td>
                   <td>{res.e_description}</td>
                   <td>{res.start_date}</td>
+                  <td>{res.end_date}</td>
                   <td>{res.status}</td>
                 </tr>
             )}
