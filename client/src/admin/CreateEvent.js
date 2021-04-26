@@ -7,8 +7,9 @@ import BasePage from "../common/BasePage";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../App.css";
+import VenueDropdown from "./Venue";
 
-const VenueDropdown = (props) => {
+/*const VenueDropdown = (props) => {
   const [venueList, setVenueList] = useState([]);
   useEffect(() => {
       Axios.get('http://localhost:3001/admin/events/create').then(function(res) {
@@ -28,7 +29,7 @@ const VenueDropdown = (props) => {
         )}
     </select>
   )
-}
+}*/
 
 export default function CreateEvent() {
   const { loading, userData } = useLoginValidate();
@@ -67,12 +68,10 @@ export default function CreateEvent() {
         })
           .then((response) => {
             setMessage("Event created successfully.");
-            setEventDetails(true);
             history.push("/admin");
           })
           .catch((error) => {
             setMessage(error.response.data.err);
-            setEventDetails(false);
           });
 
     };

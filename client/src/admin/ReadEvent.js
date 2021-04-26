@@ -6,8 +6,31 @@ import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { useParams, useHistory} from 'react-router-dom';
+import VenueDropdown from "./Venue";
 
 let details = {};
+
+/*const VenueDropdown = (props) => {
+  const [venueList, setVenueList] = useState([]);
+  useEffect(() => {
+      Axios.get('http://localhost:3001/admin/events/create').then(function(res) {
+        console.log(res);
+        props.setEventDeatilsVenue(res.data[0].venue_id);
+        setVenueList(res.data);
+      });
+  }, []);
+  
+  return (
+    <select id="aligned-status" 
+        onChange={(e) => {
+          props.setEventDeatilsVenue(e.target.value);
+        }}>
+        {venueList.map(res =>
+            <option key={res.venue_id} value={res.venue_id}>{res.venue_name}</option>
+        )}
+    </select>
+  )
+}*/
 
 const ReadDetails = (props) => {
   Axios.defaults.withCredentials = true;
@@ -26,6 +49,7 @@ const ReadDetails = (props) => {
     return <BasePage> Loading data.... </BasePage>;
   }
 
+  
   return (
     <fieldset>
       <div className="pure-u-1-3"></div>
@@ -102,7 +126,13 @@ const ReadDetails = (props) => {
 }
 
 const UpdateDetails = (props) => {
-  const history = useHistory();
+
+    const history = useHistory();
+    const setEventDeatilsVenue = (venueId) => {
+      debugger;
+      props.setDetails({...props.details,venue_id:venueId});
+    }
+
     const updateEvent = () => {
       Axios.post("http://localhost:3001/admin/events/update", 
         props.details,
@@ -181,17 +211,12 @@ const UpdateDetails = (props) => {
             />
           </div>
 
+
           <div className="pure-control-group">
-            <label htmlFor="aligned-venue">Venue</label>
-            <input
-              type="text"
-              id="aligned-venue" placeholder="Venue" 
-              value={props.details.venue_id}
-              onChange={(e) => {
-                props.setDetails({...props.details,venue_id:e.target.value});
-              }}
-            />
-          </div>
+              <label htmlFor="aligned-venue">Venue {props.details.venue_id}</label>
+              <VenueDropdown setEventDeatilsVenue={setEventDeatilsVenue} selectedVenue={props.details.venue_id}/>
+            </div>
+           
 
           <div className="pure-control-group">
             <label htmlFor="aligned-capacity">Capacity</label>
