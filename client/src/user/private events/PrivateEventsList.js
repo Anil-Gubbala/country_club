@@ -30,7 +30,7 @@ export default function PrivateEventsList(props) {
   const [rowData, setRowData] = useState({});
 
   const handleBooking = () => {
-    if (eventName === "" || attendees > 200) {
+    if (eventName === "" || attendees > rowData.data.capacity) {
       setInvalid(true);
       return;
     } else {
@@ -120,7 +120,7 @@ export default function PrivateEventsList(props) {
         <FormControl>
           <TextField
             error={invalid}
-            helperText="Max: 200"
+            helperText={"Max: " + rowData.data.capacity}
             id="private-event-capacity"
             label="No of Attendees"
             type="number"

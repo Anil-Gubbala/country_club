@@ -29,7 +29,7 @@ export default function MyBookings() {
             <Typography>Events</Typography>
           </AccordionSummary>
           <AccordionDetails>
-              <PrivateEventBookings></PrivateEventBookings>
+             
           </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded={true}>
@@ -61,7 +61,7 @@ export default function MyBookings() {
             <Typography>Private Events</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <PrivateEventsHistory></PrivateEventsHistory>
+          <PrivateEventBookings></PrivateEventBookings>
           </AccordionDetails>
         </Accordion>
       </Box>
