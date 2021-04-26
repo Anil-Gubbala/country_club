@@ -20,7 +20,7 @@ export default function AdminHome() {
       <div>
         <Navi></Navi>
         <br/>
-        <div class="pure-controls">
+        <div className="pure-controls">
           <Link to="/admin/events/create" className="pure-button pure-button-primary margin10">Create New Event</Link>
           <Link to="/admin/booking" className="pure-button pure-button-primary margin10">Confirm Booking</Link>
         </div>

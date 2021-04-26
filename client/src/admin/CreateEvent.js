@@ -40,7 +40,6 @@ export default function CreateEvent() {
       status: "",
       venue_id: "",
       capacity: "",
-      no_of_participants: "",
       organized_by: "",
   };
   const history = useHistory();
@@ -155,17 +154,6 @@ export default function CreateEvent() {
                 id="aligned-capacity" placeholder="Capacity" 
                 onChange={(e) => {
                   setEventDetails({...eventDetails,capacity:e.target.value});
-                }}
-              />
-            </div>
-
-            <div className="pure-control-group">
-              <label htmlFor="aligned-participant">No of Participants</label>
-              <input
-                type="text"
-                id="aligned-participant" placeholder="No of Participants" 
-                onChange={(e) => {
-                  setEventDetails({...eventDetails,no_of_participants:e.target.value});
                 }}
               />
             </div>
