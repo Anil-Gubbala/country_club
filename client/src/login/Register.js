@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import "../App.css";
 import { Link } from "react-router-dom";
@@ -13,11 +13,15 @@ import {
   TextField,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import axios from "axios";
 
 export default function Registration() {
   Axios.defaults.withCredentials = true;
   const [registered, setRegisterd] = useState(false);
   const [message, setMessage] = useState("");
+  const [membershipType, setMembershipType] = useState([]);
+  const [dependentCount, setDependentCount] = useState(0);
+  const [dependentsInfo, setDependentsInfo] = useState([]);
   const [invalid, setInvalid] = useState({
     // user_id: false,
     password: false,
@@ -40,8 +44,31 @@ export default function Registration() {
     member_type: 0,
   };
   const [userDetails, setUserDetails] = useState(defaultValues);
-  
 
+  useEffect(() => {
+    axios.get("http://localhost:3001/getMembershipTypes").then((response) => {
+      if (response.data) {
+        setMembershipType(response.data);
+        console.log(response);
+      }
+    });
+  }, []);
+  const validateDependentInfo = () => {
+    let error = false;
+    let nameList = [];
+    dependentsInfo.forEach((each)=>{
+      if(each.name && each.name!== ""){
+        if(!each.relationship || (each.relationship && each.relationship === "")){
+          error =true;
+        }
+        if(nameList.includes(each.name)){
+          error = true;
+        }
+        nameList.push(each.name);
+      }
+    })
+    return error;
+  };
   const register = () => {
     if (
       // userDetails.user_id.trim().length < 5 ||
@@ -53,22 +80,28 @@ export default function Registration() {
       userDetails.email_id.trim() === "" ||
       userDetails.zip_code.length < 5
     ) {
-      setMessage("Input failed to match some requirements");
+      setMessage("Please fill all fields");
     } else if (
       // userDetails.user_id.includes(" ") ||
       userDetails.email_id.includes(" ") ||
       userDetails.zip_code.includes(" ") ||
       userDetails.password.includes(" ")
     ) {
-      setMessage(
-        "Space character not allowed in zip_code, password, email_id"
-      );
+      setMessage("Space character not allowed in zip_code, password, email_id");
+    } else if (
+      dependentCount > 0 && validateDependentInfo()
+    ){
+      setMessage("invalid dependents details");
     } else {
       Axios.post("http://localhost:3001/register", {
-        userDetails,
+        userDetails,dependentsInfo
       })
         .then((response) => {
-          setMessage("Registration success. Contact admin for approval");
+          setMessage(
+            'Your User ID is "' +
+              response.data.user_id +
+              '" Contact admin for approval'
+          );
           setRegisterd(true);
         })
         .catch((error) => {
@@ -111,13 +144,14 @@ export default function Registration() {
             }}
           />
         </FormControl> */}
-        
+
         <FormControl>
           <TextField
             helperText={invalid.first_name ? "1-25 characters" : ""}
             id="register-first-name"
             label="First Name"
             type="text"
+            required
             error={invalid.first_name}
             onChange={(e) => {
               const validation =
@@ -131,6 +165,7 @@ export default function Registration() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.last_name ? "1-25 characters" : ""}
             id="register-last-name"
             label="Last Name"
@@ -148,6 +183,7 @@ export default function Registration() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText="Minimum 5 characters"
             id="register-password"
             label="Password"
@@ -167,6 +203,7 @@ export default function Registration() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.email_id ? "1-25 characters" : ""}
             id="register-email-id"
             label="Email ID"
@@ -184,6 +221,7 @@ export default function Registration() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.street ? "1-25 characters" : ""}
             id="register-street"
             label="Street"
@@ -201,6 +239,7 @@ export default function Registration() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.city ? "1-25 characters" : ""}
             id="register-city"
             label="City"
@@ -218,6 +257,7 @@ export default function Registration() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText="5 digit zip code"
             id="register-zip-code"
             label="ZIP Code"
@@ -239,17 +279,62 @@ export default function Registration() {
             id="register-member-type"
             value={userDetails.member_type}
             onChange={(e) => {
-              setUserDetails({ ...userDetails, member_type: e.target.value });
+              setUserDetails({
+                ...userDetails,
+                member_type: membershipType[e.target.value].type_id,
+              });
+              setDependentCount(membershipType[e.target.value].dependent_count);
+              if(membershipType[e.target.value].dependent_count === 0){
+                setDependentsInfo ([]);
+              }
             }}
             defaultValue={0}
             inputProps={{ "aria-label": "Without label" }}
           >
-            <MenuItem value={0}>Silver</MenuItem>
-            <MenuItem value={1}>Gold</MenuItem>
-            <MenuItem value={2}>Platinum</MenuItem>
+            {membershipType.map((each, index) => {
+              return (
+                <MenuItem key={each.type_id} value={index}>
+                  {each.name}
+                </MenuItem>
+              );
+            })}
           </Select>
-          <FormHelperText>Select Membership Type</FormHelperText>
+          {membershipType.map((each) => {
+            return (
+              <FormHelperText key={each.type_id}>
+                {each.name + ": " + each.description}
+              </FormHelperText>
+            );
+          })}
         </FormControl>
+        {Array(dependentCount)
+          .fill(0)
+          .map((el, i) => {
+            return (
+              <div key={i}>
+                <TextField
+                  label={"Dependent" + (i + 1) + " Name"}
+                  type="text"
+                  onChange={(e) => {
+                    setDependentsInfo((old) => {
+                      old[i] = { ...old[i], name: e.target.value };
+                      return old;
+                    });
+                  }}
+                />
+                <TextField
+                  label={"Dependent" + (i + 1) + " Relationship"}
+                  type="text"
+                  onChange={(e) => {
+                    setDependentsInfo((old) => {
+                      old[i] = { ...old[i], relationship: e.target.value };
+                      return old;
+                    });
+                  }}
+                />
+              </div>
+            );
+          })}
         <FormControl>
           <Button variant="contained" color="primary" onClick={register}>
             Register
