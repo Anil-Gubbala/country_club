@@ -16,6 +16,29 @@ const UserDetails = (props) => {
     let { id } = useParams();
     const [loading, setLoading] = useState(true);
 
+    const history = useHistory();
+    const approveUser = () =>{
+      Axios.post('http://localhost:3001/admin/approvependinguser' + id)
+        .then((response) => {
+          history.push("/admin");
+        })
+        .catch((error) => {
+        });
+    }
+
+    const deleteUser = () =>{
+      Axios.delete('http://localhost:3001/admin/deleteuser' + id)
+        .then((response) => {
+          history.push("/admin");
+        })
+        .catch((error) => {
+        });
+    }
+
+    const goBackToAdmin = () =>{
+      history.push("/admin");
+    }
+
     Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
       console.log(res);
       userDetail = res.data;
@@ -76,7 +99,7 @@ const UserDetails = (props) => {
             {
               userDetail.status === 'pending' &&
               <div className="pure-u-1-6">
-                <button className="pure-button pure-button-primary" onClick={() => approveMember()}>
+                <button className="pure-button pure-button-primary" onClick={() => approveUser()}>
                     Approve Member
                 </button>
               </div>
@@ -91,38 +114,35 @@ const UserDetails = (props) => {
                   Delete User
               </button>
             </div>
+            <div className="pure-u-1-6">
+            <button className="pure-button pure-button-primary" onClick={() => goBackToAdmin()}>
+                  Go Back
+              </button>
+            </div>
           </div>
       </fieldset>
     );
 }
 
-const UpdateUserDetails = () => {
-  const [loading, setLoading] = useState(true);
-  const defaultValues = {
-    street: "",
-    city: "",
-    zip_code: "",
-    start_date: "",
-    end_date: "",
-    membership_type: "",
-    
+const UpdateUserDetails = (props) => {
+  
+  const history = useHistory();
+  const updateUserDetails = () => {
+    // Axios.post("http://localhost:3001/admin/events/update", 
+    //   props.details,
+    // )
+    //   .then((response) => {
+    //     history.push("/admin");
+    //   })
+    //   .catch((error) => {
+    //   });
+
   };
-  const [userDetails, setUserDetails] = useState(defaultValues);
-  let { id } = useParams();
 
-  Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
-    console.log(res.data);
-    //setEventDetails(res.data);
-    setLoading(false);
-  });
+  const cancelUpdate = () => {} 
 
-  if (loading) {
-    return <BasePage> Loading data.... </BasePage>;
-  }
   return (
-    <fieldset>
-
-      <div className="pure-u-1-3"></div>
+    <fieldset className="user-details">
           <div className="pure-control-group">
             <label htmlFor="aligned-name">First Name: </label>
             <label id="aligned-name">{userDetail.f_name}</label>
@@ -133,24 +153,24 @@ const UpdateUserDetails = () => {
             <label id="aligned-name">{userDetail.l_name}</label>
           </div>
 
-      <div className="pure-u-1-3">
+     
         <div className="pure-control-group">
-          <label htmlFor="aligned-name">Street</label>
+          <label htmlFor="aligned-name">Street:</label>
           <input
             type="text"
-            id="aligned-name" placeholder="Event Name" 
-            value={userDetail.street}
+            id="aligned-name" placeholder="Street" 
+            value={props.userDetail.street}
             onChange={(e) => {
-              setUserDetails({...userDetails,street:e.target.value});
+              props.setUserDetails({...props.userDetails,street:e.target.value});
             }}
           />
         </div>
         
         <div className="pure-control-group">
-          <label htmlFor="aligned-description">City</label>
+          <label htmlFor="aligned-description">City:</label>
           <input
             type="text"
-            id="aligned-description" placeholder="Event Description" 
+            id="aligned-description" placeholder="City" 
             value={userDetail.city}
             onChange={(e) => {
               //setEventDetails({...eventDetails,e_description:e.target.value});
@@ -159,10 +179,10 @@ const UpdateUserDetails = () => {
         </div>
 
         <div className="pure-control-group">
-          <label htmlFor="aligned-description">Zip code</label>
+          <label htmlFor="aligned-description">Zip code:</label>
           <input
             type="text"
-            id="aligned-description" placeholder="Event Description" 
+            id="aligned-description" placeholder="Zip-Code" 
             value={userDetail.zip_code}
             onChange={(e) => {
               //setEventDetails({...eventDetails,e_description:e.target.value});
@@ -171,7 +191,7 @@ const UpdateUserDetails = () => {
         </div>
 
         <div className="pure-control-group">
-          <label htmlFor="aligned-start-date">Start Date</label>
+          <label htmlFor="aligned-start-date">Start Date:</label>
           <input
             type="date"
             id="aligned-start-date"
@@ -183,7 +203,7 @@ const UpdateUserDetails = () => {
         </div>
 
         <div className="pure-control-group">
-          <label htmlFor="aligned-end-date">End Date</label>
+          <label htmlFor="aligned-end-date">End Date:</label>
           <input
             type="date"
             id="aligned-end-date"
@@ -195,10 +215,10 @@ const UpdateUserDetails = () => {
         </div>
 
         <div className="pure-control-group">
-          <label htmlFor="aligned-status">Membership</label>
+          <label htmlFor="aligned-status">Membership:</label>
           <input
             type="text"
-            id="aligned-status" placeholder="Event Status" 
+            id="aligned-status" placeholder="Membership" 
             value={userDetail.membership_type}
             onChange={(e) => {
               //setEventDetails({...eventDetails,status:e.target.value});
@@ -211,7 +231,12 @@ const UpdateUserDetails = () => {
               Update User
           </button>
         </div>
-      </div>
+        <div className="pure-controls">
+          <button className="pure-button pure-button-primary" onClick={cancelUpdate()}>
+              Cancel
+          </button>
+        </div>
+      
 
       <div className="pure-u-1-3"></div>
         
@@ -222,40 +247,40 @@ const UpdateUserDetails = () => {
 
 const Details = () => {
   const [showDetails, setShowDetails] = useState(true);
-  const updateUserDetails = () => {
+  const [userDetails, setUserDetails] = useState({});
+
+  const updateUserDetails = (details) => {
+    setUserDetails(details);
     setShowDetails(false);
   }
 
+  const cancelUpdate = () =>{
+    setShowDetails(true);
+  }
+
+  // const deleteUser = () =>{
+  //   setShowDetails(true);
+  // }
+
+  // const approveUser =() =>{
+  //   setShowDetails(true);
+  // }
+
+
+  //deleteUser={deleteUser} approveUser={approveUser}
   if (showDetails){
     return (
-      <UserDetails updateUserDetails={updateUserDetails}/>
+      <UserDetails updateUserDetails={updateUserDetails} cancelUpdate={cancelUpdate} />
+      
     )
   } else {
     return (
-      <UpdateUserDetails/>
+      <UpdateUserDetails details={userDetails} setUserDetails={setUserDetails}/>
     )
   }
   
 }
 
-const approveMember = () =>{
-
-  Axios.defaults.withCredentials = true;
-  
-  let id = userDetail.user_id;
-  console.log(id);
-  Axios.put('http://localhost:3001/admin/approvependinguser/', id).then(function(res){
-     console.log(res);
-  })
-}
-
-const deleteUser = () =>{
-  let id = userDetail.user_id;
-  console.log(id);
-  Axios.delete('http://localhost:3001/admin/deleteuser' + id).then(function(res){
-    console.log(res);
- })
-}
 export default function ViewUserDetails() {
   Axios.defaults.withCredentials = true;
   const { loading, userData } = useLoginValidate();
