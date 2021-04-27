@@ -98,15 +98,24 @@ create table time_slot
 	primary key(ts_id)
 );
 
+create table sport_time
+ (
+	ts_id int auto_increment not null,
+	sport_id int not null,
+	primary key(ts_id, sport_id),
+	foreign key (sport_id) references sports(sport_id) on delete cascade on update cascade,
+	foreign key (ts_id) references time_slot (ts_id) on delete cascade on update cascade
+ );
+
 create table sports_booking
 (
-	booking_id int auto_increment not null,
+	booking_id int auto_increment unique,
 	status varchar(25),
 	booking_date date,
 	sport_id int not null,
 	user_id int not null,
 	ts_id int not null,
-	primary key(booking_id),
+	primary key(user_id,sport_id),
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade,
 	foreign key (sport_id) references sports(sport_id) on delete cascade on update cascade,
 	foreign key (ts_id) references time_slot (ts_id) on delete cascade on update cascade
@@ -191,9 +200,6 @@ alter table dining auto_increment = 1001;
 alter table reservation auto_increment = 1001;
 alter table party auto_increment = 1001;
 
-<<<<<<< HEAD
-
-=======
 -- -------------------------------------------------------------
 -- ---DEFAUTL DATA (If Admin side add these insertion, we can remove from here)--------------------
 -- ----------------------------------------------------------------
@@ -223,6 +229,5 @@ INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES
 
 -- root or admin
 INSERT INTO countryclub.user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1001', 'admin', '1', 'admin@gmail.com', 'admin', 'admin', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', '1');
->>>>>>> e933bbe788adcc1451c96d334ed1ab16694b1e9b
 
 
