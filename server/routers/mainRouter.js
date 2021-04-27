@@ -15,7 +15,7 @@ router.route('/getMembershipTypes').get(getMembershipTypes)
 
 router.route('/admin/users').get(getUsers)
 router.route('/admin/pendingusers').get(getPendingUsers)
-router.route('admin/approvependinguser/:id').put(approvePendingUser)
+router.route('admin/approvependinguser/:id').post(approvePendingUser)
 router.route('admin/deleteuser/:id').delete(deleteUser)
 router.route('admin/createnewadmin').post(createNewAdmin)
 

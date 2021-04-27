@@ -35,7 +35,7 @@ function App() {
           <Route path="/user/myBookings" exact render={(props) => <MyBookings />} />
           <Route path="/admin/events/details/:id" exact render={(props) => <AdminReadEvent />} />
           <Route path="/admin/users/details/:id" exact render={(props) => <AdminUserDetails />} />
-          <Route path="/admin/users" exact render={(props) => <AdminUserList />} />
+          <Route path="/admin/user" exact render={(props) => <AdminUserList />} />
           <Route path="/admin/createnewadmin" exact render={(props) => <AdminCreateAdmin />} />
           <Route path="*">
             <ErrorPath></ErrorPath>
