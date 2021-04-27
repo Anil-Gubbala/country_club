@@ -181,17 +181,6 @@ alter table dining auto_increment = 1001;
 alter table reservation auto_increment = 1001;
 alter table party auto_increment = 1001;
 
--- -------------------------------------------------------------
--- ---DEFAUTL DATA--------------------
--- ----------------------------------------------------------------
--- venue data. 
-INSERT INTO venue (venue_id, venue_name,venue_type) VALUES(0,"hall_1",0);
-INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1,"hall_2",0);
-INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (2,"hall_3",0);
--- membership_type
 
-INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "Can book all events except private hall");
-INSERT INTO membership_type (type_id, name,  description) VALUES (1, "Gold", "Can book all events");
-INSERT INTO membership_type (type_id, name,  description) VALUES (2, "Platinum", "Can book all events & ");
 
 

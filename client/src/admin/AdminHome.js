@@ -23,11 +23,9 @@ export default function AdminHome() {
         <div class="pure-controls">
           <Link to="/admin/events/create" className="pure-button pure-button-primary margin10">Create New Event</Link>
           <Link to="/admin/booking" className="pure-button pure-button-primary margin10">Confirm Booking</Link>
+          <Link to="/admin/user" className="pure-button pure-button-primary margin10">Update User Details</Link>
+          <Link to="/admin/createnewadmin" className="pure-button pure-button-primary">Add New Admin</Link>
         </div>
-        
-        <br/>
-        <br/>
-        <Link to="/admin/user" className="pure-button pure-button-primary">Update User Details</Link>
         <br/>
         <br/>
         <PendingUserList/>

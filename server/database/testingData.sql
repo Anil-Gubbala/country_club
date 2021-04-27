@@ -1,7 +1,6 @@
 -- test data
 
 -- user (f_name, l_name, email_id, street, city, zip_code, password, auth_id, status)
-insert into user (f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) values('Esha', 'Sah', 'e.sah@g.com', 'Washington Street', 'San Jose', '95112', 'pass@1234$', 1, 'confirmed');
 insert into user (f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) values('John', 'Smith', 'j.smi@g.com', 'Saint James Street', 'San Jose', '95101', 'pass@1234$', 0,'cancelled');
 insert into user (f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) values('Melissa', 'Jones', 'mj@g.com', 'Cahill Street', 'San Jose', '95106', 'pass@1234$', 0, 'confirmed');
 insert into user (f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) values('Amit', 'Singh', 'am.singh@g.com', 'Almaden Blvd', 'San Jose', '95110', 'pass@1234$', 0, 'confirmed');
@@ -16,18 +15,18 @@ insert into status values('pending');
 insert into status values('cancelled');
 
 -- member (user_id, membership_type, start_date, end_date)
-insert into member values(1002, 'gold', '2019-05-01', '2020-04-30');
-insert into member values(1003, 'gold', '2021-01-01', '2021-12-31');
-insert into member values(1004, 'platinum', '2021-04-05', '2022-04-04');
-insert into member values(1005, 'silver', '2020-10-17', '2021-10-16');
-insert into member values(1006, 'platinum', '2021-04-17', '2022-04-16');
-insert into member values(1007, 'gold', '2021-04-17', '2022-04-16');
-insert into member values(1008, 'platinum', '2021-02-01', '2022-01-31');
+insert into member values(1002, 1, '2019-05-01', '2020-04-30');
+insert into member values(1003, 1, '2021-01-01', '2021-12-31');
+insert into member values(1004, 2, '2021-04-05', '2022-04-04');
+insert into member values(1005, 0, '2020-10-17', '2021-10-16');
+insert into member values(1006, 2, '2021-04-17', '2022-04-16');
+insert into member values(1007, 1, '2021-04-17', '2022-04-16');
+-- insert into member values(1008, 'platinum', '2021-02-01', '2022-01-31');
 
 -- membership_type
-insert into membership_type values('gold');
-insert into membership_type values('silver');
-insert into membership_type values('platinum');
+INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "Can book all events except private hall");
+INSERT INTO membership_type (type_id, name,  description) VALUES (1, "Gold", "Can book all events");
+INSERT INTO membership_type (type_id, name,  description) VALUES (2, "Platinum", "Can book all events & ");
 
 -- dependent (name, user_id, relationship)
 insert into dependent values('Monica', 1002, 'spouse');
