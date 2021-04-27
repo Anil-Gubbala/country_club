@@ -2,8 +2,10 @@ const express = require('express')
 const { getLogin, registerUser, logout, setLogin, getMembershipTypes } = require('../controllers/mainController')
 const { createEvent, getEvents, readEvent, getVenue, updateEvent} = require('../controllers/eventsController')
 const router = express.Router()
+
 const {partyGetVenues, partyInsert,partyGetBookings, cancelParty} = require('../controllers/partyController')
 const { getPendingUsers, getUsers, getUsersById, approvePendingUser, deleteUser, createNewAdmin } = require('../controllers/adminController')
+const {getAllSports,getBookingSlot,sportsBookingInsert,cancelSportsBooking,getSportsHistory, postBookiongStatus} = require('../controllers/sportsController')
 
 
 router.route('/register').post(registerUser)
@@ -30,7 +32,12 @@ router.route('/user/partyInsert').post(partyInsert)
 router.route('/user/partyGetBookings').get(partyGetBookings)
 router.route('/user/cancelParty').post(cancelParty)
 
-
+router.route('/user/getAllSports').get(getAllSports)
+router.route('/user/getBookingSlot').get(getBookingSlot)
+router.route('/user/sportsBookingInsert').post(sportsBookingInsert)
+router.route('/user/cancelSportsBooking').post(cancelSportsBooking)
+router.route('/user/getSportsHistory').get(getSportsHistory)
+router.route('/user/bookingSlot').post(postBookiongStatus)
 
 
 module.exports = router

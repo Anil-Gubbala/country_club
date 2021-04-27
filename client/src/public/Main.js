@@ -11,6 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";  
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import PrivateEventsList from "../user/private events/PrivateEventsList";
+import SportsList from "../user/sports/SportsList";
 
 export default function Main() {
   const { loading, userData } = useLoginValidate();
@@ -52,7 +53,9 @@ export default function Main() {
         >
           <Typography>Sports</Typography>
         </AccordionSummary>
-        <AccordionDetails>Add sports component here</AccordionDetails>
+        <AccordionDetails>
+          <SportsList  date={startDate.toJSON().substr(0, 10)}></SportsList>
+        </AccordionDetails>
       </Accordion>
       <Accordion
         disabled={userData.user_id ? false : true}

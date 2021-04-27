@@ -14,6 +14,8 @@ import MyBookings from "./user/MyBookings";
 import AdminUserDetails from "./admin/ViewUserDetails";
 import AdminUserList from "./admin/UserList";
 import AdminCreateAdmin from "./admin/CreateNewAdmin"
+import SportsBooking from "./user/sports/SportsBooking";
+import SportsList from "./user/sports/SportsList";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
           <Route path="/admin/users/details/:id" exact render={(props) => <AdminUserDetails />} />
           <Route path="/admin/user" exact render={(props) => <AdminUserList />} />
           <Route path="/admin/createnewadmin" exact render={(props) => <AdminCreateAdmin />} />
+          <Route path="/admin/users/sports" exact render={(props) => <SportsBooking />} />
+          <Route path="/admin/users/sportsList" exact render={(props) => <SportsList />} />
           <Route path="*">
             <ErrorPath></ErrorPath>
           </Route>

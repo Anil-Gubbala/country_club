@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PrivateEventsHistory from "./private events/PrivateEventsHistory";
 import PrivateEventBookings from "./private events/PrivateEventBookings";
+import SportsHistory from "./sports/SportsHistory";
 import { Link } from "react-router-dom";
 
 export default function MyBookings() {
@@ -40,7 +41,9 @@ export default function MyBookings() {
           >
             <Typography>Sports</Typography>
           </AccordionSummary>
-          <AccordionDetails>Add sports component here</AccordionDetails>
+          <AccordionDetails>
+              <SportsHistory></SportsHistory>
+            </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded={true}>
           <AccordionSummary
