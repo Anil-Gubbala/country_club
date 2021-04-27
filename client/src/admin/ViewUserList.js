@@ -19,7 +19,7 @@ export default function ViewUserList() {
         <div>
         <Navi></Navi>
         <div className="pure-form pure-form-aligned">
-          <h1 style={{textAlign:"center"}}>Veiw User List</h1>
+          <h1 style={{textAlign:"center"}}>User List</h1>
           <UserList/>
         </div>
       </div>

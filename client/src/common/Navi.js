@@ -15,25 +15,11 @@ const Navi = () => {
             Home
           </Link>
         </li>
-        <li className="pure-menu-item">
+        {!userData.user_id && <li className="pure-menu-item">
           <Link to="/registration" className="pure-menu-link">
             Register
           </Link>
-        </li>
-        {!userData.user_id && (
-          <li className="pure-menu-item">
-            <Link to="/login" className="pure-menu-link">
-              Login
-            </Link>
-          </li>
-        )}
-        {userData.user_id && (
-          <li className="pure-menu-item">
-            <Link to="/logout" className="pure-menu-link">
-              Logout
-            </Link>
-          </li>
-        )}
+        </li>}
         {userData.user_id && userData.auth_id === 1 && (
           <li className="pure-menu-item">
             <Link to="/admin" className="pure-menu-link">
@@ -45,6 +31,20 @@ const Navi = () => {
           <li className="pure-menu-item">
             <Link to="/user/myBookings" className="pure-menu-link">
               My Bookings
+            </Link>
+          </li>
+        )}
+        {!userData.user_id && (
+          <li className="pure-menu-item">
+            <Link to="/login" className="pure-menu-link">
+              Login
+            </Link>
+          </li>
+        )}
+        {userData.user_id && (
+          <li className="pure-menu-item">
+            <Link to="/logout" className="pure-menu-link">
+              Logout
             </Link>
           </li>
         )}
