@@ -1,14 +1,16 @@
 const db = require("../database/dbConnector");
 const {
   PARTY_GET_VENUE,
-  PARTY_INSERT,PARTY_MYBOOKINGS,
+  PARTY_INSERT,
+  PARTY_MYBOOKINGS,
+  PARTY_CANCEL,
 } = require("../database/SQL/Party/privatePartySQL");
 const { v4: uuidv4 } = require("uuid");
 
 const partyGetVenues = (req, res) => {
   db.query(
     PARTY_GET_VENUE,
-    [0, req.query.date, req.query.date],
+    ["private_party", req.query.date, req.query.date],
     (error, result) => {
       if (error) {
         res.status(404).send({ err: error.code });
@@ -29,7 +31,14 @@ const partyInsert = (req, res) => {
   }
   db.query(
     PARTY_INSERT,
-    [uuidv4(), req.session.user.user_id, req.body.event_name, req.body.venue_id,req.body.start_date,req.body.end_date,req.body.no_of_attendees],
+    [
+      req.session.user.user_id,
+      req.body.event_name,
+      req.body.venue_id,
+      req.body.start_date,
+      req.body.end_date,
+      req.body.no_of_attendees,
+    ],
     (error, result) => {
       if (error) {
         res.status(404).send({ err: error.code });
@@ -43,23 +52,39 @@ const partyInsert = (req, res) => {
   );
 };
 
-const partyGetBookings = (req,res) => {
+const partyGetBookings = (req, res) => {
   if (!req.session.user) {
     res.status(404).send({ err: "Invalid user session" });
     return;
   }
-  db.query(PARTY_MYBOOKINGS,[req.session.user.user_id],((error, result)=>{
-    if(error){
+  db.query(PARTY_MYBOOKINGS, [req.session.user.user_id], (error, result) => {
+    if (error) {
       res.status(404).send({ err: error.code });
-    }else if(result.length == 0){
+    } else if (result.length == 0) {
       res.send([]);
-    }else{
+    } else {
       res.send(result);
     }
-  }))
-}
+  });
+};
+
+const cancelParty = (req, res) => {
+  if (!req.session.user) {
+    res.status(404).send({ err: "Invalid user session" });
+    return;
+  }
+  db.query(PARTY_CANCEL, [req.body.party_id], (error, result) => {
+    if (error) {
+      res.status(404).send({ err: error.code });
+    } else {
+      res.send(result);
+    }
+  });
+};
 
 module.exports = {
   partyGetVenues,
-  partyInsert,partyGetBookings
+  partyInsert,
+  partyGetBookings,
+  cancelParty,
 };

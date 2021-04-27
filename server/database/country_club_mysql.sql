@@ -16,9 +16,13 @@ create table user (
   	primary key (user_id)
 );
 
-create table status
+create table user_status
 (
-	status_name varchar(25) not null unique
+	status varchar(25) not null unique
+);
+create table event_status
+(
+	status varchar(25) not null unique
 );
 
 -- membership_type: used for dropdown
@@ -26,7 +30,8 @@ create table membership_type
 (
 	type_id int not null unique,
 	name varchar(15) not null,
-	description varchar(50) not null
+	description varchar(100) not null,
+	dependent_count int not null
 );
 
 create table member
@@ -45,7 +50,7 @@ create table dependent
 (
 	name varchar(100) not null,
 	user_id int not null,
-	relationship varchar(50),
+	relationship varchar(50) default "Family Member" not null,
 	primary key (user_id, name),
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade
 );
@@ -56,19 +61,23 @@ create table relationship
 	r_name varchar(50) not null unique
 );
 
-create table venue
-(
-	venue_id int auto_increment not null,
-	venue_name varchar(50),
-	venue_type varchar(25) not null,
-	primary key (venue_id)    
-);
-
 -- venue_type: used for dropdown
 create table venue_type
 (
 	venue_type varchar(25) not null unique
 );
+
+create table venue
+(
+	venue_id int auto_increment not null,
+	venue_name varchar(50) not null,
+	capacity int not null,
+	venue_type varchar(25) not null, 
+	primary key (venue_id),
+	foreign key (venue_type) references venue_type (venue_type) on update cascade on delete cascade    
+);
+
+
 
 create table sports
 (
@@ -117,7 +126,8 @@ create table event
 	organized_by int not null,
 	primary key (event_id),
 	foreign key(venue_id) references venue(venue_id) on update cascade on delete cascade,
-	foreign key (organized_by) references user (user_id) on update cascade on delete cascade
+	foreign key (organized_by) references user (user_id) on update cascade on delete cascade,
+	foreign key (status) references event_status(status) on update cascade on delete cascade
 );
 
 create table event_booking
@@ -159,12 +169,12 @@ create table reservation (
 Create table party (
 	party_id int auto_increment not null, 
 	hosted_by int not null,
-	p_name varchar(50),
+	p_name varchar(50) not null,
 	hosted_at int not null,
-	start_date date,
-	end_date date,
-	no_of_attendees int,
-	status varchar(25),
+	start_date date not null,
+	end_date date not null ,
+	no_of_attendees int not null,
+	status varchar(25) default "Confirmed" not null,
 	primary key (party_id),
 	foreign key (hosted_by) references user(user_id) on update cascade on delete cascade,
 	foreign key (hosted_at) references venue(venue_id) on update cascade on delete cascade
@@ -181,6 +191,38 @@ alter table dining auto_increment = 1001;
 alter table reservation auto_increment = 1001;
 alter table party auto_increment = 1001;
 
+<<<<<<< HEAD
 
+=======
+-- -------------------------------------------------------------
+-- ---DEFAUTL DATA (If Admin side add these insertion, we can remove from here)--------------------
+-- ----------------------------------------------------------------
+-- event status
+insert into event_status(status) values("Confirmed");
+insert into event_status(status) values("Cancelled");
+insert into event_status(status) values("Modified");
+insert into event_status(status) values("Pending");
+
+-- user status
+insert into user_status(status) values("Pending");
+insert into user_status(status) values("Active");
+insert into user_status(status) values("Expired");
+
+-- venue type
+INSERT INTO venue_type (venue_type) VALUES("private_party");
+
+-- venue data. 
+INSERT INTO venue (venue_id, venue_name,venue_type, capacity) VALUES(0,"Hall 01","private_party",50);
+INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (1,"Hall 02","private_party",100);
+INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (2,"Hall 03","private_party",25);
+
+-- membership_type
+INSERT INTO membership_type (type_id, name, description,dependent_count) VALUES (0, "Silver", "eligible to participate in all events",0);
+INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES (1, "Gold", "Silver user privileges + elgible to enroll 2 dependents",2);
+INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES (2, "Platinum", "Gold user privileges + access to organize own private events",2);
+
+-- root or admin
+INSERT INTO countryclub.user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1001', 'admin', '1', 'admin@gmail.com', 'admin', 'admin', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', '1');
+>>>>>>> e933bbe788adcc1451c96d334ed1ab16694b1e9b
 
 
