@@ -17,10 +17,17 @@ const UserDetails = (props) => {
     const [loading, setLoading] = useState(true);
 
     const history = useHistory();
+
+    const goBackToAdmin = () =>{
+      history.push("/admin");
+    }
     const approveUser = () =>{
+      console.log('in method approveUser');
+      console.log('ID:' + id);
       Axios.post('http://localhost:3001/admin/approvependinguser' + id)
-        .then((response) => {
-          history.push("/admin");
+        .then(function(response) {
+          console.log('success');
+          //history.push("/admin");
         })
         .catch((error) => {
         });
@@ -33,10 +40,6 @@ const UserDetails = (props) => {
         })
         .catch((error) => {
         });
-    }
-
-    const goBackToAdmin = () =>{
-      history.push("/admin");
     }
 
     Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
@@ -94,12 +97,11 @@ const UserDetails = (props) => {
           <br/>
           <br/>
           <div className="pure-control-group">
-            <div className="pure-u-1-6">
-            </div>
+            
             {
               userDetail.status === 'pending' &&
               <div className="pure-u-1-6">
-                <button className="pure-button pure-button-primary" onClick={() => approveUser()}>
+                <button className="pure-button pure-button-primary" onClick={approveUser}>
                     Approve Member
                 </button>
               </div>
@@ -110,13 +112,13 @@ const UserDetails = (props) => {
               </button>
             </div>
             <div className="pure-u-1-6">
-            <button className="pure-button pure-button-primary" onClick={() => deleteUser()}>
+            <button className="pure-button pure-button-primary" onClick={deleteUser}>
                   Delete User
               </button>
             </div>
             <div className="pure-u-1-6">
-            <button className="pure-button pure-button-primary" onClick={() => goBackToAdmin()}>
-                  Go Back
+            <button className="pure-button pure-button-primary" onClick={goBackToAdmin}>
+                  Go Back to Admin
               </button>
             </div>
           </div>
@@ -232,7 +234,7 @@ const UpdateUserDetails = (props) => {
           </button>
         </div>
         <div className="pure-controls">
-          <button className="pure-button pure-button-primary" onClick={cancelUpdate()}>
+          <button className="pure-button pure-button-primary" onClick={cancelUpdate}>
               Cancel
           </button>
         </div>
