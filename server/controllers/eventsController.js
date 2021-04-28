@@ -92,12 +92,33 @@ const updateEvent = (req, res) => {
             capacity,
             organized_by,
             event_id
+         ], (err, results, fields) => {
+
+        if (err) {
+            console.log(err);
+            res.status(404).send({
+                err: err.errno === 1062 ? "Error updating event" : err.code
+            });
+        } else {
+            res.status(200).send({ success : true });
+        }
+    });
+}
+
+
+const deleteEvent = (req, res) => {
+    const {
+        event_id
+    } = req.body;
+    db.query(SQL_EVENTS.DELETE_EVENT,
+        [
+            event_id
          ], (error, results, fields) => {
 
         if (error) {
             console.log(err);
             res.status(404).send({
-                err: err.errno === 1062 ? "Error creating new event" : err.code
+                err: err.errno === 1062 ? "Error deleting event" : err.code
             });
         } else {
             res.status(200).send({ success : true });
@@ -111,5 +132,6 @@ module.exports = {
   getEvents,
   readEvent,
   getVenue,
-  updateEvent
+  updateEvent,
+  deleteEvent
 };
