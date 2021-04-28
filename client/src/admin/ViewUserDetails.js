@@ -34,6 +34,8 @@ const UserDetails = (props) => {
     }
 
     const deleteUser = () =>{
+      console.log('in method deleteUser');
+      console.log('ID:' + id);
       Axios.delete('http://localhost:3001/admin/deleteuser' + id)
         .then((response) => {
           history.push("/admin");
