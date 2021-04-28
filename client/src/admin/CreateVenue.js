@@ -11,14 +11,14 @@ import "../App.css";
 export default function CreateVenue() {
   const { loading, userData } = useLoginValidate();
   const defaultValues = {
-      venue_name: "",
-      venue_type: "",
+    venue_name: "",
+    venue_type: "",
   };
   const history = useHistory();
   const [message, setMessage] = useState("");
   const [venueDetails, setVenueDetails] = useState(defaultValues);
-  
-  
+
+
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
   }
@@ -32,16 +32,16 @@ export default function CreateVenue() {
 
     const createVenue = () => {
 
-        Axios.post("http://localhost:3001/admin/venue/create", {
-            venueDetails,
+      Axios.post("http://localhost:3001/admin/venue/create", {
+        venueDetails,
+      })
+        .then((response) => {
+          setMessage("Venue added successfully.");
+          history.push("/admin");
         })
-          .then((response) => {
-            setMessage("Venue added successfully.");
-            history.push("/admin");
-          })
-          .catch((error) => {
-            setMessage(error.response.data.err);
-          });
+        .catch((error) => {
+          setMessage(error.response.data.err);
+        });
 
     };
 
@@ -49,19 +49,19 @@ export default function CreateVenue() {
       <div>
         <Navi></Navi>
         <div className="pure-form pure-form-aligned">
-          <h1 style={{textAlign:"center"}}>Create Event</h1>
+          <h1 style={{ textAlign: "center" }}>Create Event</h1>
 
           <div className="pure-u-1-3"></div>
 
           <div className="pure-u-1-3">
-            
+
             <div className="pure-control-group">
               <label htmlFor="aligned-description">Venue Name</label>
               <input
                 type="text"
-                id="aligned-description" placeholder="Venue Name" 
+                id="aligned-description" placeholder="Venue Name"
                 onChange={(e) => {
-                    setVenueDetails({...venueDetails,venue_name:e.target.value});
+                  setVenueDetails({ ...venueDetails, venue_name: e.target.value });
                 }}
               />
             </div>
@@ -70,9 +70,9 @@ export default function CreateVenue() {
               <label htmlFor="aligned-description">Venue Type</label>
               <input
                 type="text"
-                id="aligned-description" placeholder="Venue Type" 
+                id="aligned-description" placeholder="Venue Type"
                 onChange={(e) => {
-                    setVenueDetails({...venueDetails,venue_type:e.target.value});
+                  setVenueDetails({ ...venueDetails, venue_type: e.target.value });
                 }}
               />
             </div>
@@ -80,11 +80,11 @@ export default function CreateVenue() {
 
             <div className="pure-controls">
               <button className="pure-button pure-button-primary" onClick={createVenue}>
-                  Add New Venue
+                Add New Venue
               </button>
             </div>
           </div>
-          
+
           <div className="pure-u-1-3"></div>
 
           <div>{message}</div>

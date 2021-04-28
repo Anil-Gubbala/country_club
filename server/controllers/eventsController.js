@@ -78,7 +78,6 @@ const updateEvent = (req, res) => {
         status,
         venue_id,
         capacity,
-        organized_by,
         event_id
     } = req.body;
     db.query(SQL_EVENTS.UPDATE_EVENT,
@@ -90,7 +89,6 @@ const updateEvent = (req, res) => {
             status,
             venue_id,
             capacity,
-            organized_by,
             event_id
          ], (err, results, fields) => {
 
