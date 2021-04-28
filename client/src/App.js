@@ -13,6 +13,8 @@ import BasePage from "./common/BasePage";
 import MyBookings from "./user/MyBookings";
 import AdminUserDetails from "./admin/ViewUserDetails";
 import AdminUserList from "./admin/UserList";
+import AdminCreateVenue from "./admin/CreateVenue";
+import AdminReadVenue from "./admin/ReadVenue";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
           <Route path="/admin/events/details/:id" exact render={(props) => <AdminReadEvent />} />
           <Route path="/admin/users/details/:id" exact render={(props) => <AdminUserDetails />} />
           <Route path="/admin/users" exact render={(props) => <AdminUserList />} />
+          <Route path="/admin/venue/create" exact render={(props) => <AdminCreateVenue />} />
+          <Route path="/admin/venue/details/:id" exact render={(props) => <AdminReadVenue />} />
           <Route path="*">
             <ErrorPath></ErrorPath>
           </Route>

@@ -7,6 +7,7 @@ import BasePage from "../common/BasePage";
 import { Link } from "react-router-dom";
 import EventList from './EventList';
 import PendingUserList from "./PendingUserList";
+import ListofAvailableVenues from "./VenueList";
 
 export default function AdminHome() {
   const { loading, userData } = useLoginValidate();
@@ -23,6 +24,7 @@ export default function AdminHome() {
         <div className="pure-controls">
           <Link to="/admin/events/create" className="pure-button pure-button-primary margin10">Create New Event</Link>
           <Link to="/admin/booking" className="pure-button pure-button-primary margin10">Confirm Booking</Link>
+          <Link to="/admin/venue/create" className="pure-button pure-button-primary margin10">Add New Venue</Link>
         </div>
         
         <br/>
@@ -34,6 +36,9 @@ export default function AdminHome() {
         <br/>
         <br/>
         <EventList/>
+        <br/>
+        <br/>
+        <ListofAvailableVenues/>
       </div>
     );
   } else {

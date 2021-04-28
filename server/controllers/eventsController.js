@@ -92,9 +92,9 @@ const updateEvent = (req, res) => {
             capacity,
             organized_by,
             event_id
-         ], (error, results, fields) => {
+         ], (err, results, fields) => {
 
-        if (error) {
+        if (err) {
             console.log(err);
             res.status(404).send({
                 err: err.errno === 1062 ? "Error updating event" : err.code

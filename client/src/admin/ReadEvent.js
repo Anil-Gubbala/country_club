@@ -194,14 +194,13 @@ const UpdateDetails = (props) => {
           <div className="pure-control-group">
             <label htmlFor="aligned-status">Event Status</label>
             <select id="aligned-status" 
-              value={props.details.status}
               onChange={(e) => {
                 props.setDetails({...props.details,status:e.target.value});
               }}>
               <option value="Please select">Please Select</option>
               <option value="Confirmed">Confirmed</option>
               <option value="Cancelled">Cancelled</option>
-          </select>  
+          </select>             
           </div>
 
 
