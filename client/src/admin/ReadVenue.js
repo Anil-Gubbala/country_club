@@ -23,8 +23,7 @@ const ReadvenueDetails = (props) => {
     const deleteVenueDetails = () => {
         Axios.post("http://localhost:3001/admin/venue/delete", { venue_id: details.venue_id })
             .then((response) => {
-                //history.push("/admin");
-                props.history.goBack();
+                history.push("/admin");
             })
             .catch((error) => {
             });
