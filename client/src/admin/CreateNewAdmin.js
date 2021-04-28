@@ -13,6 +13,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
 
 export default function CreateNewAdmin() {
   Axios.defaults.withCredentials = true;
@@ -79,6 +80,7 @@ export default function CreateNewAdmin() {
   };
 
   const { loading, userData } = useLoginValidate();
+  const history = useHistory();
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
   }
@@ -212,9 +214,16 @@ export default function CreateNewAdmin() {
         </FormControl>
         
         <FormControl>
-          <Button variant="contained" color="primary" onClick={register}>
+          <div>
+          <div className="pure-u-1-6"></div>
+          <Button variant="contained" color="primary" className="pure-u-1-6" onClick={register}>
             Register New Admin
           </Button>
+          <div className="pure-u-1-6"></div>
+          <Button variant="contained" color="primary" className="pure-u-1-6" onClick={history.goBack}>
+            Cancel
+          </Button>
+          </div>
         </FormControl>
         {message && <Alert severity="error">{message}</Alert>}
       </FormGroup>
