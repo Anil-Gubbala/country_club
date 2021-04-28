@@ -10,32 +10,24 @@ import VenueDropdown from "./Venue";
 
 let details = {};
 
-/*const VenueDropdown = (props) => {
-  const [venueList, setVenueList] = useState([]);
-  useEffect(() => {
-      Axios.get('http://localhost:3001/admin/events/create').then(function(res) {
-        console.log(res);
-        props.setEventDeatilsVenue(res.data[0].venue_id);
-        setVenueList(res.data);
-      });
-  }, []);
-  
-  return (
-    <select id="aligned-status" 
-        onChange={(e) => {
-          props.setEventDeatilsVenue(e.target.value);
-        }}>
-        {venueList.map(res =>
-            <option key={res.venue_id} value={res.venue_id}>{res.venue_name}</option>
-        )}
-    </select>
-  )
-}*/
 
 const ReadDetails = (props) => {
   Axios.defaults.withCredentials = true;
   const [loading, setLoading] = useState(true);
   let { id } = useParams();
+  const history = useHistory();
+
+  const deleteEventDetails  =  () =>  {
+    Axios.post("http://localhost:3001/admin/events/delete", 
+    {event_id:details.event_id}
+      )
+        .then((response) => {
+          history.push("/admin");
+        })
+        .catch((error) => {
+        });
+
+  }
 
   useEffect(() => {
     Axios.get('http://localhost:3001/admin/events/details/' + id).then(function(res) {
@@ -110,7 +102,8 @@ const ReadDetails = (props) => {
           <div className="pure-u-1-6">
           </div>
           <div className="pure-u-1-6">
-            <button className="pure-button pure-button-error">
+            <button className="pure-button pure-button-error"
+              onClick={deleteEventDetails}>
                 Delete Event
             </button>
           </div>
@@ -129,7 +122,6 @@ const UpdateDetails = (props) => {
 
     const history = useHistory();
     const setEventDeatilsVenue = (venueId) => {
-      debugger;
       props.setDetails({...props.details,venue_id:venueId});
     }
 
@@ -201,14 +193,15 @@ const UpdateDetails = (props) => {
 
           <div className="pure-control-group">
             <label htmlFor="aligned-status">Event Status</label>
-            <input
-              type="text"
-              id="aligned-status" placeholder="Event Status" 
+            <select id="aligned-status" 
               value={props.details.status}
               onChange={(e) => {
                 props.setDetails({...props.details,status:e.target.value});
-              }}
-            />
+              }}>
+              <option value="Please select">Please Select</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Cancelled">Cancelled</option>
+          </select>  
           </div>
 
 
@@ -301,3 +294,6 @@ export default function ReadEvent() {
     return redirectHome();
   }
 }
+
+
+

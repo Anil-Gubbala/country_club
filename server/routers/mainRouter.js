@@ -1,6 +1,6 @@
 const express = require('express')
 const { getLogin, registerUser, logout, setLogin, getMembershipTypes } = require('../controllers/mainController')
-const { createEvent, getEvents, readEvent, getVenue, updateEvent} = require('../controllers/eventsController')
+const { createEvent, getEvents, readEvent, getVenue, updateEvent, deleteEvent} = require('../controllers/eventsController')
 const router = express.Router()
 
 const {partyGetVenues, partyInsert,partyGetBookings, cancelParty} = require('../controllers/partyController')
@@ -25,6 +25,7 @@ router.route('/admin').get(getEvents)
 router.route('/admin/events/create').get(getVenue).post(createEvent)
 router.route('/admin/events/details/:id').get(readEvent)
 router.route('/admin/events/update').post(updateEvent)
+router.route('/admin/events/delete').post(deleteEvent)
 router.route('/admin/users/details/:id').get(getUsersById)
 
 router.route('/user/partyGetVenues').get(partyGetVenues)
