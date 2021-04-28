@@ -21,12 +21,12 @@ const ReadvenueDetails = (props) => {
 
     const deleteVenueDetails = () => {
         Axios.post("http://localhost:3001/admin/venue/delete", { venue_id: details.venue_id })
-                .then((response) => {
-                    history.push("/admin");
-                  })
-                  .catch((error) => {
-                  });
-     }
+            .then((response) => {
+                history.push("/admin");
+            })
+            .catch((error) => {
+            });
+    }
 
     useEffect(() => {
         Axios.get('http://localhost:3001/admin/venue/details/' + id).then(function (res) {
