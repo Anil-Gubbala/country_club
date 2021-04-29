@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useLoginValidate } from "../common/Validate";
 import redirectLogin from "../common/redirectLogin";
@@ -21,34 +21,35 @@ const UserDetails = (props) => {
     const goBackToAdmin = () =>{
       history.push("/admin");
     }
+
     const approveUser = () =>{
       console.log('in method approveUser');
-      console.log('ID:' + id);
-      Axios.post('http://localhost:3001/admin/approvependinguser' + id)
-        .then(function(response) {
-          console.log('success');
-          //history.push("/admin");
-        })
-        .catch((error) => {
-        });
+      Axios.post('http://localhost:3001/admin/approvependinguser', {user_id: id})
+        .then((response) => {
+            //history.push("/admin");
+          })
+          .catch((error) => {
+          });
     }
 
     const deleteUser = () =>{
       console.log('in method deleteUser');
-      console.log('ID:' + id);
-      Axios.delete('http://localhost:3001/admin/deleteuser' + id)
-        .then((response) => {
-          history.push("/admin");
-        })
-        .catch((error) => {
-        });
+      Axios.post('http://localhost:3001/admin/deleteuser', {user_id: id})
+      .then((response) => {
+        //history.push("/admin");
+      })
+      .catch((error) => {
+      });
     }
 
-    Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
+
+    useEffect(() => {
+      Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
       console.log(res);
       userDetail = res.data;
       setLoading(false);
-    });
+      });
+    }, []);
 
     if (loading) {
         return <BasePage> Loading data.... </BasePage>;
@@ -101,15 +102,15 @@ const UserDetails = (props) => {
           <div className="pure-control-group">
             
             {
-              userDetail.status === 'pending' &&
+              (userDetail.status === 'Pending' || userDetail.status === 'Expired') &&
               <div className="pure-u-1-6">
                 <button className="pure-button pure-button-primary" onClick={approveUser}>
-                    Approve Member
+                    Activate Member
                 </button>
               </div>
             }
             <div className="pure-u-1-6">
-              <button className="pure-button pure-button-primary" onClick={() => props.updateUserDetails()}>
+              <button className="pure-button pure-button-primary" onClick={() => props.updateUserDetails(userDetail)}>
                   Update Details
               </button>
             </div>

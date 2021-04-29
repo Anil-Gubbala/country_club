@@ -14,7 +14,7 @@ const SQL_ADMIN = {
                   inner join member m on u.user_id = m.user_id \
                   where status not like 'Pending';",
 
-  APPROVE_USER: "update user set status = 'Active' where user_id = ? and status = 'Pending';",
+  APPROVE_USER: "update user set status = 'Active' where user_id = ? and (status = 'Pending' or status = 'Expired');",
 
   DELETE_USER: "update user set status = 'Expired' where user_id = ?",
 

@@ -30,21 +30,33 @@ const getUsersById = (req, res) => {
 }
 
 const approvePendingUser = (req,res) =>{
-    let user_id = req.params.id;
-    console.log(user_id);
-    db.query(SQL_ADMIN.APPROVE_USER,[user_id], (error,res,fields) =>{
+    const {
+      user_id
+    } = req.body;
+
+    db.query(SQL_ADMIN.APPROVE_USER,[user_id], (error,result,fields) =>{
         if(error){
-            return console.error(error.message);
-        }
+          console.log(err);
+          res.status(404).send({
+              err: err.errno === 1062 ? "Error approving user" : err.code
+          });
+        }else{
         res.status(200).send({ success: true });
+        }
     })
 }
 
 const deleteUser = (req,res) =>{
-    let user_id = req.params.id;
-    db.query(SQL_ADMIN.DELETE_USER,[user_id], (error,res,fields) =>{
+    const {
+      user_id
+    } = req.body;
+
+    db.query(SQL_ADMIN.DELETE_USER,[user_id], (error,result,fields) =>{
         if(error){
-            return console.error(error.message);
+          console.log(err);
+          res.status(404).send({
+              err: err.errno === 1062 ? "Error deleting user" : err.code
+          });
         }
         res.status(200).send({ success: true });
     })
