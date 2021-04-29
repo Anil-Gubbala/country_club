@@ -22,6 +22,7 @@ const SQL_ADMIN = {
 
   APPROVE_USER: "update user set status = 'Active' where user_id = ? and (status = 'Pending' or status = 'Expired');",
 
+
   DELETE_USER: "update user set status = 'Expired' where user_id = ?",
 
   // _userId,_isAdmin,_street,_city,_zipCode,_startDate,_endDate,_membershipType
