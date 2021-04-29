@@ -4,7 +4,7 @@ const SQL_VENUE = {
     READ_VENUE: "SELECT * from countryclub.venue where venue_id=?" ,
     UPDATE_VENUE: "UPDATE countryclub.VENUE SET venue_name=?,venue_type=? where venue_id=?",
     DELETE_VENUE: "DELETE from countryclub.VENUE where venue_id=?",
-    GET_VENUE_TYPE: "SELECT * FROM venue_type"
+    GET_VENUE_TYPE: "SELECT venue_type FROM venue_type"
   };
   
   module.exports = SQL_VENUE;
