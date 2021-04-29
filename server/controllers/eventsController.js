@@ -1,16 +1,46 @@
 const db = require("../database/dbConnector");
 const SQL_EVENTS = require("../database/SQL/Admin/eventSql");
+const SQL_USER_EVENTS = require("../database/SQL/User/userSql");
 //const { v4: uuidv4 } = require("uuid");
 
 const getEvents = (req, res) => {
     db.query(SQL_EVENTS.GET_EVENTS_LIST, (error, results, fields) => {
         if (error) {
-          return console.error(error.message);
+            return console.error(error.message);
         }
         res.send(results);
     });
 }
+const getuserEvents = (req, res) => {
+    db.query(SQL_USER_EVENTS.GET_EVENTS_LIST, (error, results, fields) => {
+        if (error) {
+            return console.error(error.message);
+        }
+        res.send(results);
+    });
+}
+const updateUserEvents = (req, res) => {
+    const {
+        no_of_participants,
+        event_id
+    } = req.body;
+    db.query(SQL_USER_EVENTS.UPDATE_EVENTS, [
+        no_of_participants,
+        no_of_participants,
+        event_id
+    ], (err, results, fields) => {
 
+        if (err) {
+            console.log(err);
+            res.status(404).send({
+                err: err.errno === 1062 ? "Error updating event" : err.code
+            });
+        } else {
+            // res.status(200).send({ success: true });
+            res.send(results);
+        }
+    });
+}
 const createEvent = (req, res) => {
     //const event_id = uuidv4();
     const {
@@ -24,8 +54,7 @@ const createEvent = (req, res) => {
         organized_by
     } = req.body.eventDetails;
     db.query(
-        SQL_EVENTS.CREATE_EVENT,
-        [
+        SQL_EVENTS.CREATE_EVENT, [
             event_name,
             e_description,
             start_date,
@@ -34,27 +63,27 @@ const createEvent = (req, res) => {
             venue_id,
             capacity,
             organized_by
-         ],
-         (err, result) => {
-             if (err) {
-                 console.log(err);
-                 res.status(404).send({
-                     err: err.errno === 1062 ? "Error creating new event" : err.code
-                 });
-             } else {
-                 res.status(200).send({ success : true });
-             }
-         }
+        ],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(404).send({
+                    err: err.errno === 1062 ? "Error creating new event" : err.code
+                });
+            } else {
+                res.status(200).send({ success: true });
+            }
+        }
     )
 
 
 }
 
 const readEvent = (req, res) => {
-    let event_id=req.params.id;
-    db.query(SQL_EVENTS.READ_EVENT,[event_id], (error, results, fields) => {
+    let event_id = req.params.id;
+    db.query(SQL_EVENTS.READ_EVENT, [event_id], (error, results, fields) => {
         if (error) {
-          return console.error(error.message);
+            return console.error(error.message);
         }
         res.send(results[0]);
     });
@@ -63,7 +92,7 @@ const readEvent = (req, res) => {
 const getVenue = (req, res) => {
     db.query(SQL_EVENTS.GET_VENUE, (error, results, fields) => {
         if (error) {
-          return console.error(error.message);
+            return console.error(error.message);
         }
         res.send(results);
     });
@@ -81,18 +110,17 @@ const updateEvent = (req, res) => {
         organized_by,
         event_id
     } = req.body;
-    db.query(SQL_EVENTS.UPDATE_EVENT,
-        [
-            event_name,
-            e_description,
-            start_date,
-            end_date,
-            status,
-            venue_id,
-            capacity,
-            organized_by,
-            event_id
-         ], (err, results, fields) => {
+    db.query(SQL_EVENTS.UPDATE_EVENT, [
+        event_name,
+        e_description,
+        start_date,
+        end_date,
+        status,
+        venue_id,
+        capacity,
+        organized_by,
+        event_id
+    ], (err, results, fields) => {
 
         if (err) {
             console.log(err);
@@ -100,7 +128,7 @@ const updateEvent = (req, res) => {
                 err: err.errno === 1062 ? "Error updating event" : err.code
             });
         } else {
-            res.status(200).send({ success : true });
+            res.status(200).send({ success: true });
         }
     });
 }
@@ -110,10 +138,9 @@ const deleteEvent = (req, res) => {
     const {
         event_id
     } = req.body;
-    db.query(SQL_EVENTS.DELETE_EVENT,
-        [
-            event_id
-         ], (error, results, fields) => {
+    db.query(SQL_EVENTS.DELETE_EVENT, [
+        event_id
+    ], (error, results, fields) => {
 
         if (error) {
             console.log(err);
@@ -121,17 +148,19 @@ const deleteEvent = (req, res) => {
                 err: err.errno === 1062 ? "Error deleting event" : err.code
             });
         } else {
-            res.status(200).send({ success : true });
+            res.status(200).send({ success: true });
         }
     });
 }
 
 
 module.exports = {
-  createEvent,
-  getEvents,
-  readEvent,
-  getVenue,
-  updateEvent,
-  deleteEvent
+    createEvent,
+    getEvents,
+    readEvent,
+    getVenue,
+    updateEvent,
+    deleteEvent,
+    getuserEvents,
+    updateUserEvents
 };
