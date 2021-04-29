@@ -48,13 +48,16 @@ export default function CreateEvent() {
         Axios.post("http://localhost:3001/admin/events/create", {
           eventDetails,
       })
-        .then((response) => {
-          setMessage("Event created successfully.");
-          history.push("/admin");
-        })
-        .catch((error) => {
-          setMessage(error.response.data.err);
-        });
+          .then((response) => {
+            setMessage("Event created successfully.");
+            history.push("/admin");
+          })
+          .catch((error) => {
+            setMessage(error.response.data.err);
+          });
+
+      }
+
 
       }
 
