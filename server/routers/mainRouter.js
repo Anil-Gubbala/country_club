@@ -14,8 +14,7 @@ router.route('/login').post(setLogin).get(getLogin)
 router.route('/logout').get(logout)
 router.route('/getMembershipTypes').get(getMembershipTypes)
     //router.route('/')
-
-
+    
 router.route('/admin/users/list').get(getUsers)
 router.route('/admin/users/details/:id').get(getUsersById)
 router.route('/admin/users/pending').get(getPendingUsers)
