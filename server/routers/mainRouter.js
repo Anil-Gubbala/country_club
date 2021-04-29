@@ -1,19 +1,19 @@
 const express = require('express')
 const { getLogin, registerUser, logout, setLogin, getMembershipTypes } = require('../controllers/mainController')
-const { createEvent, getEvents, readEvent, getVenue, updateEvent, deleteEvent} = require('../controllers/eventsController')
-const { createVenue, getVenueDetails, readVenue, getVenueType, updateVenue, deleteVenue} = require('../controllers/venueController')
+const { createEvent, getEvents, readEvent, getVenue, updateEvent, deleteEvent, getuserEvents, updateUserEvents } = require('../controllers/eventsController')
+const { createVenue, getVenueDetails, readVenue, getVenueType, updateVenue, deleteVenue } = require('../controllers/venueController')
 const router = express.Router()
 
-const {partyGetVenues, partyInsert,partyGetBookings, cancelParty} = require('../controllers/partyController')
+const { partyGetVenues, partyInsert, partyGetBookings, cancelParty } = require('../controllers/partyController')
 const { getPendingUsers, getUsers, getUsersById, approvePendingUser, deleteUser, updateUser, createNewAdmin, getAdminList } = require('../controllers/adminController')
-const {getAllSports,getBookingSlot,sportsBookingInsert,cancelSportsBooking,getSportsHistory, postBookiongStatus} = require('../controllers/sportsController')
+const { getAllSports, getBookingSlot, sportsBookingInsert, cancelSportsBooking, getSportsHistory, postBookiongStatus } = require('../controllers/sportsController')
 
 
 router.route('/register').post(registerUser)
 router.route('/login').post(setLogin).get(getLogin)
 router.route('/logout').get(logout)
 router.route('/getMembershipTypes').get(getMembershipTypes)
-//router.route('/')
+    //router.route('/')
 
 
 router.route('/admin/users/list').get(getUsers)
@@ -50,5 +50,7 @@ router.route('/user/cancelSportsBooking').post(cancelSportsBooking)
 router.route('/user/getSportsHistory').get(getSportsHistory)
 router.route('/user/bookingSlot').post(postBookiongStatus)
 
+router.route('/user/getEvents').get(getuserEvents)
+router.route('/user/updateEvents').post(updateUserEvents)
 
 module.exports = router
