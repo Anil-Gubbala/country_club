@@ -13,6 +13,7 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import PrivateEventsList from "../user/private events/PrivateEventsList";
 import SportsList from "../user/sports/SportsList";
 import dateToString from "../common/dateConverter";
+import EventsList from "../user/events/EventsList";
 
 export default function Main() {
   const { loading, userData } = useLoginValidate();
@@ -43,7 +44,9 @@ export default function Main() {
         >
           <Typography>Events</Typography>
         </AccordionSummary>
-        <AccordionDetails>Add Events component here</AccordionDetails>
+        <AccordionDetails> 
+		<EventsList></EventsList>
+		</AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded={true}>
         <AccordionSummary

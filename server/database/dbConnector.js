@@ -7,9 +7,9 @@ const db = mysql.createConnection({
     database: "countryclub",
     port: "3306",
     multipleStatements: true
-  });
-   
-  //db.commit
+});
+
+//db.commit
 
 
 module.exports = db;
