@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import dateToString from "../../common/dateConverter";
 
 export default function PrivateEventBookings() {
   axios.defaults.withCredentials = true;
@@ -31,20 +32,24 @@ export default function PrivateEventBookings() {
   };
   const columns = [
     { field: "p_name", headerName: "Event Name", width: 200 },
+    { field: "party_id", headerName: "ID", width: 200 },
     {
       field: "start_date",
       headerName: "Start Date",
       width: 200,
-      valueFormatter: (params) => params.value.substr(0, 10),
+      valueFormatter: (params) => {
+        return dateToString(params.value);
+      },
     },
     {
       field: "end_date",
       headerName: "End Date",
       width: 200,
       valueFormatter: (params) => {
-        return params.value.substr(0, 10);
+        return dateToString(params.value);
       },
     },
+
     { field: "hosted_at", headerName: "Venue", width: 200 },
     { field: "status", headerName: "Status", width: 200 },
   ];

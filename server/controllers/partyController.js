@@ -4,6 +4,7 @@ const {
   PARTY_INSERT,
   PARTY_MYBOOKINGS,
   PARTY_CANCEL,
+  PARTY_CHECK_AVAILABILITY,
 } = require("../database/SQL/Party/privatePartySQL");
 const { v4: uuidv4 } = require("uuid");
 
@@ -30,26 +31,43 @@ const partyInsert = (req, res) => {
     return;
   }
   db.query(
-    PARTY_INSERT,
+    PARTY_CHECK_AVAILABILITY,
     [
-      req.session.user.user_id,
-      req.body.event_name,
       req.body.venue_id,
       req.body.start_date,
       req.body.end_date,
-      req.body.no_of_attendees,
+      req.body.start_date,
+      req.body.end_date,
     ],
     (error, result) => {
-      if (error) {
-        res.status(404).send({ err: error.code });
-        return;
-      } else if (result.length == 0) {
-        res.send([]);
-      } else {
-        res.send(result);
+      if(error){
+        res.status(404).send({err: "Selected dates not available to book the venue"})
+      }else{
+        db.query(
+          PARTY_INSERT,
+          [
+            req.session.user.user_id,
+            req.body.event_name,
+            req.body.venue_id,
+            req.body.start_date,
+            req.body.end_date,
+            req.body.no_of_attendees,
+          ],
+          (error, result) => {
+            if (error) {
+              res.status(404).send({ err: error.code });
+              return;
+            } else if (result.length == 0) {
+              res.send([]);
+            } else {
+              res.send(result);
+            }
+          }
+        );
       }
     }
   );
+  
 };
 
 const partyGetBookings = (req, res) => {

@@ -18,5 +18,8 @@
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0"
   }
 }

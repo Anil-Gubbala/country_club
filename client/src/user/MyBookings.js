@@ -8,7 +8,6 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import PrivateEventsHistory from "./private events/PrivateEventsHistory";
 import PrivateEventBookings from "./private events/PrivateEventBookings";
 import SportsHistory from "./sports/SportsHistory";
 import { Link } from "react-router-dom";

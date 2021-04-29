@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import PrivateEventsList from "../user/private events/PrivateEventsList";
 import SportsList from "../user/sports/SportsList";
+import dateToString from "../common/dateConverter";
 import EventsList from "../user/events/EventsList";
 
 export default function Main() {
@@ -92,7 +93,7 @@ export default function Main() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <PrivateEventsList date={startDate.toJSON().substr(0, 10)}></PrivateEventsList>
+          <PrivateEventsList date={dateToString(startDate)}></PrivateEventsList>
         </AccordionDetails>
       </Accordion>
       <div>
