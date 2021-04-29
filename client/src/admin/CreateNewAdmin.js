@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import Axios from "axios";
 import "../App.css";
 import Navi from "../common/Navi";
-import redirectLogin from "../common/redirectLogin";
-import redirectHome from "../common/redirectHome";
-import BasePage from "../common/BasePage";
-import { useLoginValidate } from "../common/Validate";
 import {
   Button,
   FormControl,
@@ -41,11 +37,10 @@ export default function CreateNewAdmin() {
     member_type: 0,
   };
   const [userDetails, setUserDetails] = useState(defaultValues);
-  
+  const history = useHistory();
 
   const register = () => {
     if (
-      // userDetails.user_id.trim().length < 5 ||
       userDetails.password.trim().length < 5 ||
       userDetails.first_name.trim() === "" ||
       userDetails.last_name.trim() === "" ||
@@ -54,22 +49,21 @@ export default function CreateNewAdmin() {
       userDetails.email_id.trim() === "" ||
       userDetails.zip_code.length < 5
     ) {
-      setMessage("Input failed to match some requirements");
+      setMessage("Please fill all fields");
     } else if (
-      // userDetails.user_id.includes(" ") ||
       userDetails.email_id.includes(" ") ||
       userDetails.zip_code.includes(" ") ||
       userDetails.password.includes(" ")
     ) {
-      setMessage(
-        "Space character not allowed in zip_code, password, email_id"
-      );
+      setMessage("Space character not allowed in zip_code, password, email_id");
     } else {
-      Axios.post("http://localhost:3001/admin/createnewadmin", {
-        userDetails,
+      Axios.post("http://localhost:3001/admin/newadmin/create", {
+        userDetails
       })
         .then((response) => {
-          setMessage("Admin user created successfully");
+          setMessage(
+            'New Admin User ID is "' +
+              response.data.user_id + '".');
           setRegisterd(true);
         })
         .catch((error) => {
@@ -79,24 +73,27 @@ export default function CreateNewAdmin() {
     }
   };
 
-  const { loading, userData } = useLoginValidate();
-  const history = useHistory();
-  if (loading) {
-    return <BasePage> Loading data.... </BasePage>;
+  if (registered) {
+    return (
+      <div>
+        <Navi></Navi>
+        <h2 style={{ textAlign: "center" }}> {message}</h2>
+      </div>
+    )
   }
-  if (!userData.user_id) {
-    return redirectLogin();
-  }else if (userData.auth_id === 1) {
+
   return (
     <div>
       <Navi></Navi>
-      <FormGroup>      
+      <h1 style={{textAlign:"center"}}>Register New Admin</h1>
+      <FormGroup>
         <FormControl>
           <TextField
             helperText={invalid.first_name ? "1-25 characters" : ""}
             id="register-first-name"
             label="First Name"
             type="text"
+            required
             error={invalid.first_name}
             onChange={(e) => {
               const validation =
@@ -110,6 +107,7 @@ export default function CreateNewAdmin() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.last_name ? "1-25 characters" : ""}
             id="register-last-name"
             label="Last Name"
@@ -127,6 +125,7 @@ export default function CreateNewAdmin() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText="Minimum 5 characters"
             id="register-password"
             label="Password"
@@ -146,6 +145,7 @@ export default function CreateNewAdmin() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.email_id ? "1-25 characters" : ""}
             id="register-email-id"
             label="Email ID"
@@ -163,6 +163,7 @@ export default function CreateNewAdmin() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.street ? "1-25 characters" : ""}
             id="register-street"
             label="Street"
@@ -180,6 +181,7 @@ export default function CreateNewAdmin() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText={invalid.city ? "1-25 characters" : ""}
             id="register-city"
             label="City"
@@ -197,6 +199,7 @@ export default function CreateNewAdmin() {
         </FormControl>
         <FormControl>
           <TextField
+            required
             helperText="5 digit zip code"
             id="register-zip-code"
             label="ZIP Code"
@@ -212,12 +215,11 @@ export default function CreateNewAdmin() {
             }}
           />
         </FormControl>
-        
         <FormControl>
           <div>
           <div className="pure-u-1-6"></div>
           <Button variant="contained" color="primary" className="pure-u-1-6" onClick={register}>
-            Register New Admin
+            Register
           </Button>
           <div className="pure-u-1-6"></div>
           <Button variant="contained" color="primary" className="pure-u-1-6" onClick={history.goBack}>
@@ -229,7 +231,4 @@ export default function CreateNewAdmin() {
       </FormGroup>
     </div>
   );
-  }else {
-    return redirectHome();
-  }
 }

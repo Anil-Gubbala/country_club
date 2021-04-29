@@ -34,6 +34,14 @@ const Navi = () => {
             </Link>
           </li>
         )}
+        {userData.user_id && (
+          <li className="pure-menu-item">
+            <Link to="/user/myProfile" className="pure-menu-link">
+              My Profile
+            </Link>
+          </li>
+        )}
+
         {!userData.user_id && (
           <li className="pure-menu-item">
             <Link to="/login" className="pure-menu-link">

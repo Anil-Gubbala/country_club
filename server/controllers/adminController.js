@@ -1,5 +1,8 @@
 const db = require("../database/dbConnector");
 const SQL_ADMIN = require("../database/SQL/Admin/adminSql");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+const { MEMBER_GET } = require("../database/SQL/User/userSql");
 
 const getPendingUsers = (req, res) => {
     db.query(SQL_ADMIN.GET_PENDING_USER_LIST, (error, rows, fields) => {
@@ -62,8 +65,43 @@ const deleteUser = (req,res) =>{
     })
 }
 
-const createNewAdmin =(req,res) =>{
+const updateUser = (req,res) =>{
     const {
+        userId,
+        isAdmin,
+        street,
+        city,
+        zip_code,
+        start_date,
+        end_date,
+        membership_type
+      } = req.body;
+
+    db.query(SQL_ADMIN.UPDATE_USER_DETAILS,
+        [
+          userId,
+          isAdmin,
+          street,
+          city,
+          zip_code,
+          start_date,
+          end_date,
+          membership_type
+         ], (err, results, fields) => {
+
+        if (err) {
+            console.log(err);
+            res.status(404).send({
+                err: err.errno === 1062 ? "Error updating event" : err.code
+            });
+        } else {
+            res.status(200).send({ success : true });
+        }
+    });
+}
+
+const createNewAdmin =(req,res) =>{
+  const {
         first_name,
         last_name,
         street,
@@ -80,8 +118,6 @@ const createNewAdmin =(req,res) =>{
           res.status(404).send({ err: err.message });
           return;
         } else {
-
-            console.log("in sql.")
           db.query(
             SQL_ADMIN.CREATE_ADMIN,
             [
@@ -100,12 +136,21 @@ const createNewAdmin =(req,res) =>{
                   err: err.errno === 1062 ? "Username already exists" : err.code,
                 });
               } else {
-                res.status(200).send({ success: true });
+                res.send({ success: true, user_id: result.insertId });
               }
             }
           );
         }
       });
+}
+
+const getAdminList = (req, res) => {
+  db.query(SQL_ADMIN.GET_ADMIN_LIST, (error, rows, fields) => {
+      if (error) {
+        return console.error(error.message);
+      }
+      res.send(rows);
+  });
 }
 
 module.exports = {
@@ -114,5 +159,7 @@ module.exports = {
     getUsersById,
     approvePendingUser,
     deleteUser,
-    createNewAdmin
+    updateUser,
+    createNewAdmin,
+    getAdminList
 };

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLoginValidate } from "../common/Validate";
 import redirectLogin from "../common/redirectLogin";
 import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import UserList from "./UserList";
+import PendingUserList from "./PendingUserList";
+import StaffMembers from "./AdminUserList";
 
 export default function ViewUserList() {
   const { loading, userData } = useLoginValidate();
@@ -21,6 +23,12 @@ export default function ViewUserList() {
         <div className="pure-form pure-form-aligned">
           <h1 style={{textAlign:"center"}}>User List</h1>
           <UserList/>
+          <br/>
+          <br/>
+          <PendingUserList/>
+          <br/>
+          <br/>
+          <StaffMembers/>
         </div>
       </div>
     );
