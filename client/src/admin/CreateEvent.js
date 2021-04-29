@@ -9,28 +9,6 @@ import { useHistory } from "react-router-dom";
 import "../App.css";
 import VenueDropdown from "./Venue";
 
-/*const VenueDropdown = (props) => {
-  const [venueList, setVenueList] = useState([]);
-  useEffect(() => {
-      Axios.get('http://localhost:3001/admin/events/create').then(function(res) {
-        console.log(res);
-        props.setEventDeatilsVenue(res.data[0].venue_id);
-        setVenueList(res.data);
-      });
-  }, []);
-  
-  return (
-    <select id="aligned-status" 
-        onChange={(e) => {
-          props.setEventDeatilsVenue(e.target.value);
-        }}>
-        {venueList.map(res =>
-            <option key={res.venue_id} value={res.venue_id}>{res.venue_name}</option>
-        )}
-    </select>
-  )
-}*/
-
 export default function CreateEvent() {
   const { loading, userData } = useLoginValidate();
   const defaultValues = {
@@ -62,17 +40,24 @@ export default function CreateEvent() {
     }
 
     const createEvent = () => {
-      setEventDetails({ ...eventDetails, organized_by: userData.user_id });
-      Axios.post("http://localhost:3001/admin/events/create", {
-        eventDetails,
-      })
-        .then((response) => {
-          setMessage("Event created successfully.");
-          history.push("/admin");
+      if (eventDetails.start_date > eventDetails.end_date) {
+        setMessage("End date should be greater than start date");
+      }
+      else {
+        setEventDetails({ ...eventDetails, organized_by: userData.user_id });
+        Axios.post("http://localhost:3001/admin/events/create", {
+          eventDetails,
         })
-        .catch((error) => {
-          setMessage(error.response.data.err);
-        });
+          .then((response) => {
+            setMessage("Event created successfully.");
+            history.push("/admin");
+          })
+          .catch((error) => {
+            setMessage(error.response.data.err);
+          });
+
+      }
+
 
     };
 

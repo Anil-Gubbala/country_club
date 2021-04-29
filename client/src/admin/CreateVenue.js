@@ -7,6 +7,9 @@ import BasePage from "../common/BasePage";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
 import "../App.css";
+import VenueTypeDropdown from "./VenueType";
+
+
 
 export default function CreateVenue() {
   const { loading, userData } = useLoginValidate();
@@ -28,6 +31,9 @@ export default function CreateVenue() {
 
     Axios.defaults.withCredentials = true;
 
+    const setVenuetypedetails = (venuetype) => {
+      setVenueDetails({ ...venueDetails, venue_type: venuetype });
+    }
 
 
     const createVenue = () => {
@@ -67,14 +73,8 @@ export default function CreateVenue() {
             </div>
 
             <div className="pure-control-group">
-              <label htmlFor="aligned-description">Venue Type</label>
-              <input
-                type="text"
-                id="aligned-description" placeholder="Venue Type"
-                onChange={(e) => {
-                  setVenueDetails({ ...venueDetails, venue_type: e.target.value });
-                }}
-              />
+              <label htmlFor="aligned-venue">Venue Type</label>
+              <VenueTypeDropdown setVenuetypedetails={setVenuetypedetails} />
             </div>
 
 
