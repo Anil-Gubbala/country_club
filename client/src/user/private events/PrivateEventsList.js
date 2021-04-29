@@ -6,10 +6,14 @@ import {
   Button,
   FormControl,
   FormGroup,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
+import dateToString from "../../common/dateConverter";
 
 export default function PrivateEventsList(props) {
   axios.defaults.withCredentials = true;
@@ -22,13 +26,20 @@ export default function PrivateEventsList(props) {
   const [bookingSuccess, SetBookingSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState([]);
+  const [endDate, setEndDate]= useState(props.date);
   const columns = [
     { field: "venue_id", headerName: "Venue Number", width: 200 },
     { field: "venue_name", headerName: "Venue Name", width: 200 },
     { field: "capacity", headerName: "Venue Capacity", width: 200 },
   ];
   const [rowData, setRowData] = useState({});
-
+  const updateEndDate = (days) => {
+    if(days !== 1){
+      let end = new Date(props.date)
+      end.setDate( end.getDate() + days-1);
+      setEndDate(dateToString(end))
+    }
+  }
   const handleBooking = () => {
     if (eventName === "" || attendees > rowData.data.capacity) {
       setInvalid(true);
@@ -39,7 +50,7 @@ export default function PrivateEventsList(props) {
           venue_id: rowData.data.venue_id,
           event_name: eventName,
           start_date: props.date,
-          end_date: props.date,
+          end_date: endDate,
           no_of_attendees: attendees,
         })
         .then((result) => {
@@ -105,18 +116,18 @@ export default function PrivateEventsList(props) {
             }}
           />
         </FormControl>
-        {/* {<FormControl>
+        {<FormControl>
           <InputLabel htmlFor="private-event-days">No of Days</InputLabel>
           <Select
             labelId="private-event-days-label"
             id="private-event-days"
-            value="1"
+            defaultValue={1}
+            onChange = {(e)=>{updateEndDate(e.target.value)}}
           >
             <MenuItem value={1}>One Day</MenuItem>
             <MenuItem value={2}>Two Days</MenuItem>
-            <MenuItem value={3}>Three Days</MenuItem>
           </Select>
-        </FormControl>} */}
+        </FormControl>}
         <FormControl>
           <TextField
             error={invalid}
