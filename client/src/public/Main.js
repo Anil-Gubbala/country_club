@@ -96,10 +96,6 @@ export default function Main() {
           <PrivateEventsList date={dateToString(startDate)}></PrivateEventsList>
         </AccordionDetails>
       </Accordion>
-      <div>
-        <div>set user.auth_id = 1 in db to enable admin page</div>
-        <div>set user.status = 1 in db to activate registered account</div>
-      </div>
     </div>
   );
 }
