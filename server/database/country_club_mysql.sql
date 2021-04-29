@@ -9,7 +9,7 @@ create table user (
   	email_id varchar(25) not null,
   	street varchar(25) not null,
   	city varchar(25) not null,
-  	zip_code varchar(6) not null,
+  	zip_code varchar(5) not null,
   	password varchar(100) not null,
   	auth_id bit default b'0' not null,
   	status varchar(25) default 0 not null,
