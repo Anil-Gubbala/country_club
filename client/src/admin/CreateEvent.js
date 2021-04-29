@@ -46,15 +46,18 @@ export default function CreateEvent() {
       else {
         setEventDetails({ ...eventDetails, organized_by: userData.user_id });
         Axios.post("http://localhost:3001/admin/events/create", {
-          eventDetails
+          eventDetails,
         })
-        .then((response) => {
-          setMessage("Event created successfully.");
-          history.push("/admin");
-        })
-        .catch((error) => {
-          setMessage(error.response.data.err);
-        });
+          .then((response) => {
+            setMessage("Event created successfully.");
+            history.push("/admin");
+          })
+          .catch((error) => {
+            setMessage(error.response.data.err);
+          });
+
+      }
+
 
       }
 
