@@ -6,7 +6,7 @@ const router = express.Router()
 
 const { partyGetVenues, partyInsert, partyGetBookings, cancelParty } = require('../controllers/partyController')
 const { getPendingUsers, getUsers, getUsersById, approvePendingUser, deleteUser, updateUser, createNewAdmin, getAdminList } = require('../controllers/adminController')
-const { getAllSports, getBookingSlot, sportsBookingInsert, cancelSportsBooking, getSportsHistory, postBookiongStatus } = require('../controllers/sportsController')
+const {getAllSports,getBookingSlot,sportsBookingInsert,cancelSportsBooking,getSportsHistory} = require('../controllers/sportsController')
 
 
 router.route('/register').post(registerUser)
@@ -48,7 +48,6 @@ router.route('/user/getBookingSlot').get(getBookingSlot)
 router.route('/user/sportsBookingInsert').post(sportsBookingInsert)
 router.route('/user/cancelSportsBooking').post(cancelSportsBooking)
 router.route('/user/getSportsHistory').get(getSportsHistory)
-router.route('/user/bookingSlot').post(postBookiongStatus)
 
 router.route('/user/getEvents').get(getuserEvents)
 router.route('/user/updateEvents').post(updateUserEvents)

@@ -10,9 +10,9 @@ insert into user (f_name, l_name, email_id, street, city, zip_code, password, au
 insert into user (f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) values('Deam', 'Thomas', 'dean@g.com', 'North 6th Street', 'San Jose', '95112', 'pass@1234$', 0, 'pending');
 
 -- status
-insert into status values('confirmed');
-insert into status values('pending');
-insert into status values('cancelled');
+-- insert into status values('confirmed');
+-- insert into status values('pending');
+-- insert into status values('cancelled');
 
 -- member (user_id, membership_type, start_date, end_date)
 insert into member values(1002, 1, '2019-05-01', '2020-04-30');
@@ -72,14 +72,14 @@ insert into venue_type values('ground');
 
 -- sports (s_name, venue_id, start_time, end_time)
 insert into sports (s_name, venue_id, start_time, end_time) values('Basket Ball', 1001, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Tennis', 1007, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Table Tennis', 1008, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Swimming', 1002, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Swimming-kid', 1012, '08:00:00','18:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Billiard', 1008, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Archery', 1011, '11:00:00','16:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Golf', 1013, '08:00:00','16:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Yoga', 1011, '08:00:00','11:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Tennis', 1, '09:00:00','18:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Table Tennis', 2, '08:00:00','20:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Swimming', 1001, '10:00:00','19:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Swimming-kid', 1, '12:00:00','18:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Billiard', 2, '08:00:00','20:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Archery', 1001, '11:00:00','16:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Golf', 1, '08:00:00','16:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Yoga', 2, '08:00:00','11:00:00');
 
 -- time_slot (start_time, end_time)
 insert into time_slot (start_time, end_time) values('08:00:00','09:00:00');
@@ -94,6 +94,102 @@ insert into time_slot (start_time, end_time) values('16:00:00','17:00:00');
 insert into time_slot (start_time, end_time) values('17:00:00','18:00:00');
 insert into time_slot (start_time, end_time) values('18:00:00','19:00:00');
 insert into time_slot (start_time, end_time) values('19:00:00','20:00:00');
+
+-- sport_time(ts_id,sport_id)
+-- Basket Ball(08:00:00-20:00:00)
+insert into sport_time values(1001,1001);
+insert into sport_time values(1002,1001);
+insert into sport_time values(1003,1001);
+insert into sport_time values(1004,1001);
+insert into sport_time values(1005,1001);
+insert into sport_time values(1006,1001);
+insert into sport_time values(1007,1001);
+insert into sport_time values(1008,1001);
+insert into sport_time values(1009,1001);
+insert into sport_time values(1010,1001);
+insert into sport_time values(1011,1001);
+insert into sport_time values(1012,1001);
+
+-- Tennis(09:00:00-18:00:00)
+insert into sport_time values(1002,1002);
+insert into sport_time values(1003,1002);
+insert into sport_time values(1004,1002);
+insert into sport_time values(1005,1002);
+insert into sport_time values(1006,1002);
+insert into sport_time values(1007,1002);
+insert into sport_time values(1008,1002);
+insert into sport_time values(1009,1002);
+insert into sport_time values(1010,1002);
+
+-- Basket Ball(08:00:00-20:00:00)
+insert into sport_time values(1001,1003);
+insert into sport_time values(1002,1003);
+insert into sport_time values(1003,1003);
+insert into sport_time values(1004,1003);
+insert into sport_time values(1005,1003);
+insert into sport_time values(1006,1003);
+insert into sport_time values(1007,1003);
+insert into sport_time values(1008,1003);
+insert into sport_time values(1009,1003);
+insert into sport_time values(1010,1003);
+insert into sport_time values(1011,1003);
+insert into sport_time values(1012,1003);
+
+-- Swimming (10:00:00-19:00:00)
+insert into sport_time values(1003,1004);
+insert into sport_time values(1004,1004);
+insert into sport_time values(1005,1004);
+insert into sport_time values(1006,1004);
+insert into sport_time values(1007,1004);
+insert into sport_time values(1008,1004);
+insert into sport_time values(1009,1004);
+insert into sport_time values(1010,1004);
+insert into sport_time values(1011,1004);
+
+-- Swimming-kid(12:00:00-18:00:00)
+insert into sport_time values(1005,1005);
+insert into sport_time values(1006,1005);
+insert into sport_time values(1007,1005);
+insert into sport_time values(1008,1005);
+insert into sport_time values(1009,1005);
+insert into sport_time values(1010,1005);
+
+
+-- Billiard (08:00:00-20:00:00)
+insert into sport_time values(1001,1006);
+insert into sport_time values(1002,1006);
+insert into sport_time values(1003,1006);
+insert into sport_time values(1004,1006);
+insert into sport_time values(1005,1006);
+insert into sport_time values(1006,1006);
+insert into sport_time values(1007,1006);
+insert into sport_time values(1008,1006);
+insert into sport_time values(1009,1006);
+insert into sport_time values(1010,1006);
+insert into sport_time values(1011,1006);
+insert into sport_time values(1012,1006);
+
+-- Archery (11:00:00-16:00:00)
+insert into sport_time values(1004,1007);
+insert into sport_time values(1005,1007);
+insert into sport_time values(1006,1007);
+insert into sport_time values(1007,1007);
+insert into sport_time values(1008,1007);
+
+-- Golf (08:00:00-16:00:00)
+insert into sport_time values(1001,1008);
+insert into sport_time values(1002,1008);
+insert into sport_time values(1003,1008);
+insert into sport_time values(1004,1008);
+insert into sport_time values(1005,1008);
+insert into sport_time values(1006,1008);
+insert into sport_time values(1007,1008);
+insert into sport_time values(1008,1008);
+
+-- Yoga (08:00:00-11:00:00)
+insert into sport_time values(1001,1009);
+insert into sport_time values(1002,1009);
+insert into sport_time values(1003,1009);
 
 -- sports_booking: will added when functionality is activated
 

@@ -1,78 +1,188 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { Button } from "@material-ui/core";
+import { useEffect } from "react";
+import Alert from "@material-ui/lab/Alert";
+import {
+  Button,
+  FormControl,
+  FormGroup,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import { useLoginValidate } from "../../common/Validate";
-
+import { useHistory } from "react-router-dom";
 
 
 export default function SportsList(props) {
     const { loading, userData } = useLoginValidate();
     const [exception, setException] = useState(false);
     const [rows, setRows] = useState([]);
+    const [allSportsRows, setAllSportsRows] = useState([]);
+    const [rowData, setRowData] = useState([]);
     const [bookingMode, setBookingMode] = useState(false);
-    const [unloading, setLoading] = useState(false);
+    const [bookingSuccess, SetBookingSuccess] =useState(false);
+    const history = useHistory();
+    const [allSports, setAllSport] = useState(true);
+
     const columns = [
-        { field: "s_name", headerName: "Sports ID" , width:200},
+        { field: "s_name", headerName: "Sport Name" , width:200},
         {field : "start_time", headerName: "Start Time", width:200},
         {field : "end_time", headerName: "End Time", width:200},
         {field : "venue_id", headerName: "Venue", width:200},
-      ];
-      useEffect(() => {
-        setLoading(true);
+    ];
+      
+           
+    const handleBooking = () => {
+          axios
+            .post("http://localhost:3001/user/sportsBookingInsert",{
+              status: 'Booked',
+              booking_date: props.date,
+              sport_id: rowData.data.sport_id,
+              user_id: userData.user_id,
+              ts_id: rowData.data.ts_id,
+            })
+            .then((result) => {
+              setBookingMode(false);
+              SetBookingSuccess(true);
+            })
+            .catch((err) => {setException(true);
+            });
+    };
+
+    const getAllSports = () => {
         axios
-          .get("http://localhost:3001/user/getAllSports", {
-            params: { date: props.date },
+        .get("http://localhost:3001/user/getAllSports", {
+          params: { date: props.date },
+        })
+        .then((response) => {
+          setAllSportsRows(response.data);
+          setAllSport(false);
+          setBookingMode(false);
+          SetBookingSuccess(false);
+          
+    })
+       .catch((err) => {
+          setException(true);
+        },[props.date]);
+    };
+      
+    const gettingSlots = () => {
+        console.log("Running gettingSlots function.")
+        axios
+          .get("http://localhost:3001/user/getBookingSlot",{
+            params:{ s_name: rowData.data.s_name},
           })
-          .then((response) => {
-            setRows(response.data);
-            setLoading(false);
-          })
+          .then((result) => {
+            // var slots=response.data;
+            setRows(result.data);
+            setBookingMode(true);
+            SetBookingSuccess(false);
+        })
           .catch((err) => {
             setException(true);
-            setLoading(false);
           });
-      }, [props.date]);
+    };
     
-          
-      if(userData.user_id) {
-          return (               
-                    <div className="width100">  
-                        <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={3}
-                        autoHeight = "true"
-                        getRowId={(row) => row.sport_id}
-                        onRowSelected = {(rowData)=> {
-                        console.log(rowData);
-                        }}
-                        />
-                        <Button style= {{margin:"8px",display:"block",marginLeft:"auto"}}
-                        variant="contained"
-                        color="primary"
-                        onClick = {()=>{
-                            setBookingMode(true);
-                        }}
-                        >
-                        View Available Slot
-                        </Button>
-                         </div>
+    if(allSports){
+      getAllSports();
+    }
+
+
+    if (bookingSuccess) {
+        return (
+          <div>
+            <FormGroup>
+              <FormControl>
+                <Alert severity="info">Booking successful</Alert>
+              </FormControl>
+              <FormControl>
+                <Link
+                  className="margin8"
+                  to="/user/myBookings"
+                  onClick={() => {
+                    setBookingMode(false);
+                    SetBookingSuccess(false);
+                  }}
+                >
+                  Go to My bookings
+                </Link>
+              </FormControl>
+            </FormGroup>
+          </div>
+        );
+    }
+
+
+    if(userData.user_id) {
+          if(bookingMode)
+          {  
+           return (
+            <div className="width100">  
+            <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            autoHeight = "true"
+            getRowId={(row)=>row.ts_id}
+            onRowSelected = {(rowData)=> {
+            setRowData(rowData);
+            }}
+            />
+              <Button style= {{margin:"8px",display:"block",marginLeft:"auto"}}
+              variant="contained"
+              color="primary"
+              disabled={!(rowData && rowData.isSelected)}
+              onClick = {()=>handleBooking()}>
+              Book Slot
+              </Button>
+              <Button
+              variant="contained"
+              onClick={() =>{  
+                getAllSports();
+                }
+                }>
+              Go back
+              </Button>
+              </div>
             );
-        }else {
-            return (               
-                <div className="width100">  
-                    <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={3}
-                    autoHeight = "true"
-                    getRowId={(row) => row.sport_id}
-                    onRowSelected = {(rowData)=> {
-                    console.log(rowData);
-                    }}
-                />
-                </div>
-                );
-        }
+          }
+          else{
+               return (               
+                  <div className="width100">  
+                      <DataGrid
+                      rows={allSportsRows}
+                      columns={columns}
+                      pageSize={3}
+                      autoHeight = "true"
+                      getRowId={(row) => row.sport_id}
+                      onRowSelected = {(rowData)=> {
+                      setRowData(rowData);
+                      }}
+                      />
+                      <Button style= {{margin:"8px",display:"block",marginLeft:"auto"}}
+                      variant="contained"
+                      color="primary"
+                      disabled={!(rowData && rowData.isSelected)}
+                      onClick = {()=>gettingSlots()}>
+                      View Available Slot
+                      </Button>
+                    </div>
+              );
+           }
+       }
+      else {
+          return (               
+              <div className="width100">  
+                  <DataGrid
+                  rows={allSportsRows}
+                  columns={columns}
+                  pageSize={3}
+                  autoHeight = "true"
+                  getRowId={(row) => row.sport_id}
+                  onRowSelected = {(rowData)=> {
+                  }}
+              />
+              </div>
+              );
+      }   
 }
