@@ -4,13 +4,13 @@ const sendEmail = (to, subject,content) => {
     var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "clubmail@gmail.com",
-          pass: "pass",
+          user: "clubmail@gmail.com", // create admin gmail & add it here
+          pass: "pass", // password 
         },
       });
       
       var mailOptions = {
-        from: "clubmail@gmail.com",
+        from: "clubmail@gmail.com", // admin gmail id
         to: to,
         subject: subject,
         text: content,
@@ -25,7 +25,7 @@ const sendEmail = (to, subject,content) => {
       });
 };
 
-// provide access using this link https://myaccount.google.com/lesssecureapps 
+// provide access using this link https://myaccount.google.com/lesssecureapps  for admin gmail account
 
 module.exports = sendEmail;
 
