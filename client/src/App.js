@@ -14,7 +14,6 @@ import MyBookings from "./user/MyBookings";
 import AdminUserDetails from "./admin/ViewUserDetails";
 import AdminUserList from "./admin/ViewUserList";
 import AdminCreateAdmin from "./admin/CreateNewAdmin"
-import SportsBooking from "./user/sports/SportsBooking";
 import SportsList from "./user/sports/SportsList";
 import AdminCreateVenue from "./admin/CreateVenue";
 import AdminReadVenue from "./admin/ReadVenue";
@@ -42,7 +41,6 @@ function App() {
           <Route path="/admin/users/details/:id" exact render={(props) => <AdminUserDetails />} />
           <Route path="/admin/users" exact render={(props) => <AdminUserList />} />
           <Route path="/admin/newadmin/create" exact render={(props) => <AdminCreateAdmin />} />
-          <Route path="/admin/users/sports" exact render={(props) => <SportsBooking />} />
           <Route path="/admin/users/sportsList" exact render={(props) => <SportsList />} />
           <Route path="/admin/venue/create" exact render={(props) => <AdminCreateVenue />} />
           <Route path="/admin/venue/details/:id" exact render={(props) => <AdminReadVenue />} />
