@@ -1,7 +1,7 @@
 const db = require("../database/dbConnector");
 
 const {
-  GET_ALL_SPORTS,GET_SPORT_TIME,GET_SPORT_BOOKING_SLOT,
+  GET_ALL_SPORTS,GET_SPORT_BOOKING_SLOT,
     SPORTS_BOOKING_INSERT, CANCEL_SPORTS_BOOKING, GET_SPORTS_HISTORY,UPDATE_BOOKING_STATUS
 } = require("../database/SQL/Sports/sportsSQL");
 const { v4: uuidv4 } = require("uuid");
@@ -23,7 +23,6 @@ const getAllSports= (req, res) => {
 
 
 const getBookingSlot = (req, res) => {
-  console.log(req.query.s_name);
     db.query(GET_SPORT_BOOKING_SLOT,[req.query.s_name,req.query.s_name],(error, result) => {
         if (error) {
           res.status(404).send({ err: error.code });
@@ -42,7 +41,12 @@ const sportsBookingInsert = (req, res) => {
       res.status(404).send({ err: "Invalid user session" });
       return;
     }
-    db.query(SPORTS_BOOKING_INSERT,[NULL,req.query.date,req.body.sport_id,req.session.user.user_id,req.body.ts_id],
+    db.query(SPORTS_BOOKING_INSERT,[
+      req.body.status,
+      req.body.booking_date,
+      req.body.sport_id,
+      req.session.user.user_id,
+      req.body.ts_id],
       (error, result) => {
         if (error) {
           res.status(404).send({ err: error.code });
@@ -61,7 +65,9 @@ const  cancelSportsBooking = (req,res) => {
       res.status(404).send({ err: "Invalid user session" });
       return;
     }
-    db.query(CANCEL_SPORTS_BOOKING,[req.body.booking_id,req.body.s_name], (error, result) => {
+    db.query(CANCEL_SPORTS_BOOKING,[
+      req.body.booking_id,
+      req.body.s_name], (error, result) => {
             if (error) {
               res.status(404).send({ err: error.code });
               return;
@@ -90,18 +96,6 @@ const getSportsHistory = (req,res) => {
     }));
 };
   
-
-
-const postBookiongStatus = (req, res) => {
-    db.query(UPDATE_BOOKING_STATUS,[req.body.booking_id], (error, rows, fields) => {
-        if (error) {
-          return console.error(error.message);
-        }
-        res.send(rows);
-    }
-    )
-};
-  
   
 
   module.exports = {
@@ -110,5 +104,4 @@ const postBookiongStatus = (req, res) => {
     sportsBookingInsert,
     cancelSportsBooking,
     getSportsHistory,
-    postBookiongStatus
 };

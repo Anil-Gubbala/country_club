@@ -117,6 +117,7 @@ const UserDetails = (props) => {
                   Update Details
               </button>
             </div>
+
             { props.isAdmin === 1 && 
                 <div className="pure-u-1-6">
                 <button className="pure-button pure-button-primary" onClick={deleteUser}>
@@ -271,7 +272,7 @@ const UpdateUserDetails = (props) => {
                   Cancel
               </button>
             </div>
-        </div>      
+        </div>
 
       <div className="pure-u-1-3"></div>
         
