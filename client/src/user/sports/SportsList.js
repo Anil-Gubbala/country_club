@@ -28,7 +28,7 @@ export default function SportsList(props) {
         { field: "s_name", headerName: "Sport Name" , width:200},
         {field : "start_time", headerName: "Start Time", width:200},
         {field : "end_time", headerName: "End Time", width:200},
-        {field : "venue_id", headerName: "Venue", width:200},
+        {field : "venue_name", headerName: "Venue", width:200},
     ];
       
            
