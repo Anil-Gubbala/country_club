@@ -31,7 +31,7 @@ router.route('/admin/events/update').post(updateEvent)
 router.route('/admin/events/delete').post(deleteEvent)
 
 router.route('/admin/venuelist').get(getVenueDetails)
-router.route('/admin/venue/create').post(createVenue)
+router.route('/admin/venue/create').get(getVenueType).post(createVenue)
 router.route('/admin/venue/details/:id').get(readVenue)
 router.route('/admin/venue/update').post(updateVenue)
 router.route('/admin/venue/delete').post(deleteVenue)

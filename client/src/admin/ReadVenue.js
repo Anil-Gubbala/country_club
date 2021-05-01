@@ -6,6 +6,7 @@ import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { useParams, useHistory } from 'react-router-dom';
+import VenueTypeDropdown from "./VenueType";
 
 let details = {};
 
@@ -21,12 +22,13 @@ const ReadvenueDetails = (props) => {
 
     const deleteVenueDetails = () => {
         Axios.post("http://localhost:3001/admin/venue/delete", { venue_id: details.venue_id })
-                .then((response) => {
-                    history.push("/admin");
-                  })
-                  .catch((error) => {
-                  });
-     }
+            .then((response) => {
+                //history.push("/admin");
+                props.history.goBack();
+            })
+            .catch((error) => {
+            });
+    }
 
     useEffect(() => {
         Axios.get('http://localhost:3001/admin/venue/details/' + id).then(function (res) {
@@ -87,9 +89,9 @@ const ReadvenueDetails = (props) => {
 const UpdatevenueDetails = (props) => {
 
     const history = useHistory();
-    /* const setEventDeatilsVenue = (venueId) => {
-       props.setDetails({...props.details,venue_id:venueId});
-     }*/
+    const setVenuetypedetails = (venuetype) => {
+        props.setDetails({ ...props.details, venue_type: venuetype });
+      }
 
     const updateVenue = () => {
         Axios.post("http://localhost:3001/admin/venue/update",
@@ -121,16 +123,9 @@ const UpdatevenueDetails = (props) => {
                 </div>
 
                 <div className="pure-control-group">
-                    <label htmlFor="aligned-description">Venue Type</label>
-                    <input
-                        type="text"
-                        id="aligned-description" placeholder="Venue Type"
-                        value={props.details.venue_type}
-                        onChange={(e) => {
-                            props.setDetails({ ...props.details, venue_type: e.target.value });
-                        }}
-                    />
-                </div>
+          <label htmlFor="aligned-venue">Venue {props.details.venue_type}</label>
+          <VenueTypeDropdown setVenuetypedetails={setVenuetypedetails} selectedVenueType={props.details.venue_type} />
+        </div>
 
                 <div className="pure-controls">
                     <button className="pure-button pure-button-primary" onClick={updateVenue}>

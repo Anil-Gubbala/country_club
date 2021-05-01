@@ -199,4 +199,3 @@ alter table event_booking auto_increment = 1001;
 alter table dining auto_increment = 1001;
 alter table reservation auto_increment = 1001;
 alter table party auto_increment = 1001;
-

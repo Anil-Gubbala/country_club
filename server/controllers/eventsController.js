@@ -107,20 +107,19 @@ const updateEvent = (req, res) => {
         status,
         venue_id,
         capacity,
-        organized_by,
         event_id
     } = req.body;
-    db.query(SQL_EVENTS.UPDATE_EVENT, [
-        event_name,
-        e_description,
-        start_date,
-        end_date,
-        status,
-        venue_id,
-        capacity,
-        organized_by,
-        event_id
-    ], (err, results, fields) => {
+    db.query(SQL_EVENTS.UPDATE_EVENT,
+        [
+            event_name,
+            e_description,
+            start_date,
+            end_date,
+            status,
+            venue_id,
+            capacity,
+            event_id
+         ], (err, results, fields) => {
 
         if (err) {
             console.log(err);
