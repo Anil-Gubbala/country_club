@@ -1,3 +1,4 @@
+
 const mysql = require("mysql");
 
 const db = mysql.createConnection({
@@ -10,6 +11,5 @@ const db = mysql.createConnection({
 });
 
 //db.commit
-
 
 module.exports = db;

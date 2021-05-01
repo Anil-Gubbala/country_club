@@ -10,6 +10,7 @@ import {
 import Alert from "@material-ui/lab/Alert";
 import React, { useEffect, useState } from "react";
 import { confirmAlert } from 'react-confirm-alert';
+import { Link } from "react-router-dom";
 
 
 export default function SportsHistory() {
@@ -18,6 +19,9 @@ export default function SportsHistory() {
       const [loading, setLoading] = useState(false);
       const [bookingMode, setBookingMode] = useState(false);
       const [bookingSuccess, SetBookingSuccess] = useState(false);
+      const [rowData, setRowData] = useState([]);
+      const [exception, setException] = useState(false);
+
 
       const columns = [
       { field: "booking_id", headerName: "Booking ID" , width:200},
@@ -29,13 +33,19 @@ export default function SportsHistory() {
       ];
 
 
-      const handleBooking = () => { 
-        axios.post("http://localhost:3001/user/cancelSportsBooking")
-            .then((result) => {
-              SetBookingSuccess(true);
-            })
-            .catch((err) => {});
-     };
+      const handleBooking = () => {
+        axios
+          .post("http://localhost:3001/user/cancelSportsBooking",{
+            booking_id: rowData.data.booking_id,
+            s_name: rowData.data.s_name,
+          })
+          .then((result) => {
+            setBookingMode(false);
+            SetBookingSuccess(true);
+          })
+          .catch((err) => {setException(true);
+          });
+  };
 
       useEffect(() => {
         axios
@@ -47,39 +57,55 @@ export default function SportsHistory() {
           .catch((err) => {});
       }, []);
     
+
+      if (bookingSuccess) {
+        return (
+          <div>
+            <FormGroup>
+              <FormControl>
+                <Alert severity="info">Booking Cancelled</Alert>
+              </FormControl>
+              <FormControl>
+                <Link
+                  className="margin8"
+                  to="/user/myBookings"
+                  onClick={() => {
+                    setBookingMode(false);
+                    SetBookingSuccess(false);
+                    window.location.reload();
+                  }}
+                >
+                  Go to My bookings
+                </Link>
+              </FormControl>
+            </FormGroup>
+          </div>
+        );
+    }
+
+
     if(bookingMode){
-        confirmAlert({
-          customUI: ({ onClose }) => {
-            return (
+              return (
               <div>
         <FormGroup>
           <FormControl>
             <Alert severity="info">
-              <div className='custom-ui'>
-                <div style={{ height: 400, width: "100%" }}>
-                <h1>Are you sure?</h1>
-                <p>You want to delete this booking?</p>
+              <p>Do you really want to cancel this booking?</p>
                 <button onClick={() => {
                   setBookingMode(false);
-                  onClose();
                 }}>No</button>
                 <button
                   onClick={() => {
                     handleBooking();
-                    onClose();
                   }}
                 >
-                  Yes, Delete it!
+                  Yes, Cancel it!
                 </button>
-              </div>
-              </div>
               </Alert>
           </FormControl>
           </FormGroup>
           </div>
-            );
-          }
-        });      
+            );      
       }
        
 
@@ -96,7 +122,7 @@ export default function SportsHistory() {
               loading = {loading}
               getRowId={(row) => row.booking_id}
               onRowSelected = {(rowData)=> {
-                console.log(rowData);
+                setRowData(rowData);
               }}
             />
             </div>
@@ -112,10 +138,4 @@ export default function SportsHistory() {
         </div>
       );
       
-
-
-
-
-
 }
-    
