@@ -205,7 +205,7 @@ const UpdateDetails = (props) => {
 
 
         <div className="pure-control-group">
-          <label htmlFor="aligned-venue">Venue {props.details.venue_id}</label>
+          <label htmlFor="aligned-venue">Venue</label>
           <VenueDropdown setEventDeatilsVenue={setEventDeatilsVenue} selectedVenue={props.details.venue_id} />
         </div>
 
