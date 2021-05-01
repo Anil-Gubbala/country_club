@@ -153,6 +153,16 @@ const getAdminList = (req, res) => {
   });
 }
 
+const getDependents = (req, res) => {
+  let user_id=req.params.id;
+  db.query(SQL_ADMIN.GET_DEPENDENT_LIST, [user_id], (error, rows, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(rows);
+});
+}
+
 module.exports = {
     getPendingUsers,
     getUsers,
@@ -161,5 +171,6 @@ module.exports = {
     deleteUser,
     updateUser,
     createNewAdmin,
-    getAdminList
+    getAdminList,
+    getDependents
 };

@@ -7,6 +7,7 @@ import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { useParams } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import VeiwDependents from "./ViewDependent";
 
 let userDetail = {};
 
@@ -15,6 +16,8 @@ const UserDetails = (props) => {
     Axios.defaults.withCredentials = true;
     let { id } = useParams();
     const [loading, setLoading] = useState(true);
+
+    const [showDependents, setShowDependents] = useState(false);
 
     const history = useHistory();
 
@@ -42,6 +45,16 @@ const UserDetails = (props) => {
       });
     }
 
+    const veiwDependents = () =>{
+      
+        history.push("/admin/users/details/" + userDetail.user_id);
+    
+      setShowDependents(true);
+    }
+
+    const hideDependents = () =>{
+      setShowDependents(false);
+    }
 
     useEffect(() => {
       Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
@@ -57,6 +70,11 @@ const UserDetails = (props) => {
 
     return (
       <fieldset className="user-details">
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">User Id: </label>
+          <label id="aligned-name">{userDetail.user_id}</label>
+        </div>
+
           <div className="pure-control-group">
             <label htmlFor="aligned-name">First Name: </label>
             <label id="aligned-name">{userDetail.f_name}</label>
@@ -118,6 +136,22 @@ const UserDetails = (props) => {
               </button>
             </div>
 
+            {userDetail.membership_type !== 0 && !showDependents &&
+              <div className="pure-u-1-6">
+                  <button className="pure-button pure-button-primary" onClick={veiwDependents}>
+                        View Dependents
+                  </button>
+              </div>
+            }
+
+            {userDetail.membership_type !== 0 && showDependents &&
+              <div className="pure-u-1-6">
+                  <button className="pure-button pure-button-primary" onClick={hideDependents}>
+                        Hide Dependents
+                  </button>
+              </div>
+            }
+
             { props.isAdmin === 1 && 
                 <div className="pure-u-1-6">
                 <button className="pure-button pure-button-primary" onClick={deleteUser}>
@@ -133,6 +167,10 @@ const UserDetails = (props) => {
                 </div>
            }
           </div>
+
+
+          {showDependents && <VeiwDependents/>}
+
       </fieldset>
     );
 }
@@ -296,12 +334,12 @@ const Details = (props) => {
 
   if (showDetails){
     return (
-      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin}/>
+      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin} id={props.id}/>
       
     )
   } else {
     return (
-      <UpdateUserDetails details={userDetails} setUserDetails={setUserDetails} cancelUpdate={cancelUpdate} isAdmin={props.isAdmin}/>
+      <UpdateUserDetails details={userDetails} setUserDetails={setUserDetails} cancelUpdate={cancelUpdate} isAdmin={props.isAdmin}  id={props.id}/>
     )
   }
   
@@ -311,6 +349,7 @@ export default function ViewUserDetails() {
   Axios.defaults.withCredentials = true;
   const { loading, userData } = useLoginValidate();
   
+  let {id} = useParams();
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
   }
@@ -323,7 +362,7 @@ export default function ViewUserDetails() {
         <form className="pure-form pure-form-aligned">
           {userData.auth_id === 1 && <h1 style={{textAlign:"center"}}>User Details</h1>}
           {(userData.auth_id === 0) && <h1 style={{textAlign:"center"}}>My Profile</h1>}
-          <Details isAdmin={userData.auth_id}/>
+          <Details isAdmin={userData.auth_id} id={id}/>
         </form>
       </div>
     );

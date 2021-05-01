@@ -13,6 +13,8 @@ const SQL_ADMIN = {
                   inner join member m on u.user_id = m.user_id\
                   inner join membership_type mt on m.membership_type = mt.type_id\
                   where u.user_id = ? ;",
+
+GET_DEPENDENT_LIST:"select * from user u left join dependent d on u.user_id = d.user_id where u.user_id = ? ;",
                   
   GET_USER_LIST: "select u.user_id, u.f_name, u.l_name, u.street, u.zip_code, u.city, u.email_id, u.status, m.membership_type,  mt.name as 'membership_name',\
                   DATE_FORMAT(m.start_date,'%Y-%m-%d') as start_date, DATE_FORMAT(m.end_date,'%Y-%m-%d') as end_date from user u \

@@ -46,7 +46,7 @@ function App() {
           <Route path="/admin/users/sportsList" exact render={(props) => <SportsList />} />
           <Route path="/admin/venue/create" exact render={(props) => <AdminCreateVenue />} />
           <Route path="/admin/venue/details/:id" exact render={(props) => <AdminReadVenue />} />
-          <Route path="/user/myProfile/:id" exact render={(props) => <MyProfile />} />
+          <Route path="/user/myProfile" exact render={(props) => <MyProfile />} />
           <Route path="*">
             <ErrorPath></ErrorPath>
           </Route>
