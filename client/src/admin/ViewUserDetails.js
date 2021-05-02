@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useLoginValidate } from "../common/Validate";
 import redirectLogin from "../common/redirectLogin";
-import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { useParams } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import VeiwDependents from "./ViewDependent";
+import ViewDependent from "../admin/ViewDependent";
 
 let userDetail = {};
 
@@ -17,7 +16,7 @@ const UserDetails = (props) => {
     let { id } = useParams();
     const [loading, setLoading] = useState(true);
 
-    const [showDependents, setShowDependents] = useState(false);
+  
 
     const history = useHistory();
 
@@ -46,14 +45,7 @@ const UserDetails = (props) => {
     }
 
     const veiwDependents = () =>{
-      
-        history.push("/admin/users/details/" + userDetail.user_id);
-    
-      setShowDependents(true);
-    }
-
-    const hideDependents = () =>{
-      setShowDependents(false);
+        history.push("/admin/users/view/dependent/" + userDetail.user_id)
     }
 
     useEffect(() => {
@@ -136,18 +128,10 @@ const UserDetails = (props) => {
               </button>
             </div>
 
-            {userDetail.membership_type !== 0 && !showDependents &&
+            {userDetail.membership_type !== 0 &&
               <div className="pure-u-1-6">
                   <button className="pure-button pure-button-primary" onClick={veiwDependents}>
                         View Dependents
-                  </button>
-              </div>
-            }
-
-            {userDetail.membership_type !== 0 && showDependents &&
-              <div className="pure-u-1-6">
-                  <button className="pure-button pure-button-primary" onClick={hideDependents}>
-                        Hide Dependents
                   </button>
               </div>
             }
@@ -168,16 +152,12 @@ const UserDetails = (props) => {
            }
           </div>
 
-
-          {showDependents && <VeiwDependents/>}
-
       </fieldset>
     );
 }
 
 const UpdateUserDetails = (props) => {
-  
-  const history = useHistory();
+
 
   const updateUserDetails = () => {
     Axios.post("http://localhost:3001/admin/users/update", 
@@ -363,6 +343,7 @@ export default function ViewUserDetails() {
           {userData.auth_id === 1 && <h1 style={{textAlign:"center"}}>User Details</h1>}
           {(userData.auth_id === 0) && <h1 style={{textAlign:"center"}}>My Profile</h1>}
           <Details isAdmin={userData.auth_id} id={id}/>
+         
         </form>
       </div>
     );

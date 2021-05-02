@@ -1,24 +1,72 @@
 import React, { useState, useEffect  } from "react";
-import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import Axios from "axios";
-import { useHistory } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+import Navi from "../common/Navi";
+import { useHistory } from "react-router-dom";
+import { useLoginValidate } from "../common/Validate";
+import redirectLogin from "../common/redirectLogin";
 
 var rows = [];
-export default function ViewDependents() {
-    Axios.defaults.withCredentials = true;
-    
+
+
+const DependentDetails = (props) => {
+  Axios.defaults.withCredentials = true;
+    let { id } = useParams();
     const [loading, setLoading] = useState(true);
     const history = useHistory();
+    const [depCount, setDepCount] = useState(0);
+    const [showmessage, setShowMessage] = useState(false);
+    const defaultValues = {
+      user_id: props.user_id,
+      d_name: "",
+      relationship: "",
+    };
 
-    let { id } = useParams();
+
+    const [depDetails, setDepDetails] = useState(defaultValues);
+
+    const deleteDependent = (dep) => {
+      let d_name = dep.target.parentElement.id;
+      
+      Axios.post('http://localhost:3001/admin/users/dependent/delete', {user_id: props.user_id, d_name: d_name})
+      .then((response) => {
+        setDepCount({depCount: depCount - 1})
+        console.log('delete successfull.');
+      })
+      .catch((error) => {
+      });
+    }
+
+    const addNewDependent = (props) =>{
+      Axios.post('http://localhost:3001/admin/users/dependent/insert', 
+        { user_id: depDetails.user_id,
+          d_name: depDetails.d_name,
+          relationship: depDetails.relationship
+        }
+      ).then((response) => {
+          setShowMessage(true);
+        })
+        .catch((error) => {
+        });
+    }
+
+    const backToUserDetail = () =>{
+      history.goBack();
+    }
 
     useEffect(() => {
         Axios.get('http://localhost:3001/admin/users/view/dependent/' + id).then(function(res) {
         console.log(res);
         rows = res.data;
+        console.log(rows);
         setLoading(false);
+        //props.setDepDetails(defaultValues);
+        setDepCount(res.data.length);
+        if(depCount === 1 || rows[0].membership_type === 1){
+          if(rows[0].name !== null){
+            props.setCanAdd(false);}
+          }
         });
       }, []);
 
@@ -28,7 +76,22 @@ export default function ViewDependents() {
     return (
         
         <div className="pure-form pure-form-aligned">
-          <h1 style={{textAlign:"center"}}>Dependents List</h1>
+          <h1 style={{textAlign:"center"}}>Dependents List of {props.user_id}</h1>
+          <div className="pure-controls">
+          {props.canAdd && <div className="pure-u-1-6">
+                <button className="pure-button pure-button-primary" onClick={() => props.showAddDep()}>
+                      Add New Dependent
+                  </button>
+          </div>}
+          <div className="pure-u-1-6"></div>
+          <div className="pure-u-1-6">
+                <button className="pure-button pure-button-primary" onClick={backToUserDetail}>
+                      Back to User Details
+                  </button>
+          </div>
+          </div>
+        <br/>
+        <br/>
           <table className="pure-table pure-table-horizontal">
                 <thead>
                     <tr>
@@ -39,18 +102,89 @@ export default function ViewDependents() {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows.map(res =>
-                        <tr key={res.user_id} data-key={res.user_id}>
+                    {rows[0].name !== null && rows.map(res =>
+                        <tr>
+                          <td>#</td>
                           <td>{res.name}</td>
                           <td>{res.relationship}</td>
-                          <td>Delete</td>                          
+                          <td id={res.name} key={res.name} data-key={res.user_id}>
+                            <button className="pure-button pure-button-primary" onClick={deleteDependent}>
+                    Delete
+                </button></td>                          
                         </tr>
                     )}
+                    {props.addDependent && <tr>
+                      <td>#</td>
+                      <td>
+                        <input type="text" id="aligned-name" placeholder="d_name" 
+                            onChange={(e) => {
+                              setDepDetails({...depDetails, d_name:e.target.value});
+                            }}
+                        />
+                      </td>
+                      <td>
+                      <select
+                          id="aligned-status" placeholder="Membership"
+                          onChange={(e) => {
+                            setDepDetails({...depDetails, relationship:e.target.value});
+                          }}>
+                            <option value="spouse">spouse</option>
+                            <option value="child">child</option>
+                            <option value="parent">parent</option>
+                        </select>
+                      </td>
+                      {<td><button className="pure-button pure-button-primary" onClick={addNewDependent}>
+                    Add
+                </button></td>}
+                      </tr>}
                 </tbody>
             </table>
             <br/>
             <br/>
+            {showmessage && <h2>New dependent added</h2>}
         </div>
     );
   }
+}
+export default function ViewDependent() {
+    Axios.defaults.withCredentials = true;
+    
+    const { loading, userData } = useLoginValidate();
+
+    let {id} = useParams();    
+  
+    const [addDependent, setAddDependent] =useState(false);
+    const [canAdd, setCanAdd] = useState(true);
+    
+  
+    
+    const showAddDep = () =>{
+      setAddDependent(true);
+      //setDepDetails(defaultValues);
+      
+    }
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/admin/users/view/dependent/' + id).then(function(res) {
+        console.log(res);
+        rows = res.data;
+        });
+      }, []);
+
+      
+  
+ 
+  if (loading) {
+    return <BasePage> Loading data.... </BasePage>;
+  }
+  if (!userData.user_id) {
+    return redirectLogin();
+  } else {
+    return (
+      <div>
+        <Navi></Navi>
+      <DependentDetails user_id={id} canAdd={canAdd} setCanAdd={setCanAdd} showAddDep={showAddDep} addDependent={addDependent}/>
+      </div>
+    )};
+  
 }
