@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useLoginValidate } from "../common/Validate";
 import redirectLogin from "../common/redirectLogin";
-import redirectHome from "../common/redirectHome";
 import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { useParams } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
+import ViewDependent from "../admin/ViewDependent";
 
 let userDetail = {};
 
@@ -42,6 +42,9 @@ const UserDetails = (props) => {
       });
     }
 
+    const veiwDependents = () =>{
+        history.push("/admin/users/view/dependent/" + userDetail.user_id)
+    }
 
     useEffect(() => {
       Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
@@ -57,6 +60,11 @@ const UserDetails = (props) => {
 
     return (
       <fieldset className="user-details">
+        <div className="pure-control-group">
+          <label htmlFor="aligned-name">User Id: </label>
+          <label id="aligned-name">{userDetail.user_id}</label>
+        </div>
+
           <div className="pure-control-group">
             <label htmlFor="aligned-name">First Name: </label>
             <label id="aligned-name">{userDetail.f_name}</label>
@@ -81,20 +89,21 @@ const UserDetails = (props) => {
             </label>
           </div>
 
-          <div className="pure-control-group">
+          {userDetail.membership_name && <div className="pure-control-group">
             <label htmlFor="aligned-name">Membership Type: </label>
             <label id="aligned-name">{userDetail.membership_name}</label>
-          </div>
+          </div>}
 
-          <div className="pure-control-group">
+         {userDetail.start_date && <div className="pure-control-group">
             <label htmlFor="aligned-name">Start Date: </label>
             <label id="aligned-name">{userDetail.start_date}</label>
           </div>
+          }
 
-          <div className="pure-control-group">
+          {userDetail.end_date && <div className="pure-control-group">
             <label htmlFor="aligned-name">End Date: </label>
             <label id="aligned-name">{userDetail.end_date}</label>
-          </div>
+          </div>}
 
           <div className="pure-control-group">
             <label htmlFor="aligned-name">Membership Status: </label>
@@ -118,6 +127,14 @@ const UserDetails = (props) => {
               </button>
             </div>
 
+            {userDetail.membership_type !== 0 && userDetail.membership_name &&
+              <div className="pure-u-1-6">
+                  <button className="pure-button pure-button-primary" onClick={veiwDependents}>
+                        View Dependents
+                  </button>
+              </div>
+            }
+
             { props.isAdmin === 1 && 
                 <div className="pure-u-1-6">
                 <button className="pure-button pure-button-primary" onClick={deleteUser}>
@@ -133,13 +150,13 @@ const UserDetails = (props) => {
                 </div>
            }
           </div>
+
       </fieldset>
     );
 }
 
 const UpdateUserDetails = (props) => {
-  
-  const history = useHistory();
+
 
   const updateUserDetails = () => {
     Axios.post("http://localhost:3001/admin/users/update", 
@@ -220,7 +237,7 @@ const UpdateUserDetails = (props) => {
           />
         </div>
 
-        <div className="pure-control-group">
+        {props.details.start_date && <div className="pure-control-group">
           <label htmlFor="aligned-start-date">Start Date: </label>
           <input
             type="date"
@@ -230,9 +247,9 @@ const UpdateUserDetails = (props) => {
               props.setUserDetails({...props.details,start_date:e.target.value});
             }}
           />
-        </div>
+        </div>}
 
-        <div className="pure-control-group">
+      {props.details.end_date && <div className="pure-control-group">
           <label htmlFor="aligned-end-date">End Date: </label>
           <input
             type="date"
@@ -243,8 +260,8 @@ const UpdateUserDetails = (props) => {
             }}
           />
         </div>
-
-        <div className="pure-control-group">
+}
+        {props.details.membership_type && <div className="pure-control-group">
           <label htmlFor="aligned-status">Membership: </label>
           {props.isAdmin === 1 && 
               <select
@@ -260,6 +277,7 @@ const UpdateUserDetails = (props) => {
           }
           {props.isAdmin === 0 && <label id="aligned-name">{props.details.membership_name}</label>}
         </div>
+}
 
         <div className="pure-controls">
             <div className="pure-u-1-6">
@@ -296,12 +314,12 @@ const Details = (props) => {
 
   if (showDetails){
     return (
-      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin}/>
+      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin} id={props.id}/>
       
     )
   } else {
     return (
-      <UpdateUserDetails details={userDetails} setUserDetails={setUserDetails} cancelUpdate={cancelUpdate} isAdmin={props.isAdmin}/>
+      <UpdateUserDetails details={userDetails} setUserDetails={setUserDetails} cancelUpdate={cancelUpdate} isAdmin={props.isAdmin}  id={props.id}/>
     )
   }
   
@@ -311,6 +329,7 @@ export default function ViewUserDetails() {
   Axios.defaults.withCredentials = true;
   const { loading, userData } = useLoginValidate();
   
+  let {id} = useParams();
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
   }
@@ -323,7 +342,8 @@ export default function ViewUserDetails() {
         <form className="pure-form pure-form-aligned">
           {userData.auth_id === 1 && <h1 style={{textAlign:"center"}}>User Details</h1>}
           {(userData.auth_id === 0) && <h1 style={{textAlign:"center"}}>My Profile</h1>}
-          <Details isAdmin={userData.auth_id}/>
+          <Details isAdmin={userData.auth_id} id={id}/>
+         
         </form>
       </div>
     );

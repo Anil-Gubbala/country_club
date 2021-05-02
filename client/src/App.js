@@ -17,7 +17,8 @@ import AdminCreateAdmin from "./admin/CreateNewAdmin"
 import SportsList from "./user/sports/SportsList";
 import AdminCreateVenue from "./admin/CreateVenue";
 import AdminReadVenue from "./admin/ReadVenue";
-import MyProfile from "./user/MyProfile"
+import MyProfile from "./user/MyProfile";
+import ViewDependent from "./admin/ViewDependent";
 
 function App() {
   return (
@@ -44,7 +45,8 @@ function App() {
           <Route path="/admin/users/sportsList" exact render={(props) => <SportsList />} />
           <Route path="/admin/venue/create" exact render={(props) => <AdminCreateVenue />} />
           <Route path="/admin/venue/details/:id" exact render={(props) => <AdminReadVenue />} />
-          <Route path="/user/myProfile/:id" exact render={(props) => <MyProfile />} />
+          <Route path="/user/myProfile" exact render={(props) => <MyProfile />} />
+          <Route path="/admin/users/view/dependent/:id" exact render={(props) => <ViewDependent/>}/>
           <Route path="*">
             <ErrorPath></ErrorPath>
           </Route>

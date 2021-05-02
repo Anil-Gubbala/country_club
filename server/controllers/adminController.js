@@ -2,7 +2,6 @@ const db = require("../database/dbConnector");
 const SQL_ADMIN = require("../database/SQL/Admin/adminSql");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const { MEMBER_GET } = require("../database/SQL/User/userSql");
 
 const getPendingUsers = (req, res) => {
     db.query(SQL_ADMIN.GET_PENDING_USER_LIST, (error, rows, fields) => {
@@ -153,6 +152,60 @@ const getAdminList = (req, res) => {
   });
 }
 
+const getDependents = (req, res) => {
+  let user_id=req.params.id;
+  db.query(SQL_ADMIN.GET_DEPENDENT_LIST, [user_id], (error, rows, fields) => {
+    if (error) {
+      return console.error(error.message);
+    }
+    res.send(rows);
+});
+}
+
+const deleteDependent = (req, res) => {
+  const {
+    user_id,
+    d_name
+  } = req.body;
+
+  db.query(SQL_ADMIN.DELETE_DEPENDENT,[user_id, d_name], (error,result,fields) =>{
+      if(error){
+        console.log(err);
+        res.status(404).send({
+            err: err.errno === 1062 ? "Error deleting dependent" : err.code
+        });
+      }
+      res.status(200).send({ success: true });
+  })
+}
+
+const addNewDependent = (req, res) => {
+  const {
+    user_id,
+    d_name,
+    relationship
+  } = req.body;
+console.log(user_id, d_name, relationship);
+  db.query(
+    SQL_ADMIN.INSERT_DEPENDENT,
+    [
+      user_id,
+      d_name,
+      relationship
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send({
+          err: err.errno === 1062 ? "Dependent already exists" : err.code,
+        });
+      } else {
+        res.send({ success: true});
+      }
+    }
+  );
+}
+
 module.exports = {
     getPendingUsers,
     getUsers,
@@ -161,5 +214,8 @@ module.exports = {
     deleteUser,
     updateUser,
     createNewAdmin,
-    getAdminList
+    getAdminList,
+    getDependents, 
+    deleteDependent,
+    addNewDependent
 };

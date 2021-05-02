@@ -36,7 +36,7 @@ const Navi = () => {
         )}
         {userData.user_id && (
           <li className="pure-menu-item">
-            <Link to="/user/myProfile" className="pure-menu-link">
+            <Link to="/user/myProfile" params={{ id: userData.user_id }} className="pure-menu-link">
               My Profile
             </Link>
           </li>

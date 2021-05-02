@@ -10,11 +10,13 @@ const SQL_ADMIN = {
                   DATE_FORMAT(m.start_date,'%Y-%m-%d') as start_date,\
                   DATE_FORMAT(m.end_date,'%Y-%m-%d') as end_date \
                   from user u\
-                  inner join member m on u.user_id = m.user_id\
-                  inner join membership_type mt on m.membership_type = mt.type_id\
+                  left join member m on u.user_id = m.user_id\
+                  left join membership_type mt on m.membership_type = mt.type_id\
                   where u.user_id = ? ;",
+
+GET_DEPENDENT_LIST:"select * from member m left join dependent d on m.user_id = d.user_id where m.user_id = ? ;",
                   
-  GET_USER_LIST: "select u.user_id, u.f_name, u.l_name, u.street, u.zip_code, u.city, u.email_id, u.status, m.membership_type,  mt.name as 'membership_name',\
+  GET_USER_LIST: "select u.user_id, u.f_name, u.l_name, u.street, u.zip_code, u.city, u.email_id, u.auth_id, u.status, m.membership_type,  mt.name as 'membership_name',\
                   DATE_FORMAT(m.start_date,'%Y-%m-%d') as start_date, DATE_FORMAT(m.end_date,'%Y-%m-%d') as end_date from user u \
                   inner join member m on u.user_id = m.user_id \
                   inner join membership_type mt on m.membership_type = mt.type_id\
@@ -34,7 +36,11 @@ const SQL_ADMIN = {
                   where auth_id = 1;",
 
   GET_ADMIN_BY_ID: "select u.user_id, u.f_name, u.l_name, u.email_id, u.street, u.zip_code, u.city, u.auth_id, u.status from user u \
-                  where auth_id = 1 and ;"
+                  where auth_id = 1 and ;",
+
+  DELETE_DEPENDENT: "delete from dependent where user_id = ? and name = ?",
+
+  INSERT_DEPENDENT: "insert into dependent (user_id, name, relationship) values (?, ?, ?)"
 
   };
 
