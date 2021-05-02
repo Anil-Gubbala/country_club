@@ -1,4 +1,6 @@
 const db = require("../database/dbConnector");
+const logger = require('../modules/logger');
+
 const {
   PARTY_GET_VENUE,
   PARTY_INSERT,
@@ -9,20 +11,27 @@ const {
 const { v4: uuidv4 } = require("uuid");
 
 const partyGetVenues = (req, res) => {
-  db.query(
+  
+  var query = db.query(
     PARTY_GET_VENUE,
     ["private_party", req.query.date, req.query.date],
     (error, result) => {
+      logger.request.info("get available party venues ");
+      logger.request.info("query: " + query.sql);
       if (error) {
+        logger.request.error("Error in fetching venues : " + error.message);
         res.status(404).send({ err: error.code });
         return;
       } else if (result.length == 0) {
+        logger.request.info("No venues available");
         res.send([]);
       } else {
+        logger.request.info("available venues: " + JSON.stringify(result));
         res.send(result);
       }
     }
   );
+  
 };
 
 const partyInsert = (req, res) => {
