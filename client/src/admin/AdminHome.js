@@ -23,10 +23,10 @@ export default function AdminHome() {
         <br/>
         <div className="pure-controls">
           <Link to="/admin/events/create" className="pure-button pure-button-primary margin10">Create New Event</Link>
-          <Link to="/admin/booking" className="pure-button pure-button-primary margin10">Confirm Booking</Link>
           <Link to="/admin/users" className="pure-button pure-button-primary margin10">View All Users</Link>
           <Link to="/admin/newadmin/create" className="pure-button pure-button-primary">Add New Admin</Link>
           <Link to="/admin/venue/create" className="pure-button pure-button-primary margin10">Add New Venue</Link>
+          <Link to="/registration" className="pure-button pure-button-primary margin10">Register New Member</Link>
         </div>
         <br/>
         <br/>

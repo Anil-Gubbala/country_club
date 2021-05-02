@@ -131,9 +131,10 @@ const DependentDetails = (props) => {
                           onChange={(e) => {
                             setDepDetails({...depDetails, relationship:e.target.value});
                           }}>
-                            <option value="spouse">spouse</option>
-                            <option value="child">child</option>
-                            <option value="parent">parent</option>
+                            <option value="0">Select Relationship</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Child">Child</option>
+                            <option value="Parent">Parent</option>
                         </select>
                       </td>
                       {<td><button className="pure-button pure-button-primary" onClick={addNewDependent}>
