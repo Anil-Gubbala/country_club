@@ -95,9 +95,8 @@ const deleteVenue= (req, res) => {
             res.status(404).send({
                 err: err.errno === 1062 ? "Error deleting venue" : err.code
             });
-        } else {
-            res.send(results);
-        }
+        } 
+        res.send({ message: "deleted" });
     });
 }
 

@@ -10,6 +10,26 @@ import VenueTypeDropdown from "./VenueType";
 
 let details = {};
 
+const DeleteEventDetails = () => {
+    const history = useHistory();
+    const deleteVenueDetails = (e) => {
+        e.preventDefault();
+            Axios.post("http://localhost:3001/admin/venue/delete", { venue_id: details.venue_id })
+                .then(function (res) {
+                    history.push("/admin");
+                })
+                .catch((error) => {
+                });
+
+    }
+
+    return (
+            <button className="pure-button pure-button-error"
+                    onClick={deleteVenueDetails}>
+                            Delete Venue
+            </button>
+        );
+}
 
 
 const ReadvenueDetails = (props) => {
@@ -18,17 +38,7 @@ const ReadvenueDetails = (props) => {
     Axios.defaults.withCredentials = true;
     const [loading, setLoading] = useState(true);
     let { id } = useParams();
-    const history = useHistory();
 
-    const deleteVenueDetails = () => {
-        Axios.post("http://localhost:3001/admin/venue/delete", { venue_id: details.venue_id })
-            .then((response) => {
-                //history.push("/admin");
-                props.history.goBack();
-            })
-            .catch((error) => {
-            });
-    }
 
     useEffect(() => {
         Axios.get('http://localhost:3001/admin/venue/details/' + id).then(function (res) {
@@ -68,15 +78,12 @@ const ReadvenueDetails = (props) => {
                             onClick={() =>
                                 props.updateVenue(details)}>
                             Update Venue
-                </button>
+                        </button>
                     </div>
                     <div className="pure-u-1-6">
                     </div>
                     <div className="pure-u-1-6">
-                        <button className="pure-button pure-button-error"
-                            onClick={deleteVenueDetails}>
-                            Delete Venue
-                </button>
+                        <DeleteEventDetails/>
                     </div>
                 </div>
             </div>
@@ -91,15 +98,17 @@ const UpdatevenueDetails = (props) => {
     const history = useHistory();
     const setVenuetypedetails = (venuetype) => {
         props.setDetails({ ...props.details, venue_type: venuetype });
-      }
+    }
 
-    const updateVenue = () => {
+    const updateVenue = (e) => {
+
+        e.preventDefault();
         Axios.post("http://localhost:3001/admin/venue/update",
             props.details
         )
-            .then((response) => {
-                history.push("/admin");
-            })
+        .then(function (res) {
+            history.push("/admin");
+        })
             .catch((error) => {
             });
 
@@ -123,9 +132,9 @@ const UpdatevenueDetails = (props) => {
                 </div>
 
                 <div className="pure-control-group">
-          <label htmlFor="aligned-venue">Venue {props.details.venue_type}</label>
-          <VenueTypeDropdown setVenuetypedetails={setVenuetypedetails} selectedVenueType={props.details.venue_type} />
-        </div>
+                    <label htmlFor="aligned-venue">Venue {props.details.venue_type}</label>
+                    <VenueTypeDropdown setVenuetypedetails={setVenuetypedetails} selectedVenueType={props.details.venue_type} />
+                </div>
 
                 <div className="pure-controls">
                     <button className="pure-button pure-button-primary" onClick={updateVenue}>

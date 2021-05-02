@@ -3,6 +3,7 @@ const cors = require("cors");
 const router = require("./routers/mainRouter");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const logger = require('./modules/logger');
 const app = express();
 
 app.use(express.json());
@@ -36,3 +37,6 @@ app.use("/", router);
 app.listen(3001, () => {
   console.log("running server");
 });
+
+//Logging log4js
+app.use(logger.express);

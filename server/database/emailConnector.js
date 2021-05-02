@@ -1,16 +1,16 @@
 var nodemailer = require("nodemailer");
 
-const sendEmail = (to, subject,content) => {
+const sendEmail = (to, subject, content) => {
     var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "clubmail@gmail.com", // create admin gmail & add it here
-          pass: "pass", // password 
+          user: "ccountry86@gmail.com", // create admin gmail & add it here
+          pass: "testcc@123", // password 
         },
       });
       
       var mailOptions = {
-        from: "clubmail@gmail.com", // admin gmail id
+        from: "ccountry86@gmail.com", // admin gmail id
         to: to,
         subject: subject,
         text: content,

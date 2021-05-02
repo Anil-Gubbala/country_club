@@ -1,4 +1,3 @@
-
 const mysql = require("mysql");
 
 const db = mysql.createConnection({
@@ -8,8 +7,7 @@ const db = mysql.createConnection({
     database: "countryclub",
     port: "3306",
     multipleStatements: true
-});
+  });
 
-//db.commit
 
 module.exports = db;
