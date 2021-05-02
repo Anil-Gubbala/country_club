@@ -12,7 +12,7 @@ create table user (
   	zip_code varchar(5) not null,
   	password varchar(100) not null,
   	auth_id bit default b'0' not null,
-  	status varchar(25) default 0 not null,
+  	status varchar(25) not null,
   	primary key (user_id)
 );
 
@@ -45,7 +45,6 @@ create table member
 );
 
 
-
 create table dependent
 (
 	name varchar(100) not null,
@@ -53,12 +52,6 @@ create table dependent
 	relationship varchar(50) default "Family Member" not null,
 	primary key (user_id, name),
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade
-);
-
--- relationship: used for dropdown
-create table relationship
-(
-	r_name varchar(50) not null unique
 );
 
 -- venue_type: used for dropdown
@@ -76,7 +69,6 @@ create table venue
 	primary key (venue_id),
 	foreign key (venue_type) references venue_type (venue_type) on update cascade on delete cascade    
 );
-
 
 
 create table sports
