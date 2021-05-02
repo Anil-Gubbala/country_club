@@ -1,5 +1,6 @@
-import { Button } from "@material-ui/core";
+import { Button, Snackbar } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import dateToString from "../../common/dateConverter";
@@ -10,25 +11,14 @@ export default function PrivateEventBookings() {
   const [loading, setLoading] = useState(false);
   const [rowData, setRowData] = useState({});
   const [upcoming, setUpcoming] = useState(false);
-  const cancelBooking = () => {
-    axios
-      .post("http://localhost:3001/user/cancelParty", {
-        party_id: rowData.data.party_id,
-      })
-      .then((result) => {
-        setLoading(true);
-        axios
-          .get("http://localhost:3001/user/partyGetBookings")
-          .then((response) => {
-            setRows(response.data);
-            setLoading(false);
-            setUpcoming(false);
-          })
-          .catch((err) => {
-            setLoading(false);
-          });
-      })
-      .catch((err) => {});
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
   };
   const columns = [
     { field: "p_name", headerName: "Event Name", width: 200 },
@@ -62,9 +52,42 @@ export default function PrivateEventBookings() {
         setLoading(false);
       })
       .catch((err) => {
+        if(err.message){
+          setMessage(err.message);
+        }else{
+          setMessage(err.response.data.err);
+        }
+        setOpen(true);
         setLoading(false);
       });
   }, []);
+  const cancelBooking = () => {
+    axios
+      .post("http://localhost:3001/user/cancelParty", {
+        party_id: rowData.data.party_id,
+      })
+      .then((result) => {
+        setLoading(true);
+        axios
+          .get("http://localhost:3001/user/partyGetBookings")
+          .then((response) => {
+            setRows(response.data);
+            setLoading(false);
+            setUpcoming(false);
+          })
+          .catch((err) => {
+            if(err.message){
+              setMessage(err.message);
+            }else{
+              setMessage(err.response.data.err);
+            }
+            
+            setOpen(true);
+            setLoading(false);
+          });
+      })
+      .catch((err) => {});
+  };
 
   if (rows.length === 0) {
     return <div>No recent booking history</div>;
@@ -101,6 +124,11 @@ export default function PrivateEventBookings() {
       >
         Cancel
       </Button>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="warning">
+          {message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
