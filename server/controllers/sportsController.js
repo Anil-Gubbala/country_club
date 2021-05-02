@@ -1,4 +1,5 @@
 const db = require("../database/dbConnector");
+const logger = require('../modules/logger');
 
 const {
   GET_ALL_SPORTS,GET_SPORT_BOOKING_SLOT,
@@ -8,13 +9,17 @@ const { v4: uuidv4 } = require("uuid");
 
 
 const getAllSports= (req, res) => {
+  logger.request.info("Getting list of all sports of CountryClub.");
   db.query(GET_ALL_SPORTS,(error, result) => {
     if (error) {
+      logger.request.error("Error in fetching sports list " + error.message);
       res.status(404).send({ err: error.code });
       return;
     } else if (result.length == 0) {
+      logger.response.info("No rows to return in the sports list ");
       res.send([]);
     } else {
+      logger.response.info("Sports list : " + result);
       res.send(result);
     }
   }
@@ -23,13 +28,17 @@ const getAllSports= (req, res) => {
 
 
 const getBookingSlot = (req, res) => {
+  logger.request.info("Getting list of all available slots of a particular sport.");
     db.query(GET_SPORT_BOOKING_SLOT,[req.query.s_name,req.query.s_name],(error, result) => {
         if (error) {
+          logger.request.error("Error in fetching slots " + error.message);
           res.status(404).send({ err: error.code });
           return;
         } else if (result.length == 0) {
+          logger.response.info("No rows to return in slots list  " );
           res.send([]);
         } else {
+          logger.response.info("Available Booking Slots list : " + result);
           res.send(result);
         }
       }
@@ -37,7 +46,9 @@ const getBookingSlot = (req, res) => {
 };
   
 const sportsBookingInsert = (req, res) => {
+  logger.request.info("Insertion of booking details");
     if (!req.session.user) {
+      logger.request.error("Invalid user session " + error.message);
       res.status(404).send({ err: "Invalid user session" });
       return;
     }
@@ -49,11 +60,14 @@ const sportsBookingInsert = (req, res) => {
       req.body.ts_id],
       (error, result) => {
         if (error) {
+          logger.request.error("Error in inserting booking details " + error.message);
           res.status(404).send({ err: error.code });
           return;
         } else if (result.length == 0) {
+          logger.response.info("No rows to insert in Booking table" );
           res.send([]);
         } else {
+          logger.response.info("Booking details of the user : " + result);
           res.send(result);
         }
       }
@@ -61,7 +75,9 @@ const sportsBookingInsert = (req, res) => {
 };
   
 const  cancelSportsBooking = (req,res) => {
+  logger.request.info(" Cancellation of booking");
     if (!req.session.user) {
+      logger.request.error("Invalid user session " + error.message);
       res.status(404).send({ err: "Invalid user session" });
       return;
     }
@@ -69,11 +85,14 @@ const  cancelSportsBooking = (req,res) => {
       req.body.booking_id,
       req.body.s_name], (error, result) => {
             if (error) {
+              logger.request.error("Error in cancelling the booking " + error.message);
               res.status(404).send({ err: error.code });
               return;
             } else if (result.length == 0) {
+              logger.response.info("No rows to cancel ");
               res.send([]);
             } else {
+              logger.response.info("Cancellation request for booking details : " + result);
               res.send(result);
             }
           }
@@ -81,16 +100,21 @@ const  cancelSportsBooking = (req,res) => {
     };
 
 const getSportsHistory = (req,res) => {
+  logger.request.info("Getting sports booking history");
     if (!req.session.user) {
+      logger.request.error("Invalid user session" + error.message);
       res.status(404).send({ err: "Invalid user session" });
       return;
     }
     db.query(GET_SPORTS_HISTORY, [req.session.user.user_id],((error, result)=>{
       if(error){
+        logger.request.error("Error in fetching booking history " + error.message);
         res.status(404).send({ err: error.code });
       }else if(result.length == 0){
+        logger.response.info("No booking history to show");
         res.send([]);
       }else{
+        logger.response.info("Booking history : " + result);
         res.send(result);
       }
     }));
