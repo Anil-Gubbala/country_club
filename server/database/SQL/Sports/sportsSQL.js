@@ -13,10 +13,11 @@ const SPORTS_SECTION ={
 
     CANCEL_SPORTS_BOOKING : "Update countryclub.sports_booking set status='Cancelled' where booking_id=? and sport_id in ( select sport_id from sports where s_name= ?);",
 
-    GET_SPORTS_HISTORY : "select booking_id, s_name , booking_date,time_slot.start_time, time_slot.end_time ,status from sports_booking ,sports, time_slot \
+    GET_SPORTS_HISTORY : "select booking_id, s_name , DATE_FORMAT(booking_date,'%Y-%m-%d') as 'booking_date',time_slot.start_time, time_slot.end_time ,status from sports_booking ,sports, time_slot \
                           where time_slot.ts_id = sports_booking.ts_id \
                           and sports_booking.sport_id = sports.sport_id \
-                          and user_id=?;",
+                          and user_id=? \
+                          order by booking_id;",
 
 };
   

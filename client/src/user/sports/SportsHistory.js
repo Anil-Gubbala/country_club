@@ -26,7 +26,7 @@ export default function SportsHistory() {
       const columns = [
       { field: "booking_id", headerName: "Booking ID" , width:200},
       { field: "s_name", headerName: "Sports Name",width:200 },
-      { field: "booking_date", headerName: "Booking Date" ,width:200},
+      { field: "booking_date", headerName: "Sport's Day" ,width:200},
       { field: "start_time", headerName: "Start Time" ,width:200},
       { field: "end_time", headerName: "End Time" ,width:200},
       { field: "status", headerName: "Booking Status" ,width:200},

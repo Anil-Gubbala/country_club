@@ -12,15 +12,15 @@ import { useParams } from 'react-router-dom';
 export default function MyProfile() {
   const { loading, userData } = useLoginValidate();
   let {id} = useParams();
+  const history = useHistory();
   if (loading) {
     return <BasePage> Loading data.... </BasePage>;
   }
   if (!userData.user_id) {
     return redirectLogin();
   }  else {
-      return (
-        <ViewUserDetails />
-      );
+      history.push("/admin/users/details/" + userData.user_id);
+      return null;
     }
     }
 
