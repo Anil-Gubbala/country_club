@@ -9,6 +9,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Snackbar,
   TextField,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -27,6 +28,8 @@ export default function PrivateEventsList(props) {
   const [loading, setLoading] = useState(false);
   const [rows, setRows] = useState([]);
   const [endDate, setEndDate]= useState(props.date);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
   const columns = [
     { field: "venue_id", headerName: "Venue Number", width: 200 },
     { field: "venue_name", headerName: "Venue Name", width: 200 },
@@ -40,6 +43,14 @@ export default function PrivateEventsList(props) {
       setEndDate(dateToString(end))
     }
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleBooking = () => {
     if (eventName === "" || attendees > rowData.data.capacity) {
       setInvalid(true);
@@ -56,10 +67,14 @@ export default function PrivateEventsList(props) {
         .then((result) => {
           SetBookingSuccess(true);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setMessage(err.response.data.err)
+          setOpen(true);
+        });
     }
   };
   useEffect(() => {
+    setEndDate(props.date);
     setLoading(true);
     axios
       .get("http://localhost:3001/user/partyGetVenues", {
@@ -74,6 +89,11 @@ export default function PrivateEventsList(props) {
         setLoading(false);
       })
       .catch((err) => {
+        if(err.message){
+          setMessage(err.message)
+        }else{
+          setMessage(err.response.data.err)
+        }
         setException(true);
         setLoading(false);
       });
@@ -153,11 +173,16 @@ export default function PrivateEventsList(props) {
             Book
           </Button>
         </FormControl>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="warning">
+          {message}
+        </Alert>
+      </Snackbar>
       </div>
     );
   }
   if (exception) {
-    return <Alert severity="error">Invalid request : server side error</Alert>;
+    return <Alert severity="error">{message}</Alert>;
   }
   // if (data.length === 0) {
   //   return <Alert severity="info">No slots available to book today</Alert>;

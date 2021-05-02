@@ -93,7 +93,7 @@ export default function Main() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <PrivateEventsList date={dateToString(startDate)}></PrivateEventsList>
+          {(userData.member_type === 2 || userData.auth_id === 1) && <PrivateEventsList date={dateToString(startDate)}></PrivateEventsList>}
         </AccordionDetails>
       </Accordion>
     </div>
