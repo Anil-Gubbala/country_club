@@ -16,19 +16,19 @@ insert into user_status(status) values("Expired");
 INSERT INTO venue_type (venue_type) VALUES("private_party");
 insert into venue_type (venue_type) values('sport');
 -- venue data. 
-INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (0,"Hall 01","private_party",50);
-INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (1,"Hall 02","private_party",100);
-INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (2,"Hall 03","private_party",25);
+INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (1001,"Hall 01","private_party",50);
+INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (1002,"Hall 02","private_party",100);
+INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (1003,"Hall 03","private_party",25);
 
-insert into venue (venue_id, venue_name,venue_type, capacity) values(3,'Basket Ball Court', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(4,'Tennis Court', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(5,'Table Tennis Room', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(6,'Swimming Pool', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(7,'Kids Pool', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(8,'Billiard Room', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(9,'Archery Field', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(10,'Golf Course', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(11,'Yoga Room', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1004,'Basket Ball Court', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1005,'Tennis Court', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1006,'Table Tennis Room', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1007,'Swimming Pool', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1008,'Kids Pool', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1009,'Billiard Room', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1010,'Archery Field', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1011,'Golf Course', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type, capacity) values(1012,'Yoga Room', 'sport',50);
 
 
 -- membership_type
@@ -40,15 +40,15 @@ INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES
 INSERT INTO countryclub.user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1001', 'admin', '1', 'admin@gmail.com', 'admin', 'admin', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', 'Active');
 
 -- sports data
-insert into sports (s_name, venue_id, start_time, end_time) values('Basket Ball', 3, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Tennis', 4, '09:00:00','18:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Table Tennis', 5, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Swimming', 6, '10:00:00','19:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Swimming-kid', 7, '12:00:00','18:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Billiard', 8, '08:00:00','20:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Archery', 9, '11:00:00','16:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Golf', 10, '08:00:00','16:00:00');
-insert into sports (s_name, venue_id, start_time, end_time) values('Yoga', 11, '08:00:00','11:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Basket Ball', 1004, '08:00:00','20:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Tennis', 1005, '09:00:00','18:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Table Tennis', 1006, '08:00:00','20:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Swimming', 1007, '10:00:00','19:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Swimming-kid', 1008, '12:00:00','18:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Billiard', 1009, '08:00:00','20:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Archery', 1010, '11:00:00','16:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Golf', 1011, '08:00:00','16:00:00');
+insert into sports (s_name, venue_id, start_time, end_time) values('Yoga', 1012, '08:00:00','11:00:00');
 
 -- time_slot (start_time, end_time)
 insert into time_slot (start_time, end_time) values('08:00:00','09:00:00');
