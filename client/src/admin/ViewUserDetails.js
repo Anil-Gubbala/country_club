@@ -261,7 +261,7 @@ const UpdateUserDetails = (props) => {
           />
         </div>
 }
-        {props.details.membership_type && <div className="pure-control-group">
+        {props.details.membership_name && <div className="pure-control-group">
           <label htmlFor="aligned-status">Membership: </label>
           {props.isAdmin === 1 && 
               <select

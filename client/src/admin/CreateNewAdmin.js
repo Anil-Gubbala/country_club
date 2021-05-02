@@ -73,11 +73,22 @@ export default function CreateNewAdmin() {
     }
   };
 
+  const goBackToAdmin = () =>{
+    history.push("/admin");
+  }
+
   if (registered) {
     return (
       <div>
         <Navi></Navi>
         <h2 style={{ textAlign: "center" }}> {message}</h2>
+        { registered && 
+                <div className="pure-u-1-6">
+                <button className="pure-button pure-button-primary" onClick={goBackToAdmin}>
+                      Go to User List
+                  </button>
+                </div>
+           }
       </div>
     )
   }

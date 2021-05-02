@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 export default function Registration() {
   Axios.defaults.withCredentials = true;
@@ -44,6 +45,7 @@ export default function Registration() {
     member_type: 0,
   };
   const [userDetails, setUserDetails] = useState(defaultValues);
+  const history = useHistory();
 
   useEffect(() => {
     axios.get("http://localhost:3001/getMembershipTypes").then((response) => {
@@ -336,9 +338,16 @@ export default function Registration() {
             );
           })}
         <FormControl>
-          <Button variant="contained" color="primary" onClick={register}>
+        <div>
+          <div className="pure-u-1-6"></div>
+          <Button variant="contained" color="primary" className="pure-u-1-6" onClick={register}>
             Register
           </Button>
+          <div className="pure-u-1-6"></div>
+          <Button variant="contained" color="primary" className="pure-u-1-6" onClick={history.goBack}>
+            Cancel
+          </Button>
+          </div>
         </FormControl>
         {message && <Alert severity="error">{message}</Alert>}
       </FormGroup>
