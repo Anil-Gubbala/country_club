@@ -33,6 +33,7 @@ const DependentDetails = (props) => {
       .then((response) => {
         setDepCount({depCount: depCount - 1})
         console.log('delete successfull.');
+        window.location.reload();
       })
       .catch((error) => {
       });

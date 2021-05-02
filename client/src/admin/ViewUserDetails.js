@@ -16,8 +16,6 @@ const UserDetails = (props) => {
     let { id } = useParams();
     const [loading, setLoading] = useState(true);
 
-  
-
     const history = useHistory();
 
     const goBackToAdmin = () =>{
@@ -91,18 +89,18 @@ const UserDetails = (props) => {
             </label>
           </div>
 
-          {userDetail.auth_id === 0 && <div className="pure-control-group">
+          {userDetail.membership_name && <div className="pure-control-group">
             <label htmlFor="aligned-name">Membership Type: </label>
             <label id="aligned-name">{userDetail.membership_name}</label>
           </div>}
 
-         {userDetail.auth_id === 0 && <div className="pure-control-group">
+         {userDetail.start_date && <div className="pure-control-group">
             <label htmlFor="aligned-name">Start Date: </label>
             <label id="aligned-name">{userDetail.start_date}</label>
           </div>
           }
 
-          {userDetail.auth_id === 0 && <div className="pure-control-group">
+          {userDetail.end_date && <div className="pure-control-group">
             <label htmlFor="aligned-name">End Date: </label>
             <label id="aligned-name">{userDetail.end_date}</label>
           </div>}
@@ -129,7 +127,7 @@ const UserDetails = (props) => {
               </button>
             </div>
 
-            {userDetail.membership_type !== 0 && userDetail.auth_id === 0 &&
+            {userDetail.membership_type !== 0 && userDetail.membership_name &&
               <div className="pure-u-1-6">
                   <button className="pure-button pure-button-primary" onClick={veiwDependents}>
                         View Dependents
@@ -239,7 +237,7 @@ const UpdateUserDetails = (props) => {
           />
         </div>
 
-        {userDetail.auth_id === 0 && <div className="pure-control-group">
+        {props.details.start_date && <div className="pure-control-group">
           <label htmlFor="aligned-start-date">Start Date: </label>
           <input
             type="date"
@@ -251,7 +249,7 @@ const UpdateUserDetails = (props) => {
           />
         </div>}
 
-      {userDetail.auth_id === 0 && <div className="pure-control-group">
+      {props.details.end_date && <div className="pure-control-group">
           <label htmlFor="aligned-end-date">End Date: </label>
           <input
             type="date"
@@ -263,7 +261,7 @@ const UpdateUserDetails = (props) => {
           />
         </div>
 }
-        {userDetail.auth_id === 0 && <div className="pure-control-group">
+        {props.details.membership_type && <div className="pure-control-group">
           <label htmlFor="aligned-status">Membership: </label>
           {props.isAdmin === 1 && 
               <select
