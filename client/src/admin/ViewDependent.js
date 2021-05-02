@@ -46,6 +46,8 @@ const DependentDetails = (props) => {
         }
       ).then((response) => {
           setShowMessage(true);
+          window.location.reload();
+
         })
         .catch((error) => {
         });

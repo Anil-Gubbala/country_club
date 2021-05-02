@@ -185,7 +185,7 @@ const addNewDependent = (req, res) => {
     d_name,
     relationship
   } = req.body;
-console.log(user_id);
+console.log(user_id, d_name, relationship);
   db.query(
     SQL_ADMIN.INSERT_DEPENDENT,
     [
