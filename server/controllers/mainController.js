@@ -6,15 +6,20 @@ const saltRounds = 10;
 const logger = require('../modules/logger');
 
 const getLogin = (req, res) => {
+  logger.request.info("Validate session");
   if (req.session.user) {
+    logger.response.info("Valid : " + JSON.stringify(req.session.user));
     res.send({ loggedIn: true, user: req.session.user });
   } else {
+    logger.response.info("loggedIn " + false);
     res.send({ loggedIn: false });
   }
 };
 
 const logout = (req, res) => {
+  logger.request.info("logout");
   if (req.session.user) {
+    logger.response.info("destroyed session");
     req.session.destroy();
     req.session = null;
     res.send("hello");
@@ -22,17 +27,22 @@ const logout = (req, res) => {
 };
 
 const setLogin = (req, res) => {
+  logger.request.info("Set login & session");
   const user_id = req.body.user_id;
   const password = req.body.password;
   let auth_id, member_type;
   if (req.session.user) {
+    logger.response.error("Already logged in ");
     res.send({ message: "already logged in" });
   } else {
-    db.query(SQL_USER.GET_USER_DETAILS, user_id, (err, result) => {
+    let query = db.query(SQL_USER.GET_USER_DETAILS, user_id, (err, result) => {
+      // logger.response.info("check user info : " + query.sql);
       if (err) {
+        logger.response.error("sql error : " + err.code);
         res.status(404).send({ err: err.code });
       } else if (result.length > 0) {
         if (result[0].status == 0) {
+          logger.response.info("Contact Admin for approval");
           res.status(404).send({ err: "Contact Admin for approval" });
           return;
         }
@@ -41,13 +51,17 @@ const setLogin = (req, res) => {
           if (response) {
             auth_id = result[0].auth_id[0];
             if (auth_id == 0) {
-              db.query(SQL_USER.MEMBER_GET, user_id, (err, result) => {
+              
+              let memQuery = db.query(SQL_USER.MEMBER_GET, user_id, (err, result) => {
+                // logger.response.info("Get membership details : " + memQuery.sql);
                 if (err) {
+                  logger.response.error("SQL error : " + err.code);
                   res.status(404).send({ err: err.code });
                   return;
                 }
                 member_type = result[0].member_type;
                 if (new Date(result[0].end_date) < new Date()) {
+                  logger.response.info("Membership Expired. Contact Admin for extension");
                   res
                     .status(404)
                     .send({
@@ -55,11 +69,13 @@ const setLogin = (req, res) => {
                     });
                   return;
                 } else {
+                  // logger.response.info("set user session:  " + user_id);
                   req.session.user = {
                     user_id: user_id,
                     auth_id: auth_id,
                     member_type: member_type,
                   };
+                  
                   res.send({
                     user_id: user_id,
                     auth_id: auth_id,
@@ -68,6 +84,7 @@ const setLogin = (req, res) => {
                 }
               });
             } else {
+              // logger.response.info("set user session:  " + user_id);
               req.session.user = {
                 user_id: user_id,
                 auth_id: auth_id,
@@ -80,12 +97,14 @@ const setLogin = (req, res) => {
               });
             }
           } else {
+            logger.response.error("Wrong username/password combination!");
             res
               .status(404)
               .send({ err: "Wrong username/password combination!" });
           }
         });
       } else {
+        logger.response.error("user doesnt exist : ");
         res.status(404).send({ err: "User doesn't exist" });
       }
     });
@@ -93,6 +112,7 @@ const setLogin = (req, res) => {
 };
 
 const registerUser = (req, res) => {
+  logger.request.info("register new user: ");
   let insertId = "";
   let start_date = new Date();
   start_date = start_date.toJSON().substr(0, 10);
@@ -115,20 +135,23 @@ const registerUser = (req, res) => {
   } = req.body.userDetails;
   let dependentList = [];
 
-  // Hash password before store in daba
+  // Hash password before store in db
   bcrypt.hash(password, saltRounds, (err, hash) => {
     if (err) {
-      console.log(err);
+      logger.response.error("error : " + err.message);
       res.status(404).send({ err: err.message });
       return;
     } else {
-      db.beginTransaction(function (err) {
+
+      let query = db.beginTransaction(function (err) {
+        // logger.response.info("begin transaction: " + query.sql);
         if (err) {
+          logger.response.info("sql error: " + err.code);
           res.status(404).send({ err: err.code });
           db.rollback();
           return;
         }
-        db.query(
+        let registerUser = db.query(
           SQL_USER.USER_REGISTER,
           [
             //user_id,
@@ -141,23 +164,28 @@ const registerUser = (req, res) => {
             hash,
           ],
           (err, result) => {
+            // logger.response.info("register user query: " + registerUser.sql);
             if (err) {
+              logger.response.error(err.errno === 1062 ? "Username already exists" : err.code);
               res.status(404).send({
                 err: err.errno === 1062 ? "Username already exists" : err.code,
               });
               db.rollback();
+              // logger.response.error("rollback()");
               return;
             } else {
               insertId = result.insertId;
-              db.query(
+              let membersql = db.query(
                 SQL_USER.INSERT_MEMBER,
                 [insertId, member_type, start_date, end_date],
                 function (err, result) {
+                  // logger.response.info("insert membership data : " + membersql.sql);
                   if (err) {
+                    // logger.response.error("rollback()");
+                    db.rollback();
                     res.status(404).send({
                       err: err.code,
                     });
-                    db.rollback();
                     return;
                   }
                   if (member_type == 1 || member_type == 2) {
@@ -185,36 +213,47 @@ const registerUser = (req, res) => {
                     }
                   }
                   if (member_type == 0) {
+                    // logger.response.info("commit");
                     db.commit(function (err) {
                       if (err) {
+                        db.rollback();
+                        logger.response.error(err.code);
                         res.status(404).send({
                           err: err.code,
                         });
-                        db.rollback();
+                        // logger.response.error("rollback()");
                         return;
                       }
+                      logger.response.info("success user_id " + insertId);
                       res
                         .status(200)
                         .send({ success: true, user_id: insertId });
                     });
                   } else {
-                    db.query(
+                    let dependentsSql = db.query(
                       SQL_USER.INSERT_DEPENDENT,
                       [dependentList],
                       (err, result) => {
+                        // logger.response.info("insert dependents " + dependentsSql.sql);
                         if (err) {
-                          res.status(404).send({ err: err.code });
                           db.rollback();
+                          logger.response.error("sql error :" + err.code)
+                          res.status(404).send({ err: err.code });
+                          // logger.response.error("rollback()");
                           return;
                         }
+                        logger.response.info("commit");
                         db.commit(function (err) {
                           if (err) {
+                            db.rollback();
+                            logger.response.error("error : " + err.code);
                             res.status(404).send({
                               err: err.code,
                             });
-                            db.rollback();
+                            // logger.response.error("rollback()");
                             return;
                           }
+                          logger.response.info("sucess user_id = " + insertId);
                           res
                             .status(200)
                             .send({ success: true, user_id: insertId });
@@ -233,10 +272,14 @@ const registerUser = (req, res) => {
 };
 
 const getMembershipTypes = (req, res) => {
-  db.query(SQL_USER.GET_MEMBERSHIP_TYPES, [], (error, result) => {
+  logger.request.info("get membership types");
+ let query= db.query(SQL_USER.GET_MEMBERSHIP_TYPES, [], (error, result) => {
+    // logger.response.info("sql : " + query.sql);
     if (error) {
+      logger.response.error("sql error: " + error.message);
       res.status(404).send({ err: error.message });
     } else {
+      logger.response.info("result : " + JSON.stringify(result));
       res.status(200).send(result);
     }
   });
