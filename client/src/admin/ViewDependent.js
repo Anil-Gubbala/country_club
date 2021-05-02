@@ -126,16 +126,11 @@ const DependentDetails = (props) => {
                         />
                       </td>
                       <td>
-                      <select
-                          id="aligned-status" placeholder="Membership"
-                          onChange={(e) => {
-                            setDepDetails({...depDetails, relationship:e.target.value});
-                          }}>
-                            <option value="0">Select Relationship</option>
-                            <option value="Spouse">Spouse</option>
-                            <option value="Child">Child</option>
-                            <option value="Parent">Parent</option>
-                        </select>
+                        <input type="text" id="aligned-name" placeholder="relationship" 
+                            onChange={(e) => {
+                              setDepDetails({...depDetails, relationship:e.target.value});
+                            }}
+                        />
                       </td>
                       {<td><button className="pure-button pure-button-primary" onClick={addNewDependent}>
                     Add
