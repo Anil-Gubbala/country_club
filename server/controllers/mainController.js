@@ -3,6 +3,7 @@ const db = require("../database/dbConnector");
 const { MEMBER_GET } = require("../database/SQL/User/userSql");
 const SQL_USER = require("../database/SQL/User/userSql");
 const saltRounds = 10;
+const logger = require('../modules/logger');
 
 const getLogin = (req, res) => {
   if (req.session.user) {
