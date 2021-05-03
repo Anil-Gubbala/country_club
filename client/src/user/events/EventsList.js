@@ -52,8 +52,13 @@ export default function EventList(props) {
           no_of_participants: attendees,
           event_id: rowData.data.event_id
         })
-        .then((result) => {			
-			if(result.statusText.toLowerCase() =="OK".toLowerCase())
+        .then((result) => {	
+			
+			if(result!=null && result.data!=null && result.data[1]!=null && result.data[1][0]!=null)
+			{					
+			const resultObject = Object.values(result.data[1][0])[0];		
+			
+			if(result.statusText.toLowerCase() =="OK".toLowerCase() && resultObject ==1)
 			{
 			SetBookingSuccess(true);
 			bookingstatus = true;
@@ -66,6 +71,7 @@ export default function EventList(props) {
 				boxWidth: '20%'
 			});
 
+			}
 			}
         })
         .catch((err) => {
