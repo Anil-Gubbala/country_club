@@ -10,7 +10,7 @@ import VenueTypeDropdown from "./VenueType";
 
 let details = {};
 
-const DeleteEventDetails = () => {
+const DeleteEventDetails = (props) => {
     const history = useHistory();
     const deleteVenueDetails = (e) => {
         e.preventDefault();
@@ -19,6 +19,7 @@ const DeleteEventDetails = () => {
                     history.push("/admin");
                 })
                 .catch((error) => {
+                    props.setMessage(error.data ? error.data.err : "Cannot delete venue since its associated with one or more events");
                 });
 
     }
@@ -37,6 +38,7 @@ const ReadvenueDetails = (props) => {
 
     Axios.defaults.withCredentials = true;
     const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState("");
     let { id } = useParams();
 
 
@@ -83,11 +85,13 @@ const ReadvenueDetails = (props) => {
                     <div className="pure-u-1-6">
                     </div>
                     <div className="pure-u-1-6">
-                        <DeleteEventDetails/>
+                        <DeleteEventDetails setMessage={setMessage}/>
                     </div>
                 </div>
             </div>
             <div className="pure-u-1-3"></div>
+
+            <div>{message}</div>
 
         </fieldset>
     );
@@ -132,7 +136,7 @@ const UpdatevenueDetails = (props) => {
                 </div>
 
                 <div className="pure-control-group">
-                    <label htmlFor="aligned-venue">Venue {props.details.venue_type}</label>
+                    <label htmlFor="aligned-venue">Venue</label>
                     <VenueTypeDropdown setVenuetypedetails={setVenuetypedetails} selectedVenueType={props.details.venue_type} />
                 </div>
 

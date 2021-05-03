@@ -2,7 +2,7 @@ const SQL_EVENT = {
     GET_EVENTS_LIST: "SELECT event_id,event_name,e_description,DATE_FORMAT(start_date,'%Y-%m-%d') as 'start_date' ,DATE_FORMAT(end_date,'%Y-%m-%d') as 'end_date', \
                       status FROM countryclub.event",
     
-    CREATE_EVENT: "INSERT INTO countryclub.event(event_name, e_description, start_date, end_date, status, venue_id, capacity) VALUES (?,?,?,?,?,?,?)",
+    CREATE_EVENT: "INSERT INTO countryclub.event(event_name, e_description, start_date, end_date, status, venue_id, capacity, organized_by) VALUES (?,?,?,?,?,?,?,?)",
     
     READ_EVENT: "SELECT event_id,event_name,e_description, DATE_FORMAT(start_date,'%Y-%m-%d') as 'start_date',DATE_FORMAT(end_date,'%Y-%m-%d') as 'end_date', \
                  status,countryclub.event.venue_id,venue_name,capacity,no_of_participants,organized_by from \
