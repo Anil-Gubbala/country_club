@@ -68,35 +68,45 @@ const setLogin = (req, res) => {
 
 const getMemberDetails = (req, res, user_id, auth_id) => {
   let membership_type;
-  db.query(SQL_USER.MEMBER_GET, user_id, (err, result) => {
-    if (err) {
+  db.beginTransaction(function(err){
+    if(err){
       sendError(req, res, "sql error: ", err.code);
       return;
     }
-    membership_type = result[0].membership_type;
-    if (
-      result[0].status == "Expired" ||
-      new Date(result[0].end_date) < new Date()
-    ) {
+    db.query(SQL_USER.MEMBER_GET, user_id, (err, result) => {
+      if (err) {
+        db.rollback();
+        sendError(req, res, "sql error: ", err.code);
+        return;
+      }
+      membership_type = result[0].membership_type;
       if (
-        result[0].status != "Expired" &&
+        result[0].status == "Expired" ||
         new Date(result[0].end_date) < new Date()
       ) {
-        db.query(SQL_USER.SET_EXPIRED, user_id, (err, result) => {
-          if (err) {
-            logger.response.error("sql exception " + err.code);
-          }
+        if (
+          result[0].status != "Expired" &&
+          new Date(result[0].end_date) < new Date()
+        ) {
+          db.query(SQL_USER.SET_EXPIRED, user_id, (err, result) => {
+            if (err) {
+              db.rollback();
+              logger.response.error("sql exception " + err.code);
+            }
+          });
+        }
+        db.commit();
+        logger.response.info("Membership Expired. Contact Admin for extension");
+        res.status(404).send({
+          err: "Membership Expired. Contact Admin for extension",
         });
+        return;
+      } else {
+        db.commit();
+        setSession(req, res, user_id, auth_id, membership_type);
       }
-      logger.response.info("Membership Expired. Contact Admin for extension");
-      res.status(404).send({
-        err: "Membership Expired. Contact Admin for extension",
-      });
-      return;
-    } else {
-      setSession(req, res, user_id, auth_id, membership_type);
-    }
-  });
+    });
+  })
 };
 
 const setSession = (req, res, user_id, auth_id, membership_type) => {
@@ -144,7 +154,6 @@ const registerUser = (req, res) => {
       db.beginTransaction(function (err) {
         if (err) {
           sendError(req, res, "sql error: ", err.code);
-          db.rollback();
           return;
         }
         db.query(

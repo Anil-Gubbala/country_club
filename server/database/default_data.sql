@@ -36,7 +36,7 @@ INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "e
 INSERT INTO membership_type (type_id, name, description) VALUES (1, "Gold", "Silver user privileges + elgible to enroll 1 dependents");
 INSERT INTO membership_type (type_id, name, description) VALUES (2, "Platinum", "Silver user privileges + elgible to enroll as many dependents as needed + access to organize own private events");
 
--- 1001: admin, 1002: silver, 1003: gold, 1004: platinum, 1005: expired, 1006: pending
+-- 1001: admin, 1002: silver, 1003: gold, 1004: platinum, 1005: expired, 1006: pending; password - admin
 INSERT INTO user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1001', 'admin', '1', 'admin@gmail.com', 'admin', 'admin', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', 'Active');
 INSERT INTO user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1002', 'silver', '1', 'silver@gmail.com', 'silver', 'silver', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'0', 'Active');
 INSERT INTO member (user_id, membership_type, start_date, end_date) VALUES (1002, 0, "2021-05-01", "2021-11-03");
