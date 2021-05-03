@@ -46,7 +46,7 @@ export default function CreateVenue() {
           history.push("/admin");
         })
         .catch((error) => {
-          setMessage(error.response.data.err);
+          setMessage(error.data ? error.data.err : "Please enter valid data");
         });
 
     };
