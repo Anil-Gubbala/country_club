@@ -15,7 +15,7 @@ const DependentDetails = (props) => {
     let { id } = useParams();
     const [loading, setLoading] = useState(true);
     const history = useHistory();
-    const [depCount, setDepCount] = useState(0);
+    
     const [showmessage, setShowMessage] = useState(false);
     const defaultValues = {
       user_id: props.user_id,
@@ -31,7 +31,7 @@ const DependentDetails = (props) => {
       
       Axios.post('http://localhost:3001/admin/users/dependent/delete', {user_id: props.user_id, d_name: d_name})
       .then((response) => {
-        setDepCount({depCount: depCount - 1})
+        
         console.log('delete successfull.');
         window.location.reload();
       })
@@ -64,9 +64,8 @@ const DependentDetails = (props) => {
         rows = res.data;
         console.log(rows);
         setLoading(false);
-        //props.setDepDetails(defaultValues);
-        setDepCount(res.data.length);
-        if(depCount === 1 || rows[0].membership_type === 1){
+        
+        if(res.data.length === 2){
           if(rows[0].name !== null){
             props.setCanAdd(false);}
           }
