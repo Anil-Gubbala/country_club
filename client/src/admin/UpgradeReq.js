@@ -9,6 +9,7 @@ var rows = [];
 export default function UpgradeReqList() {
     Axios.defaults.withCredentials = true;
 
+  
     const [loading, setLoading] = useState(true);
     const history = useHistory();
 
@@ -62,4 +63,5 @@ export default function UpgradeReqList() {
         </table>
     </div>
     );
+
 }

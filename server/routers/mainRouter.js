@@ -118,3 +118,4 @@ router
   .get(getAvailableDiningDetails);
 
 module.exports = router;
+
