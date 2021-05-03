@@ -39,54 +39,67 @@ const partyInsert = (req, res) => {
     res.status(404).send({ err: "Invalid user session" });
     return;
   }
-  db.query(
-    PARTY_CHECK_AVAILABILITY,
-    [
-      req.body.venue_id,
-      req.body.start_date,
-      req.body.end_date,
-      req.body.start_date,
-      req.body.end_date,
-    ],
-    (error, result) => {
-      if (error) {
-        logger.response.error("error in fetching data : " + error.message);
-        res.status(404).send({ err: "Error in fetching data" });
-      } else if (result[0]["count(*)"] > 0) {
-        logger.response.info("result: " + JSON.stringify(result));
-        res
-          .status(404)
-          .send({ err: "Selected dates not available to book the venue" });
-      } else {
-        db.query(
-          PARTY_INSERT,
-          [
-            req.session.user.user_id,
-            req.body.event_name,
-            req.body.venue_id,
-            req.body.start_date,
-            req.body.end_date,
-            req.body.no_of_attendees,
-          ],
-          (error, result) => {
-            if (error) {
-              logger.response.error(
-                "error in fetching data : " + error.message
-              );
-              res.status(404).send({ err: error.code });
-              return;
-            } else if (result.length == 0) {
-              logger.response.info("result: " + JSON.stringify(result));
-              res.send([]);
-            } else {
-              logger.response.info("result: " + JSON.stringify(result));
-              res.send(result);
-            }
-          }
-        );
-      }
+  db.beginTransaction(function (err) {
+    if (err) {
+      sendError(req, res, "sql error: ", err.code);
+      return;
     }
-  );
+    db.query(
+      PARTY_CHECK_AVAILABILITY,
+      [
+        req.body.venue_id,
+        req.body.start_date,
+        req.body.end_date,
+        req.body.start_date,
+        req.body.end_date,
+      ],
+      (error, result) => {
+        if (error) {
+          db.rollback();
+          logger.response.error("error in fetching data : " + error.message);
+          res.status(404).send({ err: "Error in fetching data" });
+          return;
+        } else if (result[0]["count(*)"] > 0) {
+          logger.response.info("result: " + JSON.stringify(result));
+          db.commit();
+          res
+            .status(404)
+            .send({ err: "Selected dates not available to book the venue" });
+          return;
+        } else {
+          db.query(
+            PARTY_INSERT,
+            [
+              req.session.user.user_id,
+              req.body.event_name,
+              req.body.venue_id,
+              req.body.start_date,
+              req.body.end_date,
+              req.body.no_of_attendees,
+            ],
+            (error, result) => {
+              if (error) {
+                logger.response.error(
+                  "error in fetching data : " + error.message
+                );
+                db.rollback();
+                res.status(404).send({ err: error.code });
+                return;
+              } else if (result.length == 0) {
+                db.commit();
+                logger.response.info("result: " + JSON.stringify(result));
+                res.send([]);
+              } else {
+                db.commit();
+                logger.response.info("result: " + JSON.stringify(result));
+                res.send(result);
+              }
+            }
+          );
+        }
+      }
+    );
+  });
 };
 
 const partyGetBookings = (req, res) => {
@@ -126,6 +139,11 @@ const cancelParty = (req, res) => {
       res.send(result);
     }
   });
+};
+
+const sendError = (req, res, log, code) => {
+  logger.response.info(log + code);
+  res.status(404).send({ err: code });
 };
 
 module.exports = {
