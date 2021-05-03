@@ -19,6 +19,7 @@ const UserDetails = (props) => {
     const history = useHistory();
 
     const goBackToAdmin = () =>{
+      console.log(props.viewer_id + userDetail.user_id);
       history.push("/admin/users");
     }
 
@@ -152,7 +153,7 @@ const UserDetails = (props) => {
                 </div>
             }
 
-            { props.isAdmin === 1 && 
+            { (props.viewer_id !== userDetail.user_id) && props.isAdmin === 1 && 
                 <div className="pure-u-1-6">
                 <button className="pure-button pure-button-primary" onClick={deleteUser}>
                       Delete User
@@ -367,7 +368,7 @@ const Details = (props) => {
 
   if (showDetails){
     return (
-      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin} id={props.id}/>
+      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin} id={props.id} viewer_id={props.viewer_id}/>
       
     )
   } else {
@@ -395,7 +396,7 @@ export default function ViewUserDetails() {
         <form className="pure-form pure-form-aligned">
           {userData.auth_id === 1 && <h1 style={{textAlign:"center"}}>User Details</h1>}
           {(userData.auth_id === 0) && <h1 style={{textAlign:"center"}}>My Profile</h1>}
-          <Details isAdmin={userData.auth_id} id={id}/>
+          <Details isAdmin={userData.auth_id} id={id} viewer_id={userData.user_id}/>
          
         </form>
       </div>
