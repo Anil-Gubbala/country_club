@@ -55,7 +55,7 @@ const createEvent = (req, res) => {
         status,
         venue_id,
         capacity,
-        organized_by
+        //organized_by
     } = req.body.eventDetails;
     db.query(
         SQL_EVENTS.CREATE_EVENT, [
@@ -162,6 +162,20 @@ const deleteEvent = (req, res) => {
                 err: error.errno === 1062 ? "Error deleting event" : error.code
             });
         }
+        db.query(SQL_EVENTS.GET_USER_EMAIL, [
+            event_id
+        ], (error, results, fields) => {
+            if (error) {
+                logger.request.error("delete event error: " + error.message);
+                console.log(error);
+                res.status(404).send({
+                    err: error.errno === 1062 ? "Error deleting event" : error.code
+                });
+            }
+            if(results.length > 0){
+                sendEmail(results);
+            }
+        });
         logger.response.info("delete event success: " + results);
         res.send({ message: "deleted" });
     });

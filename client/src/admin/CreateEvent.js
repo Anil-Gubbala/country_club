@@ -19,7 +19,6 @@ export default function CreateEvent() {
     status: "",
     venue_id: "",
     capacity: "",
-    organized_by: "",
   };
   const history = useHistory();
   const [message, setMessage] = useState("");

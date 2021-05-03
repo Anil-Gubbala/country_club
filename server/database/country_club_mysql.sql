@@ -12,7 +12,7 @@ create table user (
   	zip_code varchar(5) not null,
   	password varchar(100) not null,
   	auth_id bit default b'0' not null,
-  	status varchar(25) not null,
+  	status varchar(25) default "Pending" not null,
   	primary key (user_id)
 );
 
@@ -30,16 +30,16 @@ create table membership_type
 (
 	type_id int not null unique,
 	name varchar(15) not null,
-	description varchar(100) not null,
-	dependent_count int not null
+	description varchar(100) not null
 );
 
 create table member
 (
-	 user_id int not null,
+	 user_id int not null unique,
 	 membership_type int not null,
 	 start_date date not null,
 	 end_date date not null,
+	 primary key (user_id),
 	 foreign key (membership_type) references membership_type (type_id) on update cascade on delete cascade, 
 	 foreign key (user_id) references user (user_id) on update cascade on delete cascade 
 );
@@ -54,6 +54,18 @@ create table dependent
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade
 );
 
+--upgrade membership
+create table upgrade_request(
+    user_id int not null,
+    current_mem_type int not null,
+    upgrade_mem_type int not null,
+    req_status varchar(25) default "Pending" not null,
+    primary key(user_id, current_mem_type, upgrade_mem_type),
+    foreign key(user_id) references user (user_id) on update cascade on delete cascade,
+    foreign key (current_mem_type) references membership_type (type_id) on update cascade on delete cascade, 
+    foreign key (upgrade_mem_type) references membership_type (type_id) on update cascade on delete cascade
+);
+
 -- venue_type: used for dropdown
 create table venue_type
 (
@@ -64,7 +76,6 @@ create table venue
 (
 	venue_id int auto_increment not null,
 	venue_name varchar(50) not null,
-	capacity int not null,
 	venue_type varchar(25) not null, 
 	primary key (venue_id),
 	foreign key (venue_type) references venue_type (venue_type) on update cascade on delete cascade    

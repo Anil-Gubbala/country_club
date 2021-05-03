@@ -33,7 +33,7 @@ export default function PrivateEventsList(props) {
   const columns = [
     { field: "venue_id", headerName: "Venue Number", width: 200 },
     { field: "venue_name", headerName: "Venue Name", width: 200 },
-    { field: "capacity", headerName: "Venue Capacity", width: 200 },
+    // { field: "capacity", headerName: "Venue Capacity", width: 200 },
   ];
   const [rowData, setRowData] = useState({});
   const updateEndDate = (days) => {
@@ -52,7 +52,7 @@ export default function PrivateEventsList(props) {
   };
 
   const handleBooking = () => {
-    if (eventName === "" || attendees > rowData.data.capacity) {
+    if (eventName === "" || attendees > 100) {
       setInvalid(true);
       return;
     } else {
@@ -151,7 +151,7 @@ export default function PrivateEventsList(props) {
         <FormControl>
           <TextField
             error={invalid}
-            helperText={"Max: " + rowData.data.capacity}
+            helperText={"Max: 100"}
             id="private-event-capacity"
             label="No of Attendees"
             type="number"

@@ -41,7 +41,7 @@ const setLogin = (req, res) => {
         logger.response.error("sql error : " + err.code);
         res.status(404).send({ err: err.code });
       } else if (result.length > 0) {
-        if (result[0].status == 0) {
+        if (result[0].status == "Pending") {
           logger.response.info("Contact Admin for approval");
           res.status(404).send({ err: "Contact Admin for approval" });
           return;

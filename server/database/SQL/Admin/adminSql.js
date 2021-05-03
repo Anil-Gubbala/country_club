@@ -38,10 +38,13 @@ GET_DEPENDENT_LIST:"select * from member m left join dependent d on m.user_id = 
   GET_ADMIN_BY_ID: "select u.user_id, u.f_name, u.l_name, u.email_id, u.street, u.zip_code, u.city, u.auth_id, u.status from user u \
                   where auth_id = 1 and ;",
 
-  DELETE_DEPENDENT: "delete from dependent where user_id = ? and name = ?",
+  DELETE_DEPENDENT: "delete from dependent where user_id = ? and name = ?;",
 
-  INSERT_DEPENDENT: "insert into dependent (user_id, name, relationship) values (?, ?, ?)"
+  INSERT_DEPENDENT: "insert into dependent (user_id, name, relationship) values (?, ?, ?);",
 
+  ADD_UPGRADE_REQ: "insert into upgrade_request (user_id, current_mem_type, upgrade_mem_type) values (?, ?, current_mem_type + 1);",
+
+  GET_UPGRADE_REQ: "select * from upgrade_request where req_status = 'Pending';"
   };
 
  
