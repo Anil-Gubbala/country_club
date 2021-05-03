@@ -19,67 +19,71 @@ let data={};
 let bookingstatus=false;
 export default function EventList(props) {
 
-    axios.defaults.withCredentials = true;
-	 const [rowData, setRowData] = useState({});
-    //const { loading, userData } = useLoginValidate();
-    const [userData, setUserData] = useState({});
-    const [loading, setLoading] = useState(true);
-	const [eventName, setEventName] = useState("");
-    const [attendees, setAttendees] = useState(0);
-	const [invalid, setInvalid] = useState(false);
-	const [updateResult, setResult] = useState("");
-	 const [bookingSuccess, SetBookingSuccess] = useState(false);
- useEffect(() => {
-    axios.get("http://localhost:3001/login").then((response) => {
-console.log("data loaded");
-
-		getEvents();
-        if (response.data.loggedIn === true) {
-          setUserData(response.data.user);
-        } else {
-          setUserData({});
-        }
-        setLoading(false);
-data = response.data;
+  axios.defaults.withCredentials = true;
+  const [rowData, setRowData] = useState({});
+  const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [eventName, setEventName] = useState("");
+  const [attendees, setAttendees] = useState(0);
+  const [invalid, setInvalid] = useState(false);
+  const [updateResult, setResult] = useState("");
+  const [bookingSuccess, SetBookingSuccess] = useState(false);
+  useEffect(() => {
+    axios.get("http://localhost:3001/login").then((response) => {      
+      getEvents();
+      if (response.data.loggedIn === true) {
+        setUserData(response.data.user);
+      } else {
+        setUserData({});
+      }
+      setLoading(false);
+      data = response.data;
 
     });
   }, []);
    const handleBooking = () => {	  
-    if (rowData.data.event_name === "" || attendees > rowData.data.capacity) {
+    if (rowData.data.event_name === "" || attendees > rowData.data.capacity || attendees <=0) {
       setInvalid(true);
       return;
     } else {
+		setInvalid(false);
       axios
-        .post("http://localhost:3001/user/updateEvents", {         
+        .post("http://localhost:3001/user/updateEvents", {
           no_of_participants: attendees,
-		  event_id: rowData.data.event_id                   
+          event_id: rowData.data.event_id
         })
-        .then((result) => {
-			console.log("succesful");
-			console.log(result);
-          SetBookingSuccess(true);
-		  console.log(bookingSuccess);
-		  bookingstatus = true;
-		
- $.alert({
-        width :'auto',
-        title: 'Message!',
-        content: 'Booking Successful!',
-        useBootstrap: false, // Key line
-		boxWidth:'20%'
-    });
-		 
-		 
+        .then((result) => {			
+			if(result.statusText.toLowerCase() =="OK".toLowerCase())
+			{
+			SetBookingSuccess(true);
+			bookingstatus = true;
+
+			$.alert({
+				width: 'auto',
+				title: 'Message!',
+				content: 'Booking Successful!',
+				useBootstrap: false, // Key line
+				boxWidth: '20%'
+			});
+
+			}
         })
-        .catch((err) => {});
+        .catch((err) => {
+			$.alert({
+            width: 'auto',
+            title: 'Message!',
+            content: 'Booking Failed!',
+            useBootstrap: false, // Key line
+            boxWidth: '20%'
+          });
+		});
     }
 	
   };
  
     const [exception, setException] = useState(false);
     const [rows, setRows] = useState([]);
-    const [bookingMode, setBookingMode] = useState(false);
-    //const [unloading, setLoading] = useState(false);
+    const [bookingMode, setBookingMode] = useState(false);  
     const columns = [
         { field: "event_name", headerName: "Events Name" , width:200},
         {field : "start_date", headerName: "Start Date", width:200,  type: "date"},
@@ -92,14 +96,9 @@ data = response.data;
         setLoading(true);
         axios
           .get("http://localhost:3001/user/getEvents")
-          .then((response) => {
-	    console.log("User Data:");
-	    console.log(data);
-
+          .then((response) => {	   
             setRows(response.data);
-            setLoading(false);
-
-	
+            setLoading(false);	
           })
           .catch((err) => {
             setException(true);
@@ -107,18 +106,17 @@ data = response.data;
           });
       };
     
-  if (bookingMode) {
-	  console.log("I am in booking mode");
+  if (bookingMode) {	 
     return (
       <div>
         <FormControl>
           <TextField
-            id="private-event-name"
+            id="event-name"
             label="Event Name"
             value={rowData.data.event_name}
             error={invalid}
             onChange={(e) => {
-				console.log(e.target.value);
+			  console.log(e.target.value);
               setEventName(e.target.value);
             }}
           />
@@ -127,7 +125,7 @@ data = response.data;
           <TextField
             error={invalid}
             helperText={"Max: " + rowData.data.capacity}
-            id="private-event-capacity"
+            id="event-capacity"
             label="No of Attendees"
             type="number"
             onChange={(e) => setAttendees(e.target.value)}
@@ -137,10 +135,9 @@ data = response.data;
           <Button
             variant="contained"
             onClick={() => {
-               setBookingMode(false);
-			   getEvents();
-             }}
-			//onClick={getEvents}
+              setBookingMode(false);
+              getEvents();
+            }}
           >
             Go back
           </Button>
@@ -173,7 +170,7 @@ data = response.data;
                         />
                         <Button style= {{margin:"8px",display:"block",marginLeft:"auto"}}
                         variant="contained"
-						disabled={!(rowData && rowData.isSelected &&rowData.data.status=="Confirmed")}
+						disabled={!(rowData && rowData.isSelected &&rowData.data.status.toLowerCase()=="Confirmed".toLowerCase())}
                         color="primary"
                         onClick = {()=>{
                             setBookingMode(true);

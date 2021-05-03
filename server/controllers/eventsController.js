@@ -10,20 +10,24 @@ const getEvents = (req, res) => {
         if (error) {
             logger.request.error("get events list error " + error.message);
             return console.error(error.message);
-        } 
+        }
         logger.response.info("events list : " + results);
         res.send(results);
     });
 }
 const getuserEvents = (req, res) => {
+    logger.request.info("get user events list");
     db.query(SQL_USER_EVENTS.GET_EVENTS_LIST, (error, results, fields) => {
         if (error) {
+            logger.request.info("get user events list error " + error.message);
             return console.error(error.message);
         }
+        logger.response.info("user events list : " + results != null ? JSON.stringify(results) : "No data found");
         res.send(results);
     });
 }
 const updateUserEvents = (req, res) => {
+    logger.request.info("update user events");
     const {
         no_of_participants,
         event_id
@@ -35,12 +39,13 @@ const updateUserEvents = (req, res) => {
     ], (error, results, fields) => {
 
         if (error) {
+            logger.request.info("update user events error " + error.message);
             console.log(error);
             res.status(404).send({
                 err: error.errno === 1062 ? "Error updating event" : error.code
             });
         } else {
-            // res.status(200).send({ success: true });
+            logger.request.info("update user events successful " + results != null ? JSON.stringify(results) : "No data found");
             res.send(results);
         }
     });
@@ -122,17 +127,16 @@ const updateEvent = (req, res) => {
         capacity,
         event_id
     } = req.body;
-    db.query(SQL_EVENTS.UPDATE_EVENT,
-        [
-            event_name,
-            e_description,
-            start_date,
-            end_date,
-            status,
-            venue_id,
-            capacity,
-            event_id
-         ], (error, results, fields) => {
+    db.query(SQL_EVENTS.UPDATE_EVENT, [
+        event_name,
+        e_description,
+        start_date,
+        end_date,
+        status,
+        venue_id,
+        capacity,
+        event_id
+    ], (error, results, fields) => {
 
         if (error) {
             logger.request.error("update event error: " + error.message);
@@ -140,7 +144,7 @@ const updateEvent = (req, res) => {
             res.status(404).send({
                 err: error.errno === 1062 ? "Error updating event" : error.code
             });
-        } 
+        }
         logger.response.info("update event success: " + results);
         res.send(results);
     });
@@ -172,7 +176,7 @@ const deleteEvent = (req, res) => {
                     err: error.errno === 1062 ? "Error deleting event" : error.code
                 });
             }
-            if(results.length > 0){
+            if (results.length > 0) {
                 sendEmail(results);
             }
         });
