@@ -24,7 +24,7 @@ const UserDetails = (props) => {
 
     const upgradeMembership = () =>{
       console.log('in method upgradeMembership');
-      Axios.post('http://localhost:3001/admin/users/upgrade', {user_id: id, c_mem_type: userDetail.membership_type})
+      Axios.post('http://localhost:3001/admin/upgrade/create', {user_id: id, c_mem_type: userDetail.membership_type})
         .then((response) => {
           })
           .catch((error) => {

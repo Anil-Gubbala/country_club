@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import EventList from './EventList';
 import PendingUserList from "./PendingUserList";
 import ListofAvailableVenues from "./VenueList";
+import UpgradeReqList from "./UpgradeReq";
 
 export default function AdminHome() {
   const { loading, userData } = useLoginValidate();
@@ -31,6 +32,9 @@ export default function AdminHome() {
         <br/>
         <br/>
         <PendingUserList/>
+        <br/>
+        <br/>
+        <UpgradeReqList/>
         <br/>
         <br/>
         <EventList/>
