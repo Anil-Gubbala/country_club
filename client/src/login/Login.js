@@ -38,23 +38,36 @@ export default function Login() {
   return (
     <div>
       <Navi></Navi>
-      <div className="pure-form">
-        <h1 style={{textAlign:"center"}}>Login</h1>
-        <input
-          type="text"
-          placeholder="UserID..."
-          onChange={(e) => {
-            setUserId(e.target.value);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="Password..."
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <button className="pure-button pure-button-primary" onClick={login}> Login </button>
+      <div className="pure-form" style={{ flexDirection: "column" }}>
+        <div>
+          <h1 style={{ textAlign: "center" }}>Login</h1>
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <input
+            type="text"
+            placeholder="UserID..."
+            onChange={(e) => {
+              setUserId(e.target.value);
+            }}
+            style={{ margin: "auto 8px" }}
+          />
+          <input
+            type="password"
+            placeholder="Password..."
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            style={{ margin: "auto 8px" }}
+          />
+          <button
+            className="pure-button pure-button-primary"
+            onClick={login}
+            style={{ margin: "auto 8px" }}
+          >
+            {" "}
+            Login{" "}
+          </button>
+        </div>
         <div> {failMsg}</div>
       </div>
     </div>
