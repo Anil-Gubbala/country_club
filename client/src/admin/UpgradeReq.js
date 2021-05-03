@@ -8,7 +8,8 @@ var rows = [];
 
 export default function UpgradeReqList() {
     Axios.defaults.withCredentials = true;
-    
+
+  
     const [loading, setLoading] = useState(true);
     const history = useHistory();
 
@@ -25,7 +26,7 @@ export default function UpgradeReqList() {
             .catch((error) => {
             });
       }
-    
+
     Axios.get('http://localhost:3001/admin/upgrade/list',).then(function(res) {
       console.log(res);
       rows = res.data;
@@ -62,4 +63,5 @@ export default function UpgradeReqList() {
         </table>
     </div>
     );
+
 }

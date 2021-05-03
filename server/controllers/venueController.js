@@ -27,15 +27,15 @@ const createVenue = (req, res) => {
             venue_name,
             venue_type
          ],
-         (err, result) => {
-             if (err) {
-                logger.request.error("add new venue error " + err.message);
-                 console.log(err);
+         (error, result) => {
+             if (error) {
+                logger.request.error("add new venue error " + error.message);
+                 console.log(error);
                  res.status(404).send({
-                     err: err.errno === 1062 ? "Error creating new venue" : err.code
+                     err: error.errno === 1062 ? "Error creating new venue" : error.code
                  });
              } else {
-                logger.response.info("add new venue success: " + results);
+                logger.response.info("add new venue success: " + result);
                  res.status(200).send({ success : true });
              }
          }
@@ -78,13 +78,13 @@ const updateVenue = (req, res) => {
             venue_name,
             venue_type,
             venue_id
-         ], (err, results, fields) => {
+         ], (error, results, fields) => {
 
-        if (err) {
+        if (error) {
             logger.request.error("update venue error: " + error.message);
-            console.log(err);
+            console.log(error);
             res.status(404).send({
-                err: err.errno === 1062 ? "Error updating venue" : err.code
+                err: error.errno === 1062 ? "Error updating venue" : error.code
             });
         } else {
             logger.response.info("update venue success: " + results);
@@ -99,35 +99,35 @@ const deleteVenue= (req, res) => {
     const {
         venue_id
     } = req.body;
-    db.query(GET_VENUE_ID, [
+    db.query(SQL_VENUE.GET_VENUE_ID, [
         venue_id
     ], (error, results, fields) => {
         if(error) {
             logger.request.error("delete venue error: " + error.message);
-            console.log(err);
+            console.log(error);
             res.status(404).send({
-                err: err.errno === 1062 ? "Error deleting venue" : err.code
+                err: error.errno === 1062 ? "Error deleting venue" : error.code
             });
         } 
-        if(results.data.length == 0) {
+        if(results.length == 0) {
             db.query(SQL_VENUE.DELETE_VENUE,
                 [
                     venue_id
                  ], (error, results, fields) => {
         
                 if (error) {
-                    console.log(err);
+                    console.log(error);
                     res.status(404).send({
-                        err: err.errno === 1062 ? "Error deleting venue" : err.code
+                        err: error.errno === 1062 ? "Error deleting venue" : error.code
                     });
                 } 
                 logger.response.info("delete venue success: " + results);
                 res.send({ message: "deleted" });
             });
         } else {
-            logger.request.error("delete venue error: " + error.message);
+            logger.request.error("delete venue error: Cannot delete venue since its associated with one or more events");
             res.status(404).send({
-                err: err.errno === 1062 ? "Cannot delete venue since its associated with one or more events" : err.code
+                err: "Cannot delete venue since its associated with one or more events"
             });
         }
     })
