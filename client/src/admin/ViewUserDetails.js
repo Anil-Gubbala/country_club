@@ -299,28 +299,32 @@ const UpdateUserDetails = (props) => {
 
         {props.details.start_date && <div className="pure-control-group">
           <label htmlFor="aligned-start-date">Start Date: </label>
-          <input
+          {props.isAdmin === 1 && <input
             type="date"
             id="aligned-start-date"
             value={props.details.start_date}
             onChange={(e) => {
               props.setUserDetails({...props.details,start_date:e.target.value});
             }}
-          />
+          />}
+          {props.isAdmin === 0 && <label id="aligned-name">{props.details.start_date}</label>}
         </div>}
 
       {props.details.end_date && <div className="pure-control-group">
           <label htmlFor="aligned-end-date">End Date: </label>
-          <input
+          {props.isAdmin === 1 && <input
             type="date"
             id="aligned-end-date"
             value={props.details.end_date}
             onChange={(e) => {
               props.setUserDetails({...props.details,end_date:e.target.value});
             }}
-          />
+          />}
+          {props.isAdmin === 0 && <label id="aligned-name">{props.details.end_date}</label>}
         </div>
 }
+
+
         {props.details.membership_name && <div className="pure-control-group">
           <label htmlFor="aligned-status">Membership: </label>
           {props.isAdmin === 1 && 
