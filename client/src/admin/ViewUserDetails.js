@@ -22,6 +22,15 @@ const UserDetails = (props) => {
       history.push("/admin/users");
     }
 
+    const upgradeMembership = () =>{
+      console.log('in method upgradeMembership');
+      Axios.post('http://localhost:3001/admin/users/upgrade', {user_id: id, c_mem_type: userDetail.membership_type})
+        .then((response) => {
+          })
+          .catch((error) => {
+          });
+    }
+
     const approveUser = () =>{
       console.log('in method approveUser');
       Axios.post('http://localhost:3001/admin/users/activate', {user_id: id})
@@ -133,6 +142,14 @@ const UserDetails = (props) => {
                         View Dependents
                   </button>
               </div>
+            }
+
+            {props.isAdmin === 0 && userDetail.membership_type !== 2 &&
+                <div className="pure-u-1-6">
+                <button className="pure-button pure-button-primary" onClick={upgradeMembership}>
+                      Upgrade Membership
+                  </button>
+                </div>
             }
 
             { props.isAdmin === 1 && 

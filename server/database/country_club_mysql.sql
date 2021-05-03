@@ -54,6 +54,18 @@ create table dependent
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade
 );
 
+--upgrade membership
+create table upgrade_request(
+    user_id int not null,
+    current_mem_type int not null,
+    upgrade_mem_type int not null,
+    req_status varchar(25) default "Pending" not null,
+    primary key(user_id, current_mem_type, upgrade_mem_type),
+    foreign key(user_id) references user (user_id) on update cascade on delete cascade,
+    foreign key (current_mem_type) references membership_type (type_id) on update cascade on delete cascade, 
+    foreign key (upgrade_mem_type) references membership_type (type_id) on update cascade on delete cascade
+);
+
 -- venue_type: used for dropdown
 create table venue_type
 (
