@@ -30,6 +30,7 @@ export default function PrivateEventsList(props) {
   const [endDate, setEndDate]= useState(props.date);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [reload, setReload] = useState(false);
   const columns = [
     { field: "venue_id", headerName: "Venue Number", width: 200 },
     { field: "venue_name", headerName: "Venue Name", width: 200 },
@@ -74,8 +75,10 @@ export default function PrivateEventsList(props) {
     }
   };
   useEffect(() => {
+    setRowData({});
     setEndDate(props.date);
     setLoading(true);
+    setReload(false);
     axios
       .get("http://localhost:3001/user/partyGetVenues", {
         params: { date: props.date },
@@ -97,18 +100,18 @@ export default function PrivateEventsList(props) {
         setException(true);
         setLoading(false);
       });
-  }, [props.date]);
+  }, [props.date,reload]);
 
   if (bookingSuccess) {
     return (
-      <div>
-        <FormGroup>
+      <div style={{display:"flex"}}>
+        {/* <FormGroup> */}
           <FormControl>
             <Alert severity="info">Booking successfull</Alert>
           </FormControl>
-          <FormControl>
+          <FormControl style={{margin:"auto 8px"}}>
             <Link
-              className="margin8"
+              
               to="/user/myBookings"
               onClick={() => {
                 setBookingMode(false);
@@ -118,14 +121,26 @@ export default function PrivateEventsList(props) {
               Go to My bookings
             </Link>
           </FormControl>
-        </FormGroup>
+          <FormControl style={{margin:"auto 8px"}}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setBookingMode(false);
+              SetBookingSuccess(false);
+              setReload(true);
+            }}
+          >
+            Go back
+          </Button>
+        </FormControl>
+        {/* </FormGroup> */}
       </div>
     );
   }
   if (bookingMode) {
     return (
       <div>
-        <FormControl>
+        <FormControl style={{margin:"auto 8px"}}>
           <TextField
             id="private-event-name"
             label="Event Name"
@@ -136,7 +151,7 @@ export default function PrivateEventsList(props) {
             }}
           />
         </FormControl>
-        {<FormControl>
+        {<FormControl style={{margin:"auto 8px"}}>
           <InputLabel htmlFor="private-event-days">No of Days</InputLabel>
           <Select
             labelId="private-event-days-label"
@@ -148,7 +163,7 @@ export default function PrivateEventsList(props) {
             <MenuItem value={2}>Two Days</MenuItem>
           </Select>
         </FormControl>}
-        <FormControl>
+        <FormControl style={{margin:"auto 8px"}}>
           <TextField
             error={invalid}
             helperText={"Max: 100"}
@@ -158,7 +173,7 @@ export default function PrivateEventsList(props) {
             onChange={(e) => setAttendees(e.target.value)}
           />
         </FormControl>
-        <FormControl>
+        <FormControl style={{margin:"auto 8px"}}>
           <Button
             variant="contained"
             onClick={() => {
@@ -168,7 +183,7 @@ export default function PrivateEventsList(props) {
             Go back
           </Button>
         </FormControl>
-        <FormControl>
+        <FormControl style={{margin:"auto 8px"}}>
           <Button variant="contained" color="primary" onClick={handleBooking}>
             Book
           </Button>
