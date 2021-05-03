@@ -30,16 +30,16 @@ create table membership_type
 (
 	type_id int not null unique,
 	name varchar(15) not null,
-	description varchar(100) not null,
-	dependent_count int not null
+	description varchar(100) not null
 );
 
 create table member
 (
-	 user_id int not null,
+	 user_id int not null unique,
 	 membership_type int not null,
 	 start_date date not null,
 	 end_date date not null,
+	 primary key (user_id),
 	 foreign key (membership_type) references membership_type (type_id) on update cascade on delete cascade, 
 	 foreign key (user_id) references user (user_id) on update cascade on delete cascade 
 );
