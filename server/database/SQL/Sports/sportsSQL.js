@@ -3,11 +3,10 @@ const SPORTS_SECTION ={
   
     GET_SPORT_BOOKING_SLOT: "select sports.sport_id, s_name, time_slot.ts_id, time_slot.start_time, time_slot.end_time, venue.venue_name \
                               from sports , time_slot, sport_time, venue \
-                              where  sports.sport_id=sport_time.sport_id \
+                              where sports.sport_id = ? and sport_time.sport_id = ? \
                               and time_slot.ts_id=sport_time.ts_id \
                               and sports.venue_id=venue.venue_id \
-                              and sports.sport_id in ( select sport_id from sports where s_name=?) \
-                              and time_slot.ts_id not in ( select ts_id from sports_booking where sport_id in ( select sport_id from sports where s_name=? and status='Booked')) ;",
+                              and time_slot.ts_id not in (select ts_id from sports_booking where booking_date = ? and status='Booked') ;",
 
     SPORTS_BOOKING_INSERT : "insert into sports_booking(status,booking_date,sport_id,user_id,ts_id) values(?,?,?,?,?);",
 

@@ -19,7 +19,7 @@ const UserDetails = (props) => {
     const history = useHistory();
 
     const goBackToAdmin = () =>{
-      console.log(props.viewer_id + userDetail.user_id);
+      //console.log(props.viewer_id + userDetail.user_id);
       history.push("/admin/users");
     }
 
@@ -60,6 +60,7 @@ const UserDetails = (props) => {
       Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
       console.log(res);
       userDetail = res.data;
+      console.log(userDetail.auth_id.data[0]);
       setLoading(false);
       });
     }, []);
@@ -115,10 +116,15 @@ const UserDetails = (props) => {
             <label id="aligned-name">{userDetail.end_date}</label>
           </div>}
 
-          <div className="pure-control-group">
+          {userDetail.auth_id.data[0] === 0 && <div className="pure-control-group">
             <label htmlFor="aligned-name">Membership Status: </label>
             <label id="aligned-name">{userDetail.status}</label>
-          </div>
+          </div>}
+
+          {userDetail.auth_id.data[0] === 1 && <div className="pure-control-group">
+            <label htmlFor="aligned-name">User Status: </label>
+            <label id="aligned-name">{userDetail.status}</label>
+          </div>}
 
           <br/>
           <br/>
@@ -293,28 +299,32 @@ const UpdateUserDetails = (props) => {
 
         {props.details.start_date && <div className="pure-control-group">
           <label htmlFor="aligned-start-date">Start Date: </label>
-          <input
+          {props.isAdmin === 1 && <input
             type="date"
             id="aligned-start-date"
             value={props.details.start_date}
             onChange={(e) => {
               props.setUserDetails({...props.details,start_date:e.target.value});
             }}
-          />
+          />}
+          {props.isAdmin === 0 && <label id="aligned-name">{props.details.start_date}</label>}
         </div>}
 
       {props.details.end_date && <div className="pure-control-group">
           <label htmlFor="aligned-end-date">End Date: </label>
-          <input
+          {props.isAdmin === 1 && <input
             type="date"
             id="aligned-end-date"
             value={props.details.end_date}
             onChange={(e) => {
               props.setUserDetails({...props.details,end_date:e.target.value});
             }}
-          />
+          />}
+          {props.isAdmin === 0 && <label id="aligned-name">{props.details.end_date}</label>}
         </div>
 }
+
+
         {props.details.membership_name && <div className="pure-control-group">
           <label htmlFor="aligned-status">Membership: </label>
           {props.isAdmin === 1 && 

@@ -132,6 +132,7 @@ export default function SportsHistory() {
                 onClick = {()=>{
                 setBookingMode(true);
                 }}
+                disabled={!(rowData && rowData.isSelected && rowData.data.status === "Booked")}
                 >
                 Cancel Booking
             </Button>
