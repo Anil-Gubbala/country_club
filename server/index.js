@@ -3,18 +3,18 @@ const cors = require("cors");
 const router = require("./routers/mainRouter");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const logger = require('./modules/logger');
+const logger = require("./modules/logger");
 const app = express();
 
 app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
 );
-// set & reset login cookies 
+// set & reset login cookies
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
@@ -30,7 +30,7 @@ app.use(
     },
   })
 );
-//All node server requests handled here. 
+//All node server requests handled here.
 app.use("/", router);
 
 //Node port number
