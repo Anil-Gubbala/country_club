@@ -82,10 +82,10 @@ export default function Main() {
       </Accordion>
       <Accordion
         disabled={
-          userData.member_type === 2 || userData.auth_id === 1 ? false : true
+          userData.membership_type === 2 || userData.auth_id === 1 ? false : true
         }
         defaultExpanded={
-          userData.member_type === 2 || userData.auth_id === 1 ? true : false
+          userData.membership_type === 2 || userData.auth_id === 1 ? true : false
         }
       >
         <AccordionSummary
@@ -96,13 +96,13 @@ export default function Main() {
         >
           <Typography>
             Private Event Slots{" "}
-            {userData.member_type === 2 || userData.auth_id === 1
+            {userData.membership_type === 2 || userData.auth_id === 1
               ? ""
               : " (!Only Platinum users have access to this)"}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {(userData.member_type === 2 || userData.auth_id === 1) && (
+          {(userData.membership_type === 2 || userData.auth_id === 1) && (
             <PrivateEventsList
               date={dateToString(startDate)}
             ></PrivateEventsList>
