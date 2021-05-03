@@ -41,8 +41,8 @@ export default function PrivateEventBookings() {
     },
 
     { field: "hosted_at", headerName: "Venue ID", width: 200 },
-    { field: "status", headerName: "Status", width: 200 },
     { field: "no_of_attendees", headerName: "No of Attendees", width: 200 },
+    { field: "status", headerName: "Status", width: 200 },
   ];
   useEffect(() => {
     setLoading(true);

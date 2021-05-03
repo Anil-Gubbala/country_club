@@ -73,7 +73,6 @@ export default function Registration() {
   };
   const register = () => {
     if (
-      // userDetails.user_id.trim().length < 5 ||
       userDetails.password.trim().length < 5 ||
       userDetails.first_name.trim() === "" ||
       userDetails.last_name.trim() === "" ||
@@ -84,7 +83,6 @@ export default function Registration() {
     ) {
       setMessage("Please fill all fields");
     } else if (
-      // userDetails.user_id.includes(" ") ||
       userDetails.email_id.includes(" ") ||
       userDetails.zip_code.includes(" ") ||
       userDetails.password.includes(" ")
@@ -127,26 +125,6 @@ export default function Registration() {
     <div>
       <Navi></Navi>
       <FormGroup>
-        {/* <FormControl>
-          <TextField
-            helperText="5-10 characters"
-            id="register-user-id"
-            label="User ID"
-            type="text"
-            error={invalid.user_id}
-            onChange={(e) => {
-              const validation =
-                e.target.value.length < 5 ||
-                e.target.value.length > 25 ||
-                e.target.value === ""
-                  ? true
-                  : false;
-              setInvalid({ ...invalid, user_id: validation });
-              setUserDetails({ ...userDetails, user_id: e.target.value });
-            }}
-          />
-        </FormControl> */}
-
         <FormControl>
           <TextField
             helperText={invalid.first_name ? "1-25 characters" : ""}
@@ -276,7 +254,6 @@ export default function Registration() {
           />
         </FormControl>
         <FormControl>
-          {/* {<InputLabel htmlFor="register-member-type">Select MemberShip Type</InputLabel>} */}
           <Select
             id="register-member-type"
             value={userDetails.membership_type}
