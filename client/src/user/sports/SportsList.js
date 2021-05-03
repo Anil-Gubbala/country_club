@@ -19,16 +19,19 @@ export default function SportsList(props) {
     const [rows, setRows] = useState([]);
     const [allSportsRows, setAllSportsRows] = useState([]);
     const [rowData, setRowData] = useState([]);
+    const [slotData, setSlotData] = useState([]);
     const [bookingMode, setBookingMode] = useState(false);
     const [bookingSuccess, SetBookingSuccess] =useState(false);
     const history = useHistory();
     const [allSports, setAllSport] = useState(true);
 
     const columns = [
+      {field : "sport_id", headerName: "Sport ID", width:200},
         { field: "s_name", headerName: "Sport Name" , width:200},
         {field : "start_time", headerName: "Start Time", width:200},
         {field : "end_time", headerName: "End Time", width:200},
         {field : "venue_name", headerName: "Venue", width:200},
+        
     ];
       
            
@@ -37,9 +40,9 @@ export default function SportsList(props) {
             .post("http://localhost:3001/user/sportsBookingInsert",{
               status: 'Booked',
               booking_date: props.date,
-              sport_id: rowData.data.sport_id,
+              sport_id: slotData.data.sport_id,
               user_id: userData.user_id,
-              ts_id: rowData.data.ts_id,
+              ts_id: slotData.data.ts_id,
             })
             .then((result) => {
               setBookingMode(false);
@@ -48,6 +51,10 @@ export default function SportsList(props) {
             .catch((err) => {setException(true);
             });
     };
+
+    useEffect(() => {
+      getAllSports();
+    },[props.date]);
 
     const getAllSports = () => {
         axios
@@ -63,14 +70,14 @@ export default function SportsList(props) {
     })
        .catch((err) => {
           setException(true);
-        },[props.date]);
+        });
     };
       
     const gettingSlots = () => {
         console.log("Running gettingSlots function.")
         axios
           .get("http://localhost:3001/user/getBookingSlot",{
-            params:{ s_name: rowData.data.s_name},
+            params:{ sport_id: rowData.data.sport_id, date: props.date},
           })
           .then((result) => {
             // var slots=response.data;
@@ -82,10 +89,6 @@ export default function SportsList(props) {
             setException(true);
           });
     };
-    
-    if(allSports){
-      getAllSports();
-    }
 
 
     if (bookingSuccess) {
@@ -124,14 +127,14 @@ export default function SportsList(props) {
             pageSize={5}
             autoHeight = "true"
             getRowId={(row)=>row.ts_id}
-            onRowSelected = {(rowData)=> {
-            setRowData(rowData);
+            onRowSelected = {(slotData)=> {
+            setSlotData(slotData);
             }}
             />
               <Button style= {{margin:"8px",display:"block",marginLeft:"auto"}}
               variant="contained"
               color="primary"
-              disabled={!(rowData && rowData.isSelected)}
+              disabled={!(slotData && slotData.isSelected)}
               onClick = {()=>handleBooking()}>
               Book Slot
               </Button>

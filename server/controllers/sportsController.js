@@ -33,7 +33,7 @@ const getBookingSlot = (req, res) => {
   );
   db.query(
     GET_SPORT_BOOKING_SLOT,
-    [req.query.s_name, req.query.s_name],
+    [req.query.sport_id, req.query.sport_id, req.query.date],
     (error, result) => {
       if (error) {
         logger.response.error("Error in fetching slots " + error.message);
