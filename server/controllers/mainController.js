@@ -36,18 +36,18 @@ const setLogin = (req, res) => {
   } else {
     db.query(SQL_USER.GET_USER_DETAILS, user_id, (err, result) => {
       if (err) {
-        sendError(req,res,"sql error: " + err.code);
+        sendError(req, res, "sql error: " + err.code);
         return;
       } else if (result.length > 0) {
         if (result[0].status == "Pending") {
-          sendError(req,res,"status : ", "Contact Admin for approval")
+          sendError(req, res, "status : ", "Contact Admin for approval");
           return;
         }
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             auth_id = result[0].auth_id[0];
             if (auth_id == 0) {
-              getMemberDetails(req,res,user_id,auth_id)
+              getMemberDetails(req, res, user_id, auth_id);
             } else {
               setSession(req, res, user_id, auth_id, 2);
             }
@@ -66,7 +66,7 @@ const setLogin = (req, res) => {
   }
 };
 
-const getMemberDetails = (req,res,user_id,auth_id) => {
+const getMemberDetails = (req, res, user_id, auth_id) => {
   let membership_type;
   db.query(SQL_USER.MEMBER_GET, user_id, (err, result) => {
     if (err) {
@@ -88,9 +88,7 @@ const getMemberDetails = (req,res,user_id,auth_id) => {
           }
         });
       }
-      logger.response.info(
-        "Membership Expired. Contact Admin for extension"
-      );
+      logger.response.info("Membership Expired. Contact Admin for extension");
       res.status(404).send({
         err: "Membership Expired. Contact Admin for extension",
       });
@@ -99,9 +97,9 @@ const getMemberDetails = (req,res,user_id,auth_id) => {
       setSession(req, res, user_id, auth_id, membership_type);
     }
   });
-}
+};
 
-const setSession = (req, res, user_id,auth_id, membership_type ) => {
+const setSession = (req, res, user_id, auth_id, membership_type) => {
   req.session.user = {
     user_id: user_id,
     auth_id: auth_id,

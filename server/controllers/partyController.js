@@ -70,7 +70,9 @@ const partyInsert = (req, res) => {
           ],
           (error, result) => {
             if (error) {
-              logger.response.error("error in fetching data : " + error.message);
+              logger.response.error(
+                "error in fetching data : " + error.message
+              );
               res.status(404).send({ err: error.code });
               return;
             } else if (result.length == 0) {
@@ -94,22 +96,18 @@ const partyGetBookings = (req, res) => {
     res.status(404).send({ err: "Invalid user session" });
     return;
   }
-  db.query(
-    PARTY_MYBOOKINGS,
-    [req.session.user.user_id],
-    (error, result) => {
-      if (error) {
-        logger.response.error("error in fetching data: " + error.message);
-        res.status(404).send({ err: error.code });
-      } else if (result.length == 0) {
-        logger.response.info("result: " + JSON.stringify(result));
-        res.send([]);
-      } else {
-        logger.response.info("result: " + JSON.stringify(result));
-        res.send(result);
-      }
+  db.query(PARTY_MYBOOKINGS, [req.session.user.user_id], (error, result) => {
+    if (error) {
+      logger.response.error("error in fetching data: " + error.message);
+      res.status(404).send({ err: error.code });
+    } else if (result.length == 0) {
+      logger.response.info("result: " + JSON.stringify(result));
+      res.send([]);
+    } else {
+      logger.response.info("result: " + JSON.stringify(result));
+      res.send(result);
     }
-  );
+  });
 };
 
 const cancelParty = (req, res) => {
