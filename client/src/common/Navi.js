@@ -5,7 +5,7 @@ import { useLoginValidate } from "./Validate";
 const Navi = () => {
   const { userData } = useLoginValidate();
   return (
-    <div className="pure-menu pure-menu-horizontal">
+    <div className="pure-menu pure-menu-horizontal" style={{display:"flex"}}>
       <a href="/" className="pure-menu-heading pure-menu-link">
         Country Club
       </a>
@@ -56,8 +56,10 @@ const Navi = () => {
             </Link>
           </li>
         )}
-
       </ul>
+      {userData.user_id && (
+            <label className="pure-menu-heading" style={{marginLeft:"auto",marginTop:"auto"}}> Hello {userData.user_id} !</label>
+        )}
     </div>
   );
 };
