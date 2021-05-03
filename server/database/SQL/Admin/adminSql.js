@@ -49,6 +49,7 @@ GET_DEPENDENT_LIST:"select * from member m left join dependent d on m.user_id = 
                       left join membership_type mt on r.upgrade_mem_type = mt.type_id \
                       where req_status = 'Pending';",
 
+    //_userId, _currentMem
   APPROVE_UPGRADE_REQ: "CALL upgradeMembership(?, ?);"
   };
 
