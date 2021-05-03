@@ -26,6 +26,7 @@ export default function MyBookings() {
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
+            style={{ background: "lightcyan" }}
           >
             <Typography>Events</Typography>
           </AccordionSummary>
@@ -36,6 +37,7 @@ export default function MyBookings() {
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
             id="panel2a-header"
+            style={{ background: "lightcyan" }}
           >
             <Typography>Sports</Typography>
           </AccordionSummary>
@@ -48,6 +50,7 @@ export default function MyBookings() {
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel3a-content"
             id="panel3a-header"
+            style={{ background: "lightcyan" }}
           >
             <Typography>Dining</Typography>
           </AccordionSummary>
@@ -60,6 +63,7 @@ export default function MyBookings() {
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel3a-content"
             id="panel3a-header"
+            style={{ background: "lightcyan" }}
           >
             <Typography>Private Events</Typography>
           </AccordionSummary>
