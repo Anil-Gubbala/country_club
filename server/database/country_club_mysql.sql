@@ -54,7 +54,7 @@ create table dependent
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade
 );
 
---upgrade membership
+-- upgrade membership
 create table upgrade_request(
     user_id int not null,
     current_mem_type int not null,
