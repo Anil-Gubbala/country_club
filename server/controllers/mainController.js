@@ -207,7 +207,7 @@ const registerUser = (req, res) => {
                   }
                   if (membership_type == 1 || membership_type == 2) {
                     if (
-                      req.body.dependentsInfo[0].name &&
+                      req.body.dependentsInfo[0] && req.body.dependentsInfo[0].name &&
                       req.body.dependentsInfo[0].name != ""
                     ) {
                       dependentList.push([
@@ -216,10 +216,8 @@ const registerUser = (req, res) => {
                         req.body.dependentsInfo[0].relationship,
                       ]);
                     }
-                  }
-                  if (membership_type == 2 || membership_type == 1) {
                     if (
-                      req.body.dependentsInfo[1].name &&
+                      req.body.dependentsInfo[1] && req.body.dependentsInfo[1].name &&
                       req.body.dependentsInfo[1].name != ""
                     ) {
                       dependentList.push([
@@ -247,36 +245,55 @@ const registerUser = (req, res) => {
                         .send({ success: true, user_id: insertId });
                     });
                   } else {
-                    let dependentsSql = db.query(
-                      SQL_USER.INSERT_DEPENDENT,
-                      [dependentList],
-                      (err, result) => {
-                        // logger.response.info("insert dependents " + dependentsSql.sql);
-                        if (err) {
-                          db.rollback();
-                          logger.response.error("sql error :" + err.code);
-                          res.status(404).send({ err: err.code });
-                          // logger.response.error("rollback()");
-                          return;
-                        }
-                        logger.response.info("commit");
-                        db.commit(function (err) {
+                    if(dependentList.length > 0){
+                      let dependentsSql = db.query(
+                        SQL_USER.INSERT_DEPENDENT,
+                        [dependentList],
+                        (err, result) => {
+                          // logger.response.info("insert dependents " + dependentsSql.sql);
                           if (err) {
                             db.rollback();
-                            logger.response.error("error : " + err.code);
-                            res.status(404).send({
-                              err: err.code,
-                            });
+                            logger.response.error("sql error :" + err.code);
+                            res.status(404).send({ err: err.code });
                             // logger.response.error("rollback()");
                             return;
                           }
-                          logger.response.info("sucess user_id = " + insertId);
-                          res
-                            .status(200)
-                            .send({ success: true, user_id: insertId });
-                        });
-                      }
-                    );
+                          logger.response.info("commit");
+                          db.commit(function (err) {
+                            if (err) {
+                              db.rollback();
+                              logger.response.error("error : " + err.code);
+                              res.status(404).send({
+                                err: err.code,
+                              });
+                              // logger.response.error("rollback()");
+                              return;
+                            }
+                            logger.response.info("sucess user_id = " + insertId);
+                            res
+                              .status(200)
+                              .send({ success: true, user_id: insertId });
+                          });
+                        }
+                      );
+                    }else{
+                      db.commit(function (err) {
+                        if (err) {
+                          db.rollback();
+                          logger.response.error("error : " + err.code);
+                          res.status(404).send({
+                            err: err.code,
+                          });
+                          // logger.response.error("rollback()");
+                          return;
+                        }
+                        logger.response.info("sucess user_id = " + insertId);
+                        res
+                          .status(200)
+                          .send({ success: true, user_id: insertId });
+                      });
+                    }
+                    
                   }
                 }
               );

@@ -32,9 +32,9 @@ insert into venue (venue_id, venue_name,venue_type) values(1012,'Yoga Room', 'sp
 
 
 -- membership_type
-INSERT INTO membership_type (type_id, name, description,dependent_count) VALUES (0, "Silver", "eligible to participate in all events",0);
-INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES (1, "Gold", "Silver user privileges + elgible to enroll 2 dependents",2);
-INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES (2, "Platinum", "Gold user privileges + access to organize own private events",2);
+INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "eligible to participate in all events");
+INSERT INTO membership_type (type_id, name, description) VALUES (1, "Gold", "Silver user privileges + elgible to enroll 1 dependents");
+INSERT INTO membership_type (type_id, name, description) VALUES (2, "Platinum", "Silver user privileges + elgible to enroll as many dependents as needed + access to organize own private events");
 
 -- 1001: admin, 1002: silver, 1003: gold, 1004: platinum, 1005: expired, 1006: pending
 INSERT INTO countryclub.user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1001', 'admin', '1', 'admin@gmail.com', 'admin', 'admin', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', 'Active');

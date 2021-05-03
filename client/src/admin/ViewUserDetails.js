@@ -6,7 +6,7 @@ import Navi from "../common/Navi";
 import BasePage from "../common/BasePage";
 import { useParams } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import ViewDependent from "../admin/ViewDependent";
+import Alert from "@material-ui/lab/Alert";
 
 let userDetail = {};
 
@@ -19,7 +19,17 @@ const UserDetails = (props) => {
     const history = useHistory();
 
     const goBackToAdmin = () =>{
+      console.log(props.viewer_id + userDetail.user_id);
       history.push("/admin/users");
+    }
+
+    const upgradeMembership = () =>{
+      console.log('in method upgradeMembership');
+      Axios.post('http://localhost:3001/admin/upgrade/create', {user_id: id, c_mem_type: userDetail.membership_type})
+        .then((response) => {
+          })
+          .catch((error) => {
+          });
     }
 
     const approveUser = () =>{
@@ -135,7 +145,15 @@ const UserDetails = (props) => {
               </div>
             }
 
-            { props.isAdmin === 1 && 
+            {props.isAdmin === 0 && userDetail.membership_type !== 2 &&
+                <div className="pure-u-1-6">
+                <button className="pure-button pure-button-primary" onClick={upgradeMembership}>
+                      Upgrade Membership
+                  </button>
+                </div>
+            }
+
+            { (props.viewer_id !== userDetail.user_id) && props.isAdmin === 1 && 
                 <div className="pure-u-1-6">
                 <button className="pure-button pure-button-primary" onClick={deleteUser}>
                       Delete User
@@ -156,9 +174,28 @@ const UserDetails = (props) => {
 }
 
 const UpdateUserDetails = (props) => {
+  const [invalid, setInvalid] = useState({
+    zip_code: false,
+    street: false,
+    city: false,
+  });
 
+  const [message, setMessage] = useState("");
 
   const updateUserDetails = () => {
+    if (
+      props.details.city.trim() === "" ||
+      props.details.street.trim() === "" ||
+      props.details.zip_code.length < 5
+    ) {
+      setMessage("Please fill all fields");
+      props.setShowDetails(false);
+    } else if (
+      props.details.zip_code.includes(" ") 
+    ) {
+      setMessage("Space character not allowed in zip_code");
+      props.setShowDetails(false);
+    }else{
     Axios.post("http://localhost:3001/admin/users/update", 
         { userId: props.details.user_id,
           isAdmin: props.isAdmin,
@@ -170,11 +207,10 @@ const UpdateUserDetails = (props) => {
           membership_type: props.details.membership_type}
       )
         .then((response) => {
-          //history.push("/admin");
         })
         .catch((error) => {
         });
-
+      }
   };
 
   const cancelUpdate = () => {} 
@@ -207,7 +243,13 @@ const UpdateUserDetails = (props) => {
             type="text"
             id="aligned-name" placeholder="Street" 
             value={props.details.street}
+            error={invalid.street}
             onChange={(e) => {
+              const validation =
+                e.target.value.length > 25 || e.target.value === ""
+                  ? true
+                  : false;
+              setInvalid({ ...invalid, street: validation });
               props.setUserDetails({...props.details,street:e.target.value});
             }}
           />
@@ -219,7 +261,13 @@ const UpdateUserDetails = (props) => {
             type="text"
             id="aligned-description" placeholder="City" 
             value={props.details.city}
+            error={invalid.city}
             onChange={(e) => {
+              const validation =
+                e.target.value.length > 25 || e.target.value === ""
+                  ? true
+                  : false;
+              setInvalid({ ...invalid, city: validation });
               props.setUserDetails({...props.details,city:e.target.value});
             }}
           />
@@ -231,7 +279,13 @@ const UpdateUserDetails = (props) => {
             type="text"
             id="aligned-description" placeholder="Zip-Code" 
             value={props.details.zip_code}
+            error={invalid.zip_code}
             onChange={(e) => {
+              const validation =
+                e.target.value.length !== 5 || e.target.value === ""
+                  ? true
+                  : false;
+              setInvalid({ ...invalid, zip_code: validation });
               props.setUserDetails({...props.details,zip_code:e.target.value});
             }}
           />
@@ -293,7 +347,7 @@ const UpdateUserDetails = (props) => {
         </div>
 
       <div className="pure-u-1-3"></div>
-        
+      {message && <Alert severity="error">{message}</Alert>}
     </fieldset>
   )
 
@@ -314,12 +368,12 @@ const Details = (props) => {
 
   if (showDetails){
     return (
-      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin} id={props.id}/>
+      <UserDetails updateUserDetails={updateUserDetails} isAdmin={props.isAdmin} id={props.id} viewer_id={props.viewer_id}/>
       
     )
   } else {
     return (
-      <UpdateUserDetails details={userDetails} setUserDetails={setUserDetails} cancelUpdate={cancelUpdate} isAdmin={props.isAdmin}  id={props.id}/>
+      <UpdateUserDetails details={userDetails} setUserDetails={setUserDetails} cancelUpdate={cancelUpdate} isAdmin={props.isAdmin}  id={props.id} setShowDetails={setShowDetails}/>
     )
   }
   
@@ -342,7 +396,7 @@ export default function ViewUserDetails() {
         <form className="pure-form pure-form-aligned">
           {userData.auth_id === 1 && <h1 style={{textAlign:"center"}}>User Details</h1>}
           {(userData.auth_id === 0) && <h1 style={{textAlign:"center"}}>My Profile</h1>}
-          <Details isAdmin={userData.auth_id} id={id}/>
+          <Details isAdmin={userData.auth_id} id={id} viewer_id={userData.user_id}/>
          
         </form>
       </div>

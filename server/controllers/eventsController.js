@@ -32,12 +32,12 @@ const updateUserEvents = (req, res) => {
         no_of_participants,
         no_of_participants,
         event_id
-    ], (err, results, fields) => {
+    ], (error, results, fields) => {
 
-        if (err) {
-            console.log(err);
+        if (error) {
+            console.log(error);
             res.status(404).send({
-                err: err.errno === 1062 ? "Error updating event" : err.code
+                err: error.errno === 1062 ? "Error updating event" : error.code
             });
         } else {
             // res.status(200).send({ success: true });
@@ -68,15 +68,15 @@ const createEvent = (req, res) => {
             capacity,
             organized_by
         ],
-        (err, result) => {
-            if (err) {
-                logger.request.error("create new event error " + err.message);
-                console.log(err);
+        (error, result) => {
+            if (error) {
+                logger.request.error("create new event error " + error.message);
+                console.log(error);
                 res.status(404).send({
-                    err: err.errno === 1062 ? "Error creating new event" : err.code
+                    err: error.errno === 1062 ? "Error creating new event" : error.code
                 });
             } else {
-                logger.response.info("create new event success: " + results);
+                logger.response.info("create new event success: " + result);
                 res.status(200).send({ success: true });
             }
         }
@@ -162,6 +162,20 @@ const deleteEvent = (req, res) => {
                 err: error.errno === 1062 ? "Error deleting event" : error.code
             });
         }
+        db.query(SQL_EVENTS.GET_USER_EMAIL, [
+            event_id
+        ], (error, results, fields) => {
+            if (error) {
+                logger.request.error("delete event error: " + error.message);
+                console.log(error);
+                res.status(404).send({
+                    err: error.errno === 1062 ? "Error deleting event" : error.code
+                });
+            }
+            if(results.length > 0){
+                sendEmail(results);
+            }
+        });
         logger.response.info("delete event success: " + results);
         res.send({ message: "deleted" });
     });

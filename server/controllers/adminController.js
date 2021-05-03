@@ -249,6 +249,74 @@ const addNewDependent = (req, res) => {
   );
 }
 
+const getUpgradeReq = (req, res) => {
+  logger.request.info("get upgrade user list");
+    db.query(SQL_ADMIN.GET_UPGRADE_REQ, (error, rows, fields) => {
+        if (error) {
+          logger.request.info("get  upgrade user list error: " + error.message);
+          return console.error(error.message);
+        }
+        logger.response.info("get  upgrade user list: successful.");
+        res.send(rows);
+    });
+}
+
+const addUpgradeReq = (req, res) => {
+  const {
+    user_id,
+    c_mem_type
+  } = req.body;
+
+  logger.request.info("add upgrade request: " + user_id + ", " + c_mem_type);
+
+  db.query(
+    SQL_ADMIN.ADD_UPGRADE_REQ,
+    [
+      user_id,
+      c_mem_type
+    ],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        logger.request.info("add upgrade request error: " + error.message);
+        res.status(404).send({
+          err: error.errno === 1062 ? "Upgrade request already exists" : error.code,
+        });
+      } else {
+        logger.response.info("add upgrade request: successful.");
+        res.send({ success: true});
+      }
+    }
+  );
+}
+
+const approveUpgradeReq = (req,res) =>{
+  const {
+    user_id,
+    c_mem_type
+  } = req.body;
+
+  logger.request.info("approve membership upgrade: " + user_id + ", " + c_mem_type);
+
+  db.query(SQL_ADMIN.APPROVE_UPGRADE_REQ,
+    [
+      user_id,
+      c_mem_type
+    ],
+     (error,result,fields) =>{
+      if(error){
+        console.log(error);
+        logger.request.info("approve membership upgrade error: " + error.message);
+        res.status(404).send({
+            err: error.errno === 1062 ? "Error approving user" : error.code
+        });
+      }else{
+        logger.response.info("approve membership upgrade: successful.");
+      res.status(200).send({ success: true });
+      }
+  })
+}
+
 module.exports = {
     getPendingUsers,
     getUsers,
@@ -260,5 +328,8 @@ module.exports = {
     getAdminList,
     getDependents, 
     deleteDependent,
-    addNewDependent
+    addNewDependent,
+    getUpgradeReq,
+    addUpgradeReq,
+    approveUpgradeReq
 };

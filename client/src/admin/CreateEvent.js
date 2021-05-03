@@ -19,7 +19,7 @@ export default function CreateEvent() {
     status: "",
     venue_id: "",
     capacity: "",
-    organized_by: "",
+    organized_by: ""
   };
   const history = useHistory();
   const [message, setMessage] = useState("");
@@ -53,11 +53,9 @@ export default function CreateEvent() {
             history.push("/admin");
           })
           .catch((error) => {
-            setMessage(error.response.data.err);
+            setMessage(error.data ? error.data.err : "Error: Please enter valid data");
           });
-
       }
-
     };
 
     return (

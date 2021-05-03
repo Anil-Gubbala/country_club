@@ -11,12 +11,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PrivateEventBookings from "./private events/PrivateEventBookings";
 import SportsHistory from "./sports/SportsHistory";
 import { Link } from "react-router-dom";
+import DiningHistory from "./dining/DiningHistory";
 
 export default function MyBookings() {
   const { loading, userData } = useLoginValidate();
   if (loading) {
     return <Loading></Loading>;
-  }else if(userData.user_id){
+  } else if (userData.user_id) {
     return (
       <Box>
         <Navi></Navi>
@@ -28,9 +29,7 @@ export default function MyBookings() {
           >
             <Typography>Events</Typography>
           </AccordionSummary>
-          <AccordionDetails>
-             
-          </AccordionDetails>
+          <AccordionDetails></AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded={true}>
           <AccordionSummary
@@ -41,8 +40,8 @@ export default function MyBookings() {
             <Typography>Sports</Typography>
           </AccordionSummary>
           <AccordionDetails>
-              <SportsHistory></SportsHistory>
-            </AccordionDetails>
+            <SportsHistory></SportsHistory>
+          </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded={true}>
           <AccordionSummary
@@ -52,7 +51,9 @@ export default function MyBookings() {
           >
             <Typography>Dining</Typography>
           </AccordionSummary>
-          <AccordionDetails>Add Dining component here</AccordionDetails>
+          <AccordionDetails>
+            <DiningHistory></DiningHistory>
+          </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded={true}>
           <AccordionSummary
@@ -63,13 +64,12 @@ export default function MyBookings() {
             <Typography>Private Events</Typography>
           </AccordionSummary>
           <AccordionDetails>
-          <PrivateEventBookings></PrivateEventBookings>
+            <PrivateEventBookings></PrivateEventBookings>
           </AccordionDetails>
         </Accordion>
       </Box>
     );
-  }else{
-    return <Link to="/login"> Go to Login Page</Link>
+  } else {
+    return <Link to="/login"> Go to Login Page</Link>;
   }
-  
 }

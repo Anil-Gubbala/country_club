@@ -28,7 +28,7 @@ GET_DEPENDENT_LIST:"select * from member m left join dependent d on m.user_id = 
   DELETE_USER: "update user set status = 'Expired' where user_id = ?",
 
   // _userId,_isAdmin,_street,_city,_zipCode,_startDate,_endDate,_membershipType
-  UPDATE_USER_DETAILS: "CALL updateUserDetails(?, ?, ?, ?, ?, ?, ?, ?)",
+  UPDATE_USER_DETAILS: "CALL updateUserDetails(?, ?, ?, ?, ?, ?, ?, ?);",
 
   CREATE_ADMIN: "INSERT INTO countryclub.user(f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES (?,?,?,?,?,?,?, 1, 'Active');",
 
@@ -38,10 +38,18 @@ GET_DEPENDENT_LIST:"select * from member m left join dependent d on m.user_id = 
   GET_ADMIN_BY_ID: "select u.user_id, u.f_name, u.l_name, u.email_id, u.street, u.zip_code, u.city, u.auth_id, u.status from user u \
                   where auth_id = 1 and ;",
 
-  DELETE_DEPENDENT: "delete from dependent where user_id = ? and name = ?",
+  DELETE_DEPENDENT: "delete from dependent where user_id = ? and name = ?;",
 
-  INSERT_DEPENDENT: "insert into dependent (user_id, name, relationship) values (?, ?, ?)"
+  INSERT_DEPENDENT: "insert into dependent (user_id, name, relationship) values (?, ?, ?);",
 
+  ADD_UPGRADE_REQ: "insert into upgrade_request (user_id, current_mem_type, upgrade_mem_type) values (?, ?, current_mem_type + 1);",
+
+  GET_UPGRADE_REQ: "select r.user_id, f_name, l_name, r.upgrade_mem_type, mt.name  as upgrade_name, r.current_mem_type from upgrade_request r \
+                      inner join user u on u.user_id = r.user_id \
+                      left join membership_type mt on r.upgrade_mem_type = mt.type_id \
+                      where req_status = 'Pending';",
+
+  APPROVE_UPGRADE_REQ: "CALL upgradeMembership(?, ?);"
   };
 
  

@@ -285,10 +285,16 @@ export default function Registration() {
                 ...userDetails,
                 membership_type: membershipType[e.target.value].type_id,
               });
-              setDependentCount(membershipType[e.target.value].dependent_count);
-              if(membershipType[e.target.value].dependent_count === 0){
+              if(membershipType[e.target.value].type_id === 1 || membershipType[e.target.value].type_id === 2){
+                setDependentCount(2);
+              }else{
+                setDependentCount(0);
                 setDependentsInfo ([]);
               }
+              //setDependentCount(membershipType[e.target.value].dependent_count);
+              // if(membershipType[e.target.value].dependent_count === 0){
+              //   setDependentsInfo ([]);
+              // }
             }}
             defaultValue={0}
             inputProps={{ "aria-label": "Without label" }}
