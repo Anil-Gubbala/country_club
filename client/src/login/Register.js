@@ -42,7 +42,7 @@ export default function Registration() {
     zip_code: "",
     street: "",
     city: "",
-    member_type: 0,
+    membership_type: 0,
   };
   const [userDetails, setUserDetails] = useState(defaultValues);
   const history = useHistory();
@@ -186,7 +186,7 @@ export default function Registration() {
         <FormControl>
           <TextField
             required
-            helperText="Minimum 5 characters"
+            helperText="Minimum 5 & Maximum 25 characters"
             id="register-password"
             label="Password"
             type="password"
@@ -279,11 +279,11 @@ export default function Registration() {
           {/* {<InputLabel htmlFor="register-member-type">Select MemberShip Type</InputLabel>} */}
           <Select
             id="register-member-type"
-            value={userDetails.member_type}
+            value={userDetails.membership_type}
             onChange={(e) => {
               setUserDetails({
                 ...userDetails,
-                member_type: membershipType[e.target.value].type_id,
+                membership_type: membershipType[e.target.value].type_id,
               });
               setDependentCount(membershipType[e.target.value].dependent_count);
               if(membershipType[e.target.value].dependent_count === 0){

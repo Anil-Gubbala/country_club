@@ -31,7 +31,8 @@ create table membership_type
 	type_id int not null unique,
 	name varchar(15) not null,
 	description varchar(100) not null,
-	dependent_count int not null
+	dependent_count int not null,
+	primary key (type_id)
 );
 
 create table member
@@ -41,7 +42,8 @@ create table member
 	 start_date date not null,
 	 end_date date not null,
 	 foreign key (membership_type) references membership_type (type_id) on update cascade on delete cascade, 
-	 foreign key (user_id) references user (user_id) on update cascade on delete cascade 
+	 foreign key (user_id) references user (user_id) on update cascade on delete cascade ,
+	 primary key (user_id)
 );
 
 
@@ -66,7 +68,7 @@ create table venue
 	venue_name varchar(50) not null,
 	venue_type varchar(25) not null, 
 	primary key (venue_id),
-	foreign key (venue_type) references venue_type (venue_type) on update cascade on delete cascade    
+	foreign key (venue_type) references venue_type (venue_type) on update cascade on delete cascade
 );
 
 

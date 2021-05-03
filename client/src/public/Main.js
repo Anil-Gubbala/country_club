@@ -78,8 +78,8 @@ export default function Main() {
         <AccordionDetails>Add Dining component here</AccordionDetails>
       </Accordion>
       <Accordion
-        disabled={userData.member_type === 2 || userData.auth_id === 1 ? false : true}
-        defaultExpanded={userData.member_type === 2 || userData.auth_id === 1 ? true : false}
+        disabled={userData.membership_type === 2 || userData.auth_id === 1 ? false : true}
+        defaultExpanded={userData.membership_type === 2 || userData.auth_id === 1 ? true : false}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -89,11 +89,11 @@ export default function Main() {
         >
           <Typography>
             Private Event Slots{" "}
-            {userData.member_type === 2 || userData.auth_id === 1 ? "" : " (!Only Platinum users have access to this)"}
+            {userData.membership_type === 2 || userData.auth_id === 1 ? "" : " (!Only Platinum users have access to this)"}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {(userData.member_type === 2 || userData.auth_id === 1) && <PrivateEventsList date={dateToString(startDate)}></PrivateEventsList>}
+          {(userData.membership_type === 2 || userData.auth_id === 1) && <PrivateEventsList date={dateToString(startDate)}></PrivateEventsList>}
         </AccordionDetails>
       </Accordion>
     </div>

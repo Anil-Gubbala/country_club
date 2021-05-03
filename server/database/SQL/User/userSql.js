@@ -7,6 +7,6 @@ const SQL_USER = {
     MEMBER_GET: "select * from member where user_id = ?",
     GET_EVENTS_LIST: "select e.event_id,e.event_name,e.e_description,DATE_FORMAT(e.start_date,'%Y-%m-%d') as 'start_date',DATE_FORMAT(e.end_date,'%Y-%m-%d') as end_date,e.status,(e.capacity-e.no_of_participants) as capacity,v.venue_name from event e join venue v on e.venue_id = v.venue_id;",
     UPDATE_EVENTS: "update event  SET no_of_participants = CASE WHEN no_of_participants is null THEN ? ELSE no_of_participants + ? END where event_id = ?;",
+    SET_EXPIRED: "update user set status = 'Expired' where user_id = ?",
 };
-
 module.exports = SQL_USER;

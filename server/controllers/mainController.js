@@ -3,7 +3,7 @@ const db = require("../database/dbConnector");
 const { MEMBER_GET } = require("../database/SQL/User/userSql");
 const SQL_USER = require("../database/SQL/User/userSql");
 const saltRounds = 10;
-const logger = require('../modules/logger');
+const logger = require("../modules/logger");
 
 const getLogin = (req, res) => {
   logger.request.info("Validate session");
@@ -30,7 +30,7 @@ const setLogin = (req, res) => {
   logger.request.info("Set login & session");
   const user_id = req.body.user_id;
   const password = req.body.password;
-  let auth_id, member_type;
+  let auth_id, membership_type;
   if (req.session.user) {
     logger.response.error("Already logged in ");
     res.send({ message: "already logged in" });
@@ -51,49 +51,65 @@ const setLogin = (req, res) => {
           if (response) {
             auth_id = result[0].auth_id[0];
             if (auth_id == 0) {
-              
-              let memQuery = db.query(SQL_USER.MEMBER_GET, user_id, (err, result) => {
-                // logger.response.info("Get membership details : " + memQuery.sql);
-                if (err) {
-                  logger.response.error("SQL error : " + err.code);
-                  res.status(404).send({ err: err.code });
-                  return;
-                }
-                member_type = result[0].member_type;
-                if (new Date(result[0].end_date) < new Date()) {
-                  logger.response.info("Membership Expired. Contact Admin for extension");
-                  res
-                    .status(404)
-                    .send({
+              let memQuery = db.query(
+                SQL_USER.MEMBER_GET,
+                user_id,
+                (err, result) => {
+                  // logger.response.info("Get membership details : " + memQuery.sql);
+                  if (err) {
+                    logger.response.error("SQL error : " + err.code);
+                    res.status(404).send({ err: err.code });
+                    return;
+                  }
+                  membership_type = result[0].membership_type;
+                  if (
+                    result[0].status == "Expired" ||
+                    new Date(result[0].end_date) < new Date()
+                  ) {
+                    if (
+                      result[0].status != "Expired" &&
+                      new Date(result[0].end_date) < new Date()
+                    ) {
+                      db.query(SQL_USER.SET_EXPIRED, user_id, (err, result) => {
+                        if (err) {
+                          logger.response.error("sql exception " + err.code);
+                        }
+                      });
+                    }
+                    logger.response.info(
+                      "Membership Expired. Contact Admin for extension"
+                    );
+                    res.status(404).send({
                       err: "Membership Expired. Contact Admin for extension",
                     });
-                  return;
-                } else {
-                  // logger.response.info("set user session:  " + user_id);
-                  req.session.user = {
-                    user_id: user_id,
-                    auth_id: auth_id,
-                    member_type: member_type,
-                  };
-                  
-                  res.send({
-                    user_id: user_id,
-                    auth_id: auth_id,
-                    member_type: member_type
-                  });
+                    return;
+                  } else {
+                    // logger.response.info("set user session:  " + user_id);
+                    req.session.user = {
+                      user_id: user_id,
+                      auth_id: auth_id,
+                      membership_type: membership_type,
+                    };
+
+                    res.send({
+                      user_id: user_id,
+                      auth_id: auth_id,
+                      membership_type: membership_type,
+                    });
+                  }
                 }
-              });
+              );
             } else {
               // logger.response.info("set user session:  " + user_id);
               req.session.user = {
                 user_id: user_id,
                 auth_id: auth_id,
-                member_type: 2,
+                membership_type: 2,
               };
               res.send({
                 user_id: user_id,
                 auth_id: auth_id,
-                member_type: 2
+                membership_type: 2,
               });
             }
           } else {
@@ -131,7 +147,7 @@ const registerUser = (req, res) => {
     city,
     email_id,
     password,
-    member_type,
+    membership_type,
   } = req.body.userDetails;
   let dependentList = [];
 
@@ -142,7 +158,6 @@ const registerUser = (req, res) => {
       res.status(404).send({ err: err.message });
       return;
     } else {
-
       let query = db.beginTransaction(function (err) {
         // logger.response.info("begin transaction: " + query.sql);
         if (err) {
@@ -166,7 +181,9 @@ const registerUser = (req, res) => {
           (err, result) => {
             // logger.response.info("register user query: " + registerUser.sql);
             if (err) {
-              logger.response.error(err.errno === 1062 ? "Username already exists" : err.code);
+              logger.response.error(
+                err.errno === 1062 ? "Username already exists" : err.code
+              );
               res.status(404).send({
                 err: err.errno === 1062 ? "Username already exists" : err.code,
               });
@@ -177,7 +194,7 @@ const registerUser = (req, res) => {
               insertId = result.insertId;
               let membersql = db.query(
                 SQL_USER.INSERT_MEMBER,
-                [insertId, member_type, start_date, end_date],
+                [insertId, membership_type, start_date, end_date],
                 function (err, result) {
                   // logger.response.info("insert membership data : " + membersql.sql);
                   if (err) {
@@ -188,7 +205,7 @@ const registerUser = (req, res) => {
                     });
                     return;
                   }
-                  if (member_type == 1 || member_type == 2) {
+                  if (membership_type == 1 || membership_type == 2) {
                     if (
                       req.body.dependentsInfo[0].name &&
                       req.body.dependentsInfo[0].name != ""
@@ -200,7 +217,7 @@ const registerUser = (req, res) => {
                       ]);
                     }
                   }
-                  if (member_type == 2 || member_type == 1) {
+                  if (membership_type == 2 || membership_type == 1) {
                     if (
                       req.body.dependentsInfo[1].name &&
                       req.body.dependentsInfo[1].name != ""
@@ -212,7 +229,7 @@ const registerUser = (req, res) => {
                       ]);
                     }
                   }
-                  if (member_type == 0) {
+                  if (membership_type == 0) {
                     // logger.response.info("commit");
                     db.commit(function (err) {
                       if (err) {
@@ -237,7 +254,7 @@ const registerUser = (req, res) => {
                         // logger.response.info("insert dependents " + dependentsSql.sql);
                         if (err) {
                           db.rollback();
-                          logger.response.error("sql error :" + err.code)
+                          logger.response.error("sql error :" + err.code);
                           res.status(404).send({ err: err.code });
                           // logger.response.error("rollback()");
                           return;
@@ -273,7 +290,7 @@ const registerUser = (req, res) => {
 
 const getMembershipTypes = (req, res) => {
   logger.request.info("get membership types");
- let query= db.query(SQL_USER.GET_MEMBERSHIP_TYPES, [], (error, result) => {
+  let query = db.query(SQL_USER.GET_MEMBERSHIP_TYPES, [], (error, result) => {
     // logger.response.info("sql : " + query.sql);
     if (error) {
       logger.response.error("sql error: " + error.message);
