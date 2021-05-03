@@ -172,12 +172,8 @@ const deleteEvent = (req, res) => {
                     err: error.errno === 1062 ? "Error deleting event" : error.code
                 });
             }
-            var emailList = [];
-            results.forEach((element) => {
-                emailList.push(element.email_id);
-            });
-            if(emailList.length > 0){
-                sendEmail(emailList, "Country Club Event Cancelled", "Event Cancelled due to COVID");
+            if(results.length > 0){
+                sendEmail(results);
             }
         });
         logger.response.info("delete event success: " + results);

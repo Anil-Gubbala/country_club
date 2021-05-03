@@ -1,0 +1,308 @@
+[2021-05-02T21:09:05.076] [INFO] request - Validate session
+[2021-05-02T21:09:05.084] [INFO] response - loggedIn false
+[2021-05-02T21:09:05.609] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:09:05.619] [INFO] request - Validate session
+[2021-05-02T21:09:05.620] [INFO] response - loggedIn false
+[2021-05-02T21:09:05.624] [INFO] request - Validate session
+[2021-05-02T21:09:05.624] [INFO] response - loggedIn false
+[2021-05-02T21:09:05.633] [INFO] request - Validate session
+[2021-05-02T21:09:05.634] [INFO] response - loggedIn false
+[2021-05-02T21:09:05.664] [ERROR] request - Error in fetching sports list ER_ACCESS_DENIED_ERROR: Access denied for user 'root'@'localhost' (using password: YES)
+[2021-05-02T21:09:06.219] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:09:06.220] [ERROR] request - Error in fetching sports list Cannot enqueue Query after fatal error.
+[2021-05-02T21:09:06.706] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:09:06.707] [ERROR] request - Error in fetching sports list Cannot enqueue Query after fatal error.
+[2021-05-02T21:09:06.713] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:09:06.715] [ERROR] request - Error in fetching sports list Cannot enqueue Query after fatal error.
+[2021-05-02T21:09:07.548] [INFO] request - Validate session
+[2021-05-02T21:09:07.549] [INFO] response - loggedIn false
+[2021-05-02T21:09:07.569] [INFO] request - Validate session
+[2021-05-02T21:09:07.571] [INFO] response - loggedIn false
+[2021-05-02T21:09:14.490] [INFO] request - Set login & session
+[2021-05-02T21:09:14.492] [ERROR] response - sql error : PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR
+[2021-05-02T21:10:19.852] [INFO] request - Validate session
+[2021-05-02T21:10:19.856] [INFO] response - loggedIn false
+[2021-05-02T21:10:19.980] [INFO] request - Validate session
+[2021-05-02T21:10:19.980] [INFO] response - loggedIn false
+[2021-05-02T21:10:26.057] [INFO] request - Set login & session
+[2021-05-02T21:10:26.223] [INFO] request - Validate session
+[2021-05-02T21:10:26.223] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:10:26.665] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:10:26.672] [INFO] request - Validate session
+[2021-05-02T21:10:26.673] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:10:26.680] [INFO] request - Validate session
+[2021-05-02T21:10:26.680] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:10:26.684] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:10:26.689] [INFO] request - Validate session
+[2021-05-02T21:10:26.689] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:10:26.701] [INFO] request - get available party venues 
+[2021-05-02T21:10:26.711] [INFO] response - available venues: []
+[2021-05-02T21:10:26.711] [INFO] response - No venues available
+[2021-05-02T21:10:27.088] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:10:27.100] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:10:31.563] [INFO] request - Validate session
+[2021-05-02T21:10:31.563] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:10:31.584] [INFO] request - get pending user requests
+[2021-05-02T21:10:31.589] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:10:31.589] [INFO] request - Validate session
+[2021-05-02T21:10:31.604] [INFO] request - get events list
+[2021-05-02T21:10:31.624] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:10:31.633] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object]
+[2021-05-02T21:10:31.678] [INFO] request - get pending user requests
+[2021-05-02T21:10:31.685] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:11:04.715] [INFO] request - Validate session
+[2021-05-02T21:11:04.715] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:11:04.779] [INFO] request - get pending user requests
+[2021-05-02T21:11:04.781] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:11:04.799] [INFO] request - Validate session
+[2021-05-02T21:11:04.799] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:11:04.805] [INFO] request - get events list
+[2021-05-02T21:11:04.807] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object]
+[2021-05-02T21:11:09.843] [INFO] request - get pending user requests
+[2021-05-02T21:11:09.852] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:11:58.272] [INFO] request - Validate session
+[2021-05-02T21:11:58.283] [INFO] response - loggedIn false
+[2021-05-02T21:11:58.367] [INFO] request - Validate session
+[2021-05-02T21:11:58.367] [INFO] response - loggedIn false
+[2021-05-02T21:11:58.521] [INFO] request - Validate session
+[2021-05-02T21:11:58.522] [INFO] response - loggedIn false
+[2021-05-02T21:12:03.957] [INFO] request - Set login & session
+[2021-05-02T21:12:04.081] [INFO] request - Validate session
+[2021-05-02T21:12:04.081] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:04.540] [INFO] request - Validate session
+[2021-05-02T21:12:04.542] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:04.547] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:12:04.556] [INFO] request - Validate session
+[2021-05-02T21:12:04.556] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:04.558] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:12:04.567] [INFO] request - get available party venues 
+[2021-05-02T21:12:04.581] [INFO] response - available venues: []
+[2021-05-02T21:12:04.584] [INFO] request - Validate session
+[2021-05-02T21:12:04.582] [INFO] response - No venues available
+[2021-05-02T21:12:04.584] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:05.012] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:12:05.013] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:12:07.032] [INFO] request - Validate session
+[2021-05-02T21:12:07.032] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:07.053] [INFO] request - get pending user requests
+[2021-05-02T21:12:07.059] [INFO] request - Validate session
+[2021-05-02T21:12:07.059] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:07.062] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:12:07.071] [INFO] request - get events list
+[2021-05-02T21:12:09.367] [INFO] request - get venue list
+[2021-05-02T21:12:12.307] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object]
+[2021-05-02T21:12:12.322] [INFO] response - venue list : [object Object],[object Object]
+[2021-05-02T21:12:12.346] [INFO] request - get pending user requests
+[2021-05-02T21:12:12.364] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:12:21.576] [INFO] request - Validate session
+[2021-05-02T21:12:21.577] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:21.603] [INFO] request - Validate session
+[2021-05-02T21:12:21.603] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:21.615] [INFO] request - read event with id: 1009
+[2021-05-02T21:12:21.619] [INFO] response - read event success: [object Object]
+[2021-05-02T21:12:23.218] [INFO] request - delete event
+[2021-05-02T21:12:31.277] [INFO] response - delete event success: [object Object]
+[2021-05-02T21:12:31.284] [INFO] request - Validate session
+[2021-05-02T21:12:31.285] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:39.192] [INFO] request - read event with id: 1009
+[2021-05-02T21:12:39.196] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:39.196] [INFO] request - Validate session
+[2021-05-02T21:12:39.200] [INFO] response - read event success: [object Object]
+[2021-05-02T21:12:45.573] [INFO] request - delete event
+[2021-05-02T21:12:47.420] [INFO] response - delete event success: [object Object]
+[2021-05-02T21:12:48.743] [INFO] request - Validate session
+[2021-05-02T21:12:48.743] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:48.768] [INFO] request - Validate session
+[2021-05-02T21:12:48.768] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:48.772] [INFO] request - read event with id: 1009
+[2021-05-02T21:12:48.773] [INFO] response - read event success: [object Object]
+[2021-05-02T21:12:51.895] [INFO] request - Validate session
+[2021-05-02T21:12:51.896] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:51.930] [INFO] request - get pending user requests
+[2021-05-02T21:12:51.936] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:12:51.938] [INFO] request - Validate session
+[2021-05-02T21:12:51.939] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:51.949] [INFO] request - get events list
+[2021-05-02T21:12:51.952] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object]
+[2021-05-02T21:12:51.951] [INFO] request - get venue list
+[2021-05-02T21:12:51.957] [INFO] response - venue list : [object Object],[object Object]
+[2021-05-02T21:12:51.977] [INFO] request - get pending user requests
+[2021-05-02T21:12:51.981] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:12:59.449] [INFO] request - Validate session
+[2021-05-02T21:12:59.450] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:59.475] [INFO] request - Validate session
+[2021-05-02T21:12:59.476] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:12:59.483] [INFO] request - read event with id: 1002
+[2021-05-02T21:12:59.488] [INFO] response - read event success: [object Object]
+[2021-05-02T21:13:00.969] [INFO] request - get venue list
+[2021-05-02T21:13:00.970] [INFO] response - get venue list success: [object Object],[object Object]
+[2021-05-02T21:13:02.546] [INFO] request - update event
+[2021-05-02T21:13:02.550] [INFO] response - update event success: [object Object]
+[2021-05-02T21:13:02.591] [INFO] request - Validate session
+[2021-05-02T21:13:02.592] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:13:03.021] [INFO] request - Validate session
+[2021-05-02T21:13:03.022] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:13:03.075] [INFO] request - Validate session
+[2021-05-02T21:13:03.076] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:13:03.082] [INFO] request - read event with id: 1002
+[2021-05-02T21:13:03.085] [INFO] response - read event success: [object Object]
+[2021-05-02T21:13:09.484] [INFO] request - delete event
+[2021-05-02T21:13:14.046] [INFO] response - delete event success: [object Object]
+[2021-05-02T21:29:28.886] [INFO] request - Validate session
+[2021-05-02T21:29:28.895] [INFO] response - loggedIn false
+[2021-05-02T21:29:28.958] [INFO] request - Validate session
+[2021-05-02T21:29:28.958] [INFO] response - loggedIn false
+[2021-05-02T21:29:29.011] [INFO] request - Validate session
+[2021-05-02T21:29:29.011] [INFO] response - loggedIn false
+[2021-05-02T21:29:34.905] [INFO] request - Set login & session
+[2021-05-02T21:29:35.020] [INFO] request - Validate session
+[2021-05-02T21:29:35.020] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:35.460] [INFO] request - Validate session
+[2021-05-02T21:29:35.465] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:35.471] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:29:35.476] [INFO] request - Validate session
+[2021-05-02T21:29:35.476] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:35.483] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:29:35.492] [INFO] request - get available party venues 
+[2021-05-02T21:29:35.495] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:35.495] [INFO] request - Validate session
+[2021-05-02T21:29:35.501] [INFO] response - available venues: []
+[2021-05-02T21:29:35.502] [INFO] response - No venues available
+[2021-05-02T21:29:35.900] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:29:35.902] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:29:36.812] [INFO] request - Validate session
+[2021-05-02T21:29:36.812] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:36.834] [INFO] request - Validate session
+[2021-05-02T21:29:36.835] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:36.845] [INFO] request - get pending user requests
+[2021-05-02T21:29:36.849] [INFO] request - get events list
+[2021-05-02T21:29:36.854] [INFO] request - get venue list
+[2021-05-02T21:29:36.856] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:29:36.860] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object]
+[2021-05-02T21:29:36.865] [INFO] response - venue list : [object Object],[object Object]
+[2021-05-02T21:29:36.910] [INFO] request - get pending user requests
+[2021-05-02T21:29:36.912] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:29:39.192] [INFO] request - Validate session
+[2021-05-02T21:29:39.193] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:39.218] [INFO] request - Validate session
+[2021-05-02T21:29:39.218] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:29:39.223] [INFO] request - read event with id: 1002
+[2021-05-02T21:29:39.226] [INFO] response - read event success: [object Object]
+[2021-05-02T21:29:41.618] [INFO] request - delete event
+[2021-05-02T21:29:48.067] [INFO] response - delete event success: [object Object]
+[2021-05-02T21:30:56.512] [INFO] request - Validate session
+[2021-05-02T21:30:56.516] [INFO] response - loggedIn false
+[2021-05-02T21:30:57.120] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:30:57.126] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:30:57.141] [INFO] request - Validate session
+[2021-05-02T21:30:57.142] [INFO] response - loggedIn false
+[2021-05-02T21:30:57.158] [INFO] request - Validate session
+[2021-05-02T21:30:57.158] [INFO] response - loggedIn false
+[2021-05-02T21:30:57.176] [INFO] request - Validate session
+[2021-05-02T21:30:57.176] [INFO] response - loggedIn false
+[2021-05-02T21:30:57.767] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:30:57.768] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:30:58.940] [INFO] request - Validate session
+[2021-05-02T21:30:58.940] [INFO] response - loggedIn false
+[2021-05-02T21:30:58.953] [INFO] request - Validate session
+[2021-05-02T21:30:58.953] [INFO] response - loggedIn false
+[2021-05-02T21:31:03.751] [INFO] request - Set login & session
+[2021-05-02T21:31:03.850] [INFO] request - Validate session
+[2021-05-02T21:31:03.850] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:04.153] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:31:04.158] [INFO] request - Validate session
+[2021-05-02T21:31:04.159] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:04.164] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:31:04.167] [INFO] request - get available party venues 
+[2021-05-02T21:31:04.171] [INFO] request - Validate session
+[2021-05-02T21:31:04.171] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:04.174] [INFO] response - available venues: []
+[2021-05-02T21:31:04.175] [INFO] response - No venues available
+[2021-05-02T21:31:04.185] [INFO] request - Validate session
+[2021-05-02T21:31:04.186] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:04.639] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:31:04.642] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:31:05.857] [INFO] request - Validate session
+[2021-05-02T21:31:05.857] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:05.880] [INFO] request - get pending user requests
+[2021-05-02T21:31:05.883] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:05.883] [INFO] request - Validate session
+[2021-05-02T21:31:05.889] [INFO] request - get events list
+[2021-05-02T21:31:05.892] [INFO] request - get venue list
+[2021-05-02T21:31:05.896] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:31:05.900] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object]
+[2021-05-02T21:31:05.904] [INFO] response - venue list : [object Object],[object Object]
+[2021-05-02T21:31:05.941] [INFO] request - get pending user requests
+[2021-05-02T21:31:05.943] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:31:07.354] [INFO] request - Validate session
+[2021-05-02T21:31:07.355] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:07.382] [INFO] request - Validate session
+[2021-05-02T21:31:07.383] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:31:07.387] [INFO] request - read event with id: 1002
+[2021-05-02T21:31:07.391] [INFO] response - read event success: [object Object]
+[2021-05-02T21:31:08.706] [INFO] request - delete event
+[2021-05-02T21:31:12.706] [INFO] response - delete event success: [object Object]
+[2021-05-02T21:32:03.484] [INFO] request - Validate session
+[2021-05-02T21:32:03.489] [INFO] response - loggedIn false
+[2021-05-02T21:32:04.277] [INFO] request - Validate session
+[2021-05-02T21:32:04.277] [INFO] response - loggedIn false
+[2021-05-02T21:32:04.284] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:32:04.285] [ERROR] request - Error in fetching sports list Cannot enqueue Query after fatal error.
+[2021-05-02T21:32:04.292] [INFO] response - loggedIn false
+[2021-05-02T21:32:04.292] [INFO] request - Validate session
+[2021-05-02T21:32:04.298] [INFO] request - Validate session
+[2021-05-02T21:32:04.299] [INFO] response - loggedIn false
+[2021-05-02T21:32:04.647] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:32:04.647] [ERROR] request - Error in fetching sports list Cannot enqueue Query after fatal error.
+[2021-05-02T21:32:05.440] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:32:05.441] [ERROR] request - Error in fetching sports list Cannot enqueue Query after fatal error.
+[2021-05-02T21:32:05.470] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:32:05.471] [ERROR] request - Error in fetching sports list Cannot enqueue Query after fatal error.
+[2021-05-02T21:32:06.801] [INFO] request - Validate session
+[2021-05-02T21:32:06.801] [INFO] response - loggedIn false
+[2021-05-02T21:32:06.819] [INFO] request - Validate session
+[2021-05-02T21:32:06.819] [INFO] response - loggedIn false
+[2021-05-02T21:32:14.192] [INFO] request - Set login & session
+[2021-05-02T21:32:14.195] [ERROR] response - sql error : PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR
+[2021-05-02T21:33:07.164] [INFO] request - Set login & session
+[2021-05-02T21:33:07.280] [INFO] request - Validate session
+[2021-05-02T21:33:07.280] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:07.600] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:33:07.603] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:07.603] [INFO] request - Validate session
+[2021-05-02T21:33:07.609] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:33:07.615] [INFO] request - Validate session
+[2021-05-02T21:33:07.616] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:07.621] [INFO] request - get available party venues 
+[2021-05-02T21:33:07.625] [INFO] response - available venues: []
+[2021-05-02T21:33:07.626] [INFO] response - No venues available
+[2021-05-02T21:33:07.634] [INFO] request - Validate session
+[2021-05-02T21:33:07.635] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:08.124] [INFO] request - Getting list of all sports of CountryClub.
+[2021-05-02T21:33:08.129] [INFO] response - Sports list : [object Object],[object Object]
+[2021-05-02T21:33:09.799] [INFO] request - Validate session
+[2021-05-02T21:33:09.799] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:09.823] [INFO] request - get pending user requests
+[2021-05-02T21:33:09.825] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:09.824] [INFO] request - Validate session
+[2021-05-02T21:33:09.833] [INFO] request - get events list
+[2021-05-02T21:33:09.836] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:33:09.840] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object]
+[2021-05-02T21:33:09.845] [INFO] request - get venue list
+[2021-05-02T21:33:09.848] [INFO] response - venue list : [object Object],[object Object]
+[2021-05-02T21:33:09.873] [INFO] request - get pending user requests
+[2021-05-02T21:33:09.875] [INFO] response - get pending user requests: successful.
+[2021-05-02T21:33:11.651] [INFO] request - Validate session
+[2021-05-02T21:33:11.651] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:11.673] [INFO] request - Validate session
+[2021-05-02T21:33:11.674] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:11.679] [INFO] request - read event with id: 1002
+[2021-05-02T21:33:11.684] [INFO] response - read event success: [object Object]
+[2021-05-02T21:33:13.690] [INFO] request - delete event
+[2021-05-02T21:33:17.495] [INFO] response - delete event success: [object Object]
+[2021-05-02T21:33:17.506] [INFO] request - Validate session
+[2021-05-02T21:33:17.506] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:55.206] [INFO] request - Validate session
+[2021-05-02T21:33:55.207] [INFO] response - Valid : {"user_id":"1011","auth_id":1,"member_type":2}
+[2021-05-02T21:33:55.216] [INFO] request - read event with id: 1002
+[2021-05-02T21:33:55.218] [INFO] response - read event success: [object Object]
