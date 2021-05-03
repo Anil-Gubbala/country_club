@@ -113,13 +113,13 @@ create table sport_time
 
 create table sports_booking
 (
-	booking_id int auto_increment unique,
+	booking_id int auto_increment not null,
 	status varchar(25),
 	booking_date date,
 	sport_id int not null,
 	user_id int not null,
 	ts_id int not null,
-	primary key(ts_id,sport_id),
+	primary key(booking_id),
 	foreign key (user_id) references user (user_id) on update cascade on delete cascade,
 	foreign key (sport_id) references sports(sport_id) on delete cascade on update cascade,
 	foreign key (ts_id) references time_slot (ts_id) on delete cascade on update cascade
