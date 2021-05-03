@@ -12,7 +12,7 @@ create table user (
   	zip_code varchar(5) not null,
   	password varchar(100) not null,
   	auth_id bit default b'0' not null,
-  	status varchar(25) not null,
+  	status varchar(25) default "Pending" not null,
   	primary key (user_id)
 );
 
@@ -64,7 +64,6 @@ create table venue
 (
 	venue_id int auto_increment not null,
 	venue_name varchar(50) not null,
-	capacity int not null,
 	venue_type varchar(25) not null, 
 	primary key (venue_id),
 	foreign key (venue_type) references venue_type (venue_type) on update cascade on delete cascade    
