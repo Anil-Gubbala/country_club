@@ -290,6 +290,33 @@ const addUpgradeReq = (req, res) => {
   );
 }
 
+const approveUpgradeReq = (req,res) =>{
+  const {
+    user_id,
+    c_mem_type
+  } = req.body;
+
+  logger.request.info("approve membership upgrade: " + user_id + ", " + c_mem_type);
+
+  db.query(SQL_ADMIN.APPROVE_UPGRADE_REQ,
+    [
+      user_id,
+      c_mem_type
+    ],
+     (error,result,fields) =>{
+      if(error){
+        console.log(error);
+        logger.request.info("approve membership upgrade error: " + error.message);
+        res.status(404).send({
+            err: error.errno === 1062 ? "Error approving user" : error.code
+        });
+      }else{
+        logger.response.info("approve membership upgrade: successful.");
+      res.status(200).send({ success: true });
+      }
+  })
+}
+
 module.exports = {
     getPendingUsers,
     getUsers,
@@ -303,5 +330,6 @@ module.exports = {
     deleteDependent,
     addNewDependent,
     getUpgradeReq,
-    addUpgradeReq
+    addUpgradeReq,
+    approveUpgradeReq
 };

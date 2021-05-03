@@ -44,6 +44,9 @@ const {
   getDependents,
   deleteDependent,
   addNewDependent,
+  getUpgradeReq, 
+  addUpgradeReq, 
+  approveUpgradeReq
 } = require("../controllers/adminController");
 const {
   getAllSports,
@@ -76,6 +79,10 @@ router.route("/admin/users/dependent/delete").post(deleteDependent);
 router.route("/admin/users/dependent/insert").post(addNewDependent);
 router.route("/admin/newadmin/create").post(createNewAdmin);
 router.route("/admin/users/adminuser").get(getAdminList);
+
+router.route('/admin/upgrade/list').get(getUpgradeReq)
+router.route('/admin/upgrade/create').post(addUpgradeReq)
+router.route('/admin/upgrade/approve').post(approveUpgradeReq)
 
 router.route("/admin").get(getEvents);
 router.route("/admin/events/create").get(getVenue).post(createEvent);
