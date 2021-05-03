@@ -19,7 +19,7 @@ const UserDetails = (props) => {
     const history = useHistory();
 
     const goBackToAdmin = () =>{
-      console.log(props.viewer_id + userDetail.user_id);
+      //console.log(props.viewer_id + userDetail.user_id);
       history.push("/admin/users");
     }
 
@@ -60,6 +60,7 @@ const UserDetails = (props) => {
       Axios.get('http://localhost:3001/admin/users/details/' + id).then(function(res) {
       console.log(res);
       userDetail = res.data;
+      console.log(userDetail.auth_id.data[0]);
       setLoading(false);
       });
     }, []);
@@ -115,10 +116,15 @@ const UserDetails = (props) => {
             <label id="aligned-name">{userDetail.end_date}</label>
           </div>}
 
-          <div className="pure-control-group">
+          {userDetail.auth_id.data[0] === 0 && <div className="pure-control-group">
             <label htmlFor="aligned-name">Membership Status: </label>
             <label id="aligned-name">{userDetail.status}</label>
-          </div>
+          </div>}
+
+          {userDetail.auth_id.data[0] === 1 && <div className="pure-control-group">
+            <label htmlFor="aligned-name">User Status: </label>
+            <label id="aligned-name">{userDetail.status}</label>
+          </div>}
 
           <br/>
           <br/>
