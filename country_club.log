@@ -1,0 +1,115 @@
+
+[2021-04-30T15:28:58.921] [INFO] request - read event with id: 1007
+[2021-04-30T15:28:58.929] [INFO] response - read event success: [object Object]
+[2021-04-30T15:29:06.685] [INFO] request - delete event
+[2021-04-30T15:29:43.009] [INFO] response - delete event success: [object Object]
+[2021-04-30T15:29:43.016] [INFO] request - read event with id: 1007
+[2021-04-30T15:29:43.021] [INFO] response - read event success: [object Object]
+[2021-04-30T15:29:48.132] [INFO] request - read event with id: 1007
+[2021-04-30T15:29:48.135] [INFO] response - read event success: [object Object]
+[2021-04-30T15:29:50.617] [INFO] request - read event with id: 1007
+[2021-04-30T15:29:50.623] [INFO] response - read event success: [object Object]
+[2021-04-30T15:29:51.778] [INFO] request - get events list
+[2021-04-30T15:29:51.780] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object],[object Object]
+[2021-04-30T15:30:17.720] [INFO] request - read event with id: 1007
+[2021-04-30T15:30:17.746] [INFO] response - read event success: [object Object]
+[2021-04-30T15:30:22.401] [INFO] request - delete event
+[2021-04-30T15:30:24.990] [INFO] response - delete event success: [object Object]
+[2021-04-30T15:30:25.074] [INFO] request - read event with id: 1007
+[2021-04-30T15:30:25.078] [INFO] response - read event success: [object Object]
+[2021-04-30T15:30:38.333] [INFO] request - get events list
+[2021-04-30T15:30:38.349] [INFO] response - events list : [object Object],[object Object],[object Object],[object Object],[object Object]
+[2021-04-30T15:30:47.383] [INFO] request - read event with id: 1008
+[2021-04-30T15:30:47.388] [INFO] response - read event success: [object Object]
+[2021-04-30T15:30:52.121] [INFO] request - delete event
+[2021-04-30T15:30:53.026] [INFO] response - delete event success: [object Object]
+[2021-04-30T15:30:53.036] [INFO] request - read event with id: 1008
+[2021-04-30T15:30:53.049] [INFO] response - read event success: [object Object]
+[2021-04-30T15:31:42.884] [INFO] request - get venue list
+[2021-04-30T15:31:42.886] [INFO] response - get venue list success: [object Object],[object Object],[object Object]
+[2021-04-30T15:31:47.040] [INFO] request - update event
+[2021-04-30T15:31:47.054] [INFO] response - update event success: [object Object]
+[2021-04-30T15:31:47.971] [INFO] request - read event with id: 1008
+[2021-04-30T15:31:47.973] [INFO] response - read event success: [object Object]
+[2021-04-30T15:32:02.036] [INFO] request - get venue list
+[2021-04-30T15:32:02.045] [INFO] response - get venue list success: [object Object],[object Object],[object Object]
+[2021-04-30T15:32:06.629] [INFO] request - update event
+[2021-04-30T15:32:06.645] [INFO] response - update event success: [object Object]
+[2021-04-30T15:32:15.639] [INFO] request - read event with id: 1008
+[2021-04-30T15:32:15.644] [INFO] response - read event success: [object Object]
+[2021-04-30T15:56:34.775] [INFO] request - read event with id: 1008
+[2021-04-30T15:56:34.790] [INFO] response - read event success: [object Object]
+[2021-04-30T15:56:40.941] [INFO] request - delete event
+[2021-04-30T15:56:42.212] [INFO] response - delete event success: [object Object]
+[2021-04-30T15:56:45.391] [INFO] request - read event with id: 1008
+[2021-04-30T15:56:45.395] [INFO] response - read event success: [object Object]
+[2021-04-30T15:56:59.630] [INFO] request - delete event
+[2021-04-30T15:57:00.479] [INFO] response - delete event success: [object Object]
+[2021-04-30T15:57:03.732] [INFO] request - read event with id: 1008
+[2021-04-30T15:57:03.750] [INFO] response - read event success: [object Object]
+[2021-04-30T15:57:17.992] [INFO] request - delete event
+[2021-04-30T15:57:20.435] [INFO] response - delete event success: [object Object]
+[2021-04-30T15:57:22.966] [INFO] request - read event with id: 1008
+[2021-04-30T15:57:22.971] [INFO] response - read event success: [object Object]
+[2021-04-30T15:58:17.438] [INFO] request - delete event
+[2021-04-30T15:58:54.372] [INFO] response - delete event success: [object Object]
+[2021-04-30T15:59:02.906] [INFO] request - read event with id: 1008
+[2021-04-30T15:59:02.921] [INFO] response - read event success: [object Object]
+[2021-05-01T00:18:01.651] [INFO] request - get events list
+[2021-05-01T00:18:01.673] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T00:20:28.348] [INFO] request - get events list
+[2021-05-01T00:20:28.369] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T00:23:37.034] [INFO] request - get events list
+[2021-05-01T00:23:37.052] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T18:23:27.769] [INFO] request - get events list
+[2021-05-01T18:23:27.776] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T18:23:40.359] [INFO] request - read event with id: 1009
+[2021-05-01T18:23:40.365] [INFO] response - read event success: [object Object]
+[2021-05-01T18:23:49.985] [INFO] request - delete event
+[2021-05-01T18:24:00.183] [INFO] request - read event with id: 1009
+[2021-05-01T18:24:00.789] [INFO] response - delete event success: [object Object]
+[2021-05-01T18:24:00.796] [INFO] response - read event success: [object Object]
+[2021-05-01T18:25:30.627] [INFO] request - get events list
+[2021-05-01T18:25:30.630] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T18:25:39.397] [INFO] request - read event with id: 1002
+[2021-05-01T18:25:39.400] [INFO] response - read event success: [object Object]
+[2021-05-01T18:25:43.917] [INFO] request - delete event
+[2021-05-01T18:25:49.143] [INFO] response - delete event success: [object Object]
+[2021-05-01T18:33:24.381] [INFO] request - read event with id: 1002
+[2021-05-01T18:33:24.390] [INFO] response - read event success: [object Object]
+[2021-05-01T18:34:17.772] [INFO] request - read event with id: 1002
+[2021-05-01T18:34:17.773] [INFO] response - read event success: [object Object]
+[2021-05-01T18:34:24.180] [INFO] request - delete event
+[2021-05-01T18:34:27.270] [INFO] response - delete event success: [object Object]
+[2021-05-01T18:34:42.869] [INFO] request - read event with id: 1002
+[2021-05-01T18:34:42.871] [INFO] response - read event success: [object Object]
+[2021-05-01T18:35:58.122] [INFO] request - get events list
+[2021-05-01T18:35:58.134] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T18:36:02.272] [INFO] request - read event with id: 1003
+[2021-05-01T18:36:02.274] [INFO] response - read event success: [object Object]
+[2021-05-01T18:36:03.939] [INFO] request - delete event
+[2021-05-01T18:36:08.774] [INFO] response - delete event success: [object Object]
+[2021-05-01T18:36:18.180] [INFO] request - read event with id: 1003
+[2021-05-01T18:36:18.182] [INFO] response - read event success: [object Object]
+[2021-05-01T18:44:03.320] [INFO] request - get events list
+[2021-05-01T18:44:03.329] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T18:44:07.659] [INFO] request - read event with id: 1003
+[2021-05-01T18:44:07.663] [INFO] response - read event success: [object Object]
+[2021-05-01T18:44:09.592] [INFO] request - delete event
+[2021-05-01T18:44:11.940] [INFO] response - delete event success: [object Object]
+[2021-05-01T18:44:26.119] [INFO] request - read event with id: 1003
+[2021-05-01T18:44:26.125] [INFO] response - read event success: [object Object]
+[2021-05-01T18:44:30.131] [INFO] request - get events list
+[2021-05-01T18:44:30.134] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T18:44:31.946] [INFO] request - read event with id: 1002
+[2021-05-01T18:44:31.949] [INFO] response - read event success: [object Object]
+[2021-05-01T18:44:33.804] [INFO] request - delete event
+[2021-05-01T18:44:35.503] [INFO] response - delete event success: [object Object]
+[2021-05-01T18:52:06.922] [INFO] request - get events list
+[2021-05-01T18:52:06.929] [INFO] response - events list : [object Object],[object Object],[object Object]
+[2021-05-01T18:52:09.573] [INFO] request - read event with id: 1002
+[2021-05-01T18:52:09.574] [INFO] response - read event success: [object Object]
+[2021-05-01T18:52:11.672] [INFO] request - delete event
+[2021-05-01T18:52:17.826] [INFO] response - delete event success: [object Object]
+[2021-05-01T18:52:35.440] [INFO] request - read event with id: 1002
+[2021-05-01T18:52:35.442] [INFO] response - read event success: [object Object]
