@@ -16,19 +16,19 @@ insert into user_status(status) values("Expired");
 INSERT INTO venue_type (venue_type) VALUES("private_party");
 insert into venue_type (venue_type) values('sport');
 -- venue data. 
-INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (0,"Hall 01","private_party",50);
-INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (1,"Hall 02","private_party",100);
-INSERT INTO venue (venue_id, venue_name, venue_type, capacity) VALUES (2,"Hall 03","private_party",25);
+INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (0,"Hall 01","private_party");
+INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1,"Hall 02","private_party");
+INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (2,"Hall 03","private_party");
 
-insert into venue (venue_id, venue_name,venue_type, capacity) values(3,'Basket Ball Court', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(4,'Tennis Court', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(5,'Table Tennis Room', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(6,'Swimming Pool', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(7,'Kids Pool', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(8,'Billiard Room', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(9,'Archery Field', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(10,'Golf Course', 'sport',50);
-insert into venue (venue_id, venue_name,venue_type, capacity) values(11,'Yoga Room', 'sport',50);
+insert into venue (venue_id, venue_name,venue_type) values(3,'Basket Ball Court', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(4,'Tennis Court', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(5,'Table Tennis Room', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(6,'Swimming Pool', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(7,'Kids Pool', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(8,'Billiard Room', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(9,'Archery Field', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(10,'Golf Course', 'sport');
+insert into venue (venue_id, venue_name,venue_type) values(11,'Yoga Room', 'sport');
 
 
 -- membership_type
@@ -37,7 +37,7 @@ INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES
 INSERT INTO membership_type (type_id, name,  description,dependent_count) VALUES (2, "Platinum", "Gold user privileges + access to organize own private events",2);
 
 -- root or admin
-INSERT INTO countryclub.user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1001', 'admin', '1', 'admin@gmail.com', 'admin', 'admin', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', 'Active');
+INSERT INTO user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1001', 'admin', '1', 'admin@gmail.com', 'admin', 'admin', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', 'Active');
 
 -- sports data
 insert into sports (s_name, venue_id, start_time, end_time) values('Basket Ball', 3, '08:00:00','20:00:00');
