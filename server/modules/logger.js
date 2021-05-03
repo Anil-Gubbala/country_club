@@ -6,13 +6,13 @@ log4js.configure({
       type: "dateFile",
       filename: "log_files/country_club.log",
       alwaysIncludePattern: true,
-      pattern: '.yyyy-MM-dd-hh',
+      pattern: '.yyyy-MM-dd',
     },
     response: {
       type: "dateFile",
       filename: "log_files/country_club.log",
       alwaysIncludePattern: true,
-      pattern: '.yyyy-MM-dd-hh',
+      pattern: '.yyyy-MM-dd',
     },
   },
   categories: {
