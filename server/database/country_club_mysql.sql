@@ -131,7 +131,7 @@ create table event
 	organized_by int not null,
 	primary key (event_id),
 	foreign key(venue_id) references venue(venue_id) on update cascade on delete cascade,
-	foreign key (organized_by) references user (user_id) on update cascade on delete cascade,
+	foreign key (organized_by) references user (user_id) on update cascade on delete cascade
 );
 
 create table event_booking
