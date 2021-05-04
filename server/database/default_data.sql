@@ -15,9 +15,9 @@ insert into venue_type (venue_type) values('outdoor');
 insert into user values('1011', 'admin', 'test', 'admintest@test.com', 'test', 'test', '93424', 'Jan@22', '1', '1')
 
 --venue data
-insert into venue values ('1047','Basket Ball Court','sport');
-insert into venue values ('1050','book reading','indoor');
-insert into venue values ('1051','Swimming Pool','outdoor');
+insert into venue values (1047,'Basket Ball Court','sport');
+insert into venue values (1050,'book reading','indoor');
+insert into venue values (1051,'Swimming Pool','outdoor');
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1001,"Hall 01","private_party");
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1002,"Hall 02","private_party");
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1003,"Hall 03","private_party");
