@@ -5,6 +5,9 @@ import { Redirect, useParams } from "react-router";
 import { useLoginValidate } from "../common/Validate";
 import Loading from "../common/Loading";
 import Navi from "../common/Navi";
+import Alert from "@material-ui/lab/Alert";
+import {Snackbar } from "@material-ui/core";
+
 
 export default function Login() {
   const [user_id, setUserId] = useState("");
@@ -13,9 +16,15 @@ export default function Login() {
   const [loginStatus, setLoginStatus] = useState(false);
   const [failMsg, setFailMsg] = useState("");
   const { loading, userData } = useLoginValidate();
-
+  const [open, setOpen] = useState(false);
   Axios.defaults.withCredentials = true;
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
   const login = () => {
     Axios.post("http://localhost:3001/login", {
       user_id: user_id,
@@ -27,6 +36,7 @@ export default function Login() {
       .catch((error) => {
         setLoginStatus(false);
         setFailMsg(error.response.data.err);
+        setOpen(true);
       });
   };
   if (loading) {
@@ -68,7 +78,12 @@ export default function Login() {
             Login{" "}
           </button>
         </div>
-        <div> {failMsg}</div>
+        {/* <div> {failMsg}</div> */}
+        <Snackbar anchorOrigin={{ vertical:"top", horizontal:"center" }} open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {failMsg}
+        </Alert>
+      </Snackbar>
       </div>
     </div>
   );
