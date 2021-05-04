@@ -21,17 +21,35 @@ export default function MyBookings() {
     return (
       <Box>
         <Navi></Navi>
-        <Accordion defaultExpanded={true}>
+        <Accordion
+          disabled={
+            userData.membership_type === 2 || userData.auth_id === 1
+              ? false
+              : true
+          }
+          defaultExpanded={
+            userData.membership_type === 2 || userData.auth_id === 1
+              ? true
+              : false
+          }
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel3a-content"
             id="panel3a-header"
             style={{ background: "lightcyan" }}
           >
-            <Typography>Private Events</Typography>
+            <Typography>
+              Private Events{" "}
+              {userData.membership_type === 2 || userData.auth_id === 1
+                ? ""
+                : " (!Only Platinum users have access to this)"}
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <PrivateEventBookings></PrivateEventBookings>
+            {(userData.membership_type === 2 || userData.auth_id === 1) && (
+              <PrivateEventBookings></PrivateEventBookings>
+            )}
           </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded={true}>
