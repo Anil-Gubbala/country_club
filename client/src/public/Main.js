@@ -36,17 +36,37 @@ export default function Main() {
         minDate={new Date()}
         maxDate={addDays(new Date(), 30)}
       />
-      <Accordion defaultExpanded={true}>
+      <Accordion
+        disabled={
+          userData.membership_type === 2 || userData.auth_id === 1
+            ? false
+            : true
+        }
+        defaultExpanded={
+          userData.membership_type === 2 || userData.auth_id === 1
+            ? true
+            : false
+        }
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+          aria-controls="panel3a-content"
+          id="panel3a-header"
           style={{ background: "lightcyan" }}
         >
-          <Typography>Events</Typography>
+          <Typography>
+            Private Event Slots{" "}
+            {userData.membership_type === 2 || userData.auth_id === 1
+              ? ""
+              : " (!Only Platinum users have access to this)"}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <EventsList></EventsList>
+          {(userData.membership_type === 2 || userData.auth_id === 1) && (
+            <PrivateEventsList
+              date={dateToString(startDate)}
+            ></PrivateEventsList>
+          )}
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded={true}>
@@ -80,33 +100,17 @@ export default function Main() {
           <DiningList date={dateToString(startDate)}></DiningList>
         </AccordionDetails>
       </Accordion>
-      <Accordion
-        disabled={
-          userData.membership_type === 2 || userData.auth_id === 1 ? false : true
-        }
-        defaultExpanded={
-          userData.membership_type === 2 || userData.auth_id === 1 ? true : false
-        }
-      >
+      <Accordion defaultExpanded={true}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3a-content"
-          id="panel3a-header"
+          aria-controls="panel1a-content"
+          id="panel1a-header"
           style={{ background: "lightcyan" }}
         >
-          <Typography>
-            Private Event Slots{" "}
-            {userData.membership_type === 2 || userData.auth_id === 1
-              ? ""
-              : " (!Only Platinum users have access to this)"}
-          </Typography>
+          <Typography>Events</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {(userData.membership_type === 2 || userData.auth_id === 1) && (
-            <PrivateEventsList
-              date={dateToString(startDate)}
-            ></PrivateEventsList>
-          )}
+          <EventsList></EventsList>
         </AccordionDetails>
       </Accordion>
     </div>
