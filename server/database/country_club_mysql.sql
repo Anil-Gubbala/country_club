@@ -16,14 +16,6 @@ create table user (
   	primary key (user_id)
 );
 
-create table user_status
-(
-	status varchar(25) not null unique
-);
-create table event_status
-(
-	status varchar(25) not null unique
-);
 
 -- membership_type: used for dropdown
 create table membership_type
@@ -140,7 +132,6 @@ create table event
 	primary key (event_id),
 	foreign key(venue_id) references venue(venue_id) on update cascade on delete cascade,
 	foreign key (organized_by) references user (user_id) on update cascade on delete cascade,
-	foreign key (status) references event_status(status) on update cascade on delete cascade
 );
 
 create table event_booking
