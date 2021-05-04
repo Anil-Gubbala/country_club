@@ -169,3 +169,8 @@ insert into sport_time values(1008,1008);
 insert into sport_time values(1001,1009);
 insert into sport_time values(1002,1009);
 insert into sport_time values(1003,1009);
+
+--Event test data
+insert into event values('1010', 'Rise n shine', 'Seminar on holistic and mindful living', '2021-05-08', '2021-05-09', 'confirmed', '1047', '20', NULL, '1011');
+insert into event values('1020', 'Part of Art', 'Art displays of local independent artists', '2021-05-01', '2021-05-02', 'confirmed', '1050', '50', NULL, '1011');
+insert into event values('1021', 'World on my Plate', 'Food festival and fair where foods across cultures would be offered', '2021-05-08', '2021-05-09', 'confirmed', '1051', '50', NULL, '1011');
