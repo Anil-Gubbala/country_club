@@ -37,6 +37,8 @@ insert into venue (venue_id, venue_name,venue_type) values(1015,'Dining-3', 'din
 insert into venue (venue_id, venue_name,venue_type) values(1016,'Dining-4', 'dining');
 
 insert into venue (venue_id, venue_name, venue_type) values (1017,'book reading','indoor');
+insert into venue (venue_id, venue_name, venue_type) values (1018,'book reading','outdoor');
+insert into venue (venue_id, venue_name, venue_type) values (1019,'book reading','workshop');
 
 -- membership_type
 INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "eligible to participate in all events");
@@ -179,9 +181,9 @@ insert into sport_time values(1002,1009);
 insert into sport_time values(1003,1009);
 
 -- Event test data
-insert into event values('1010', 'Rise n shine', 'Seminar on holistic and mindful living', '2021-05-08', '2021-05-09', 'confirmed', '1047', '20', NULL, '1011');
-insert into event values('1020', 'Part of Art', 'Art displays of local independent artists', '2021-05-01', '2021-05-02', 'confirmed', '1017', '50', NULL, '1011');
-insert into event values('1021', 'World on my Plate', 'Food festival and fair where foods across cultures would be offered', '2021-05-08', '2021-05-09', 'confirmed', '1051', '50', NULL, '1011');
+insert into event values('1010', 'Rise n shine', 'Seminar on holistic and mindful living', '2021-05-08', '2021-05-09', 'confirmed', 1017, '20', NULL, '1011');
+insert into event values('1020', 'Part of Art', 'Art displays of local independent artists', '2021-05-01', '2021-05-02', 'confirmed', 1018, '50', NULL, '1011');
+insert into event values('1021', 'World on my Plate', 'Food festival and fair where foods across cultures would be offered', '2021-05-08', '2021-05-09', 'confirmed', 1019, '50', NULL, '1011');
 
 
 
