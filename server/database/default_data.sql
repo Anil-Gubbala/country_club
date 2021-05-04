@@ -30,10 +30,10 @@ insert into venue (venue_id, venue_name,venue_type) values(1010,'Archery Field',
 insert into venue (venue_id, venue_name,venue_type) values(1011,'Golf Course', 'sport');
 insert into venue (venue_id, venue_name,venue_type) values(1012,'Yoga Room', 'sport');
 
-insert into venue (venue_id, venue_name,venue_type) values(1013,'Dining -1', 'dining')
-insert into venue (venue_id, venue_name,venue_type) values(1014,'Dining -2', 'dining')
-insert into venue (venue_id, venue_name,venue_type) values(1015,'Dining -3', 'dining')
-insert into venue (venue_id, venue_name,venue_type) values(1016,'Dining -4', 'dining')
+insert into venue (venue_id, venue_name,venue_type) values(1013,'Dining -1', 'dining');
+insert into venue (venue_id, venue_name,venue_type) values(1014,'Dining -2', 'dining');
+insert into venue (venue_id, venue_name,venue_type) values(1015,'Dining -3', 'dining');
+insert into venue (venue_id, venue_name,venue_type) values(1016,'Dining -4', 'dining');
 
 -- membership_type
 INSERT INTO membership_type (type_id, name, description) VALUES (0, "Silver", "eligible to participate in all events");
@@ -182,7 +182,7 @@ insert into event values('1021', 'World on my Plate', 'Food festival and fair wh
 
 
 -- Dining 
-insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Breakfast',1013,'07:00:00','10:00:00') 
-insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Brunch',1014,'10:00:00','11:00:00') 
-insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Lunch',1015,'12:00:00','15:00:00') 
-insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Dinner',1016,'20:00:00','22:00:00') 
+insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Breakfast',1013,'07:00:00','10:00:00'); 
+insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Brunch',1014,'10:00:00','11:00:00'); 
+insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Lunch',1015,'12:00:00','15:00:00'); 
+insert into dining (type,venue_id,capacity,	start_time time,end_time) values ('Dinner',1016,'20:00:00','22:00:00'); 
