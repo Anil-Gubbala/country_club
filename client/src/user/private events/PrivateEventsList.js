@@ -206,7 +206,7 @@ export default function PrivateEventsList(props) {
   // }
   return (
     <div className="width100">
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={columns}
