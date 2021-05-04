@@ -42,6 +42,8 @@ export default function PrivateEventsList(props) {
       let end = new Date(props.date)
       end.setDate( end.getDate() + days-1);
       setEndDate(dateToString(end))
+    }else{
+      setEndDate(props.date);
     }
   }
 
