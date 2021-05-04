@@ -5,7 +5,7 @@ const SQL_DINING = {
   CREATE_DINING_REGSERVATION:
     "INSERT INTO countryclub.reservation(reservation_date, status, no_of_ppl, user_id, dining_id) VALUES (?,?,?,?,?);",
   GET_AVAILABLE_DINING_DETAILS:
-    "select d.dining_id,d.type,venue.venue_name,d.capacity,d.start_time,d.end_time from dining d inner join countryclub.venue on d.venue_id=venue.venue_id where d.dining_id not in ( select dining.dining_id from dining left join reservation on dining.dining_id=reservation.dining_id where reservation_date=? group by dining.dining_id having sum(no_of_ppl)>=max(dining.capacity))",
+    "select d.dining_id,d.type,venue.venue_name,d.capacity,d.start_time,d.end_time from dining d inner join countryclub.venue on d.venue_id=venue.venue_id where venue.venue_type='dining' and d.dining_id not in ( select dining.dining_id from dining left join reservation on dining.dining_id=reservation.dining_id where reservation_date=? group by dining.dining_id having sum(no_of_ppl)>=max(dining.capacity))",
   // "SELECT dining.dining_id,dining.type,venue.venue_name,dining.capacity,dining.start_time,dining.end_time FROM countryclub.dining left join countryclub.reservation on dining.dining_id=reservation.dining_id inner join countryclub.venue on dining.venue_id=venue.venue_id where reservation_id is null",
   CANCEL_RESERVATION:
     "update countryclub.reservation set reservation.status='Cancelled' where reservation.reservation_id=?;",
