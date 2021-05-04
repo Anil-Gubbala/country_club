@@ -15,6 +15,7 @@ insert into user_status(status) values("Expired");
 -- venue type
 INSERT INTO venue_type (venue_type) VALUES("private_party");
 insert into venue_type (venue_type) values('sport');
+insert into venue_type (venue_type) values('dining');
 -- venue data. 
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1001,"Hall 01","private_party");
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1002,"Hall 02","private_party");
