@@ -24,13 +24,15 @@ export default function MyBookings() {
         <Accordion defaultExpanded={true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
+            aria-controls="panel3a-content"
+            id="panel3a-header"
             style={{ background: "lightcyan" }}
           >
-            <Typography>Events</Typography>
+            <Typography>Private Events</Typography>
           </AccordionSummary>
-          <AccordionDetails></AccordionDetails>
+          <AccordionDetails>
+            <PrivateEventBookings></PrivateEventBookings>
+          </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded={true}>
           <AccordionSummary
@@ -58,18 +60,17 @@ export default function MyBookings() {
             <DiningHistory></DiningHistory>
           </AccordionDetails>
         </Accordion>
+
         <Accordion defaultExpanded={true}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3a-content"
-            id="panel3a-header"
+            aria-controls="panel1a-content"
+            id="panel1a-header"
             style={{ background: "lightcyan" }}
           >
-            <Typography>Private Events</Typography>
+            <Typography>Events</Typography>
           </AccordionSummary>
-          <AccordionDetails>
-            <PrivateEventBookings></PrivateEventBookings>
-          </AccordionDetails>
+          <AccordionDetails></AccordionDetails>
         </Accordion>
       </Box>
     );
