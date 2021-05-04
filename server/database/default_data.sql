@@ -12,9 +12,9 @@ insert into venue_type (venue_type) values('indoor');
 insert into venue_type (venue_type) values('outdoor');
 
 -- user admin data for event to run. 
-insert into user values('1011', 'admin', 'test', 'admintest@test.com', 'test', 'test', '93424', 'Jan@22', '1', '1')
+insert into user values('1011', 'admin', 'test', 'admintest@test.com', 'test', 'test', '93424', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'1', '1');
 
---venue data
+-- venue data
 
 insert into venue (venue_id, venue_name, venue_type) values (1050,'book reading','indoor');
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1001,"Hall 01","private_party");
