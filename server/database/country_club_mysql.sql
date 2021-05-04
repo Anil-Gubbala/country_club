@@ -175,7 +175,7 @@ create table reservation (
 	user_id int not null,
 	dining_id int not null,
 	primary key(reservation_id),
-	foreign key (user_id) references member(user_id) on update cascade on delete cascade,
+	foreign key (user_id) references user(user_id) on update cascade on delete cascade,
 	foreign key (dining_id) references dining(dining_id) on update cascade on delete cascade
 );
 
