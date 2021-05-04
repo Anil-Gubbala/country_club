@@ -7,8 +7,17 @@
 INSERT INTO venue_type (venue_type) VALUES("private_party");
 insert into venue_type (venue_type) values('sport');
 insert into venue_type (venue_type) values('dining');
+insert into venue_type (venue_type) values('workshop');
+insert into venue_type (venue_type) values('indoor');
+insert into venue_type (venue_type) values('outdoor');
 
--- venue data. 
+-- user admin data for event to run. 
+insert into user values('1011', 'admin', 'test', 'admintest@test.com', 'test', 'test', '93424', 'Jan@22', '1', '1')
+
+--venue data
+insert into venue values ('1047','Basket Ball Court','sport');
+insert into venue values ('1050','book reading','indoor');
+insert into venue values ('1051','Swimming Pool','outdoor');
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1001,"Hall 01","private_party");
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1002,"Hall 02","private_party");
 INSERT INTO venue (venue_id, venue_name, venue_type) VALUES (1003,"Hall 03","private_party");
@@ -45,6 +54,7 @@ INSERT INTO user (user_id, f_name, l_name, email_id, street, city, zip_code, pas
 INSERT INTO member (user_id, membership_type, start_date, end_date) VALUES (1005, 2, "2021-05-01", "2021-05-01");
 INSERT INTO user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('1006', 'pending', '2', 'pending@gmail.com', 'pending', 'pending', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'0', 'Pending');
 INSERT INTO member (user_id, membership_type, start_date, end_date) VALUES (1006, 2, "2021-05-01", "2021-11-01");
+INSERT INTO user (user_id, f_name, l_name, email_id, street, city, zip_code, password, auth_id, status) VALUES ('10', 'pending', '2', 'pending@gmail.com', 'pending', 'pending', '12345', '$2b$10$9YqB7/S5KvMHr3yiu2PK.uzXBVgxIqhXJdiMNLubYg7QhsrFr37c6', b'0', 'Pending');
 
 -- sports data
 insert into sports (s_name, venue_id, start_time, end_time) values('Basket Ball', 1004, '08:00:00','20:00:00');
