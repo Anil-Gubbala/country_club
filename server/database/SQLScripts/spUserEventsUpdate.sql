@@ -31,7 +31,11 @@ BEGIN
 											WHERE event_id = eventId;
        if not exists(select * from event_booking where event_id = eventId and user_id = userId and status = 'confirm') 
         then
-	INSERT INTO EVENT_BOOKING(user_id, event_id, booking_date, status) VALUES(userId, eventId, CURDATE(), 'confirm');
+	INSERT INTO EVENT_BOOKING(user_id, event_id, booking_date, status,no_of_participants) VALUES(userId, eventId, CURDATE(), 'confirm',participants);
+    ELSE
+     UPDATE EVENT_BOOKING SET no_of_participants=                                   
+									 no_of_participants+1  
+								     WHEre event_id=eventId and user_id=userId and status='confirm';
     end if;
    COMMIT;
    SET update_Result=1;
@@ -39,8 +43,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-#CALL update_Events(1,1001,@res);
-#SELECT @res;
 
 
 
