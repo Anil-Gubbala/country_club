@@ -33,6 +33,7 @@ export default function EventList(props) {
       getEvents();
       if (response.data.loggedIn === true) {
         setUserData(response.data.user);
+        console.log(response.data.user);
       } else {
         setUserData({});
       }
@@ -50,7 +51,8 @@ export default function EventList(props) {
       axios
         .post("http://localhost:3001/user/updateEvents", {
           no_of_participants: attendees,
-          event_id: rowData.data.event_id
+          event_id: rowData.data.event_id,
+          user_id: data.user.user_id
         })
         .then((result) => {	
 			

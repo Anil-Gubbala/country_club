@@ -30,11 +30,13 @@ const updateUserEvents = (req, res) => {
     logger.request.info("update user events");
     const {
         no_of_participants,
-        event_id
+        event_id,
+        user_id
     } = req.body;
     db.query(SQL_USER_EVENTS.UPDATE_USER_EVENTS, [
         no_of_participants,
-        event_id
+        event_id,
+        user_id
     ], (error, results, fields) => {
         if (error) {
             logger.request.info("update user events error " + error.message);
