@@ -181,9 +181,9 @@ insert into sport_time values(1002,1009);
 insert into sport_time values(1003,1009);
 
 -- Event test data
-insert into event values('1010', 'Rise n shine', 'Seminar on holistic and mindful living', '2021-05-08', '2021-05-09', 'confirmed', 1017, '20', NULL, '1011');
-insert into event values('1020', 'Part of Art', 'Art displays of local independent artists', '2021-05-01', '2021-05-02', 'confirmed', 1018, '50', NULL, '1011');
-insert into event values('1021', 'World on my Plate', 'Food festival and fair where foods across cultures would be offered', '2021-05-08', '2021-05-09', 'confirmed', 1019, '50', NULL, '1011');
+insert into event values('1010', 'Rise n shine', 'Seminar on holistic and mindful living', '2021-05-08', '2021-05-09', 'confirmed', 1017, '20', 0, '1011');
+insert into event values('1020', 'Part of Art', 'Art displays of local independent artists', '2021-05-01', '2021-05-02', 'confirmed', 1018, '50', 0, '1011');
+insert into event values('1021', 'World on my Plate', 'Food festival and fair where foods across cultures would be offered', '2021-05-08', '2021-05-09', 'confirmed', 1019, '50', 0, '1011');
 
 
 
@@ -192,3 +192,4 @@ insert into dining (type,venue_id,capacity,	start_time ,end_time) values ('Break
 insert into dining (type,venue_id,capacity,	start_time ,end_time) values ('Brunch',1014,100,'10:00:00','11:00:00'); 
 insert into dining (type,venue_id,capacity,	start_time ,end_time) values ('Lunch',1015,100,'12:00:00','15:00:00'); 
 insert into dining (type,venue_id,capacity,	start_time ,end_time) values ('Dinner',1016,80,'20:00:00','22:00:00'); 
+
