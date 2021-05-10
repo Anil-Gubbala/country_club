@@ -12,7 +12,7 @@ import PrivateEventBookings from "./private events/PrivateEventBookings";
 import SportsHistory from "./sports/SportsHistory";
 import { Link } from "react-router-dom";
 import DiningHistory from "./dining/DiningHistory";
-
+import EventsHistory from "./events/EventsHistory";
 export default function MyBookings() {
   const { loading, userData } = useLoginValidate();
   if (loading) {
@@ -88,7 +88,9 @@ export default function MyBookings() {
           >
             <Typography>Events</Typography>
           </AccordionSummary>
-          <AccordionDetails></AccordionDetails>
+          <AccordionDetails>
+		   <EventsHistory></EventsHistory>
+		  </AccordionDetails>
         </Accordion>
       </Box>
     );

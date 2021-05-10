@@ -15,41 +15,7 @@ const getEvents = (req, res) => {
         res.send(results);
     });
 }
-const getuserEvents = (req, res) => {
-    logger.request.info("get user events list");
-    db.query(SQL_USER_EVENTS.GET_EVENTS_LIST, (error, results, fields) => {
-        if (error) {
-            logger.request.info("get user events list error " + error.message);
-            return console.error(error.message);
-        }
-        logger.response.info("user events list : " + results != null ? JSON.stringify(results) : "No data found");
-        res.send(results);
-    });
-}
-const updateUserEvents = (req, res) => {
-    logger.request.info("update user events");
-    const {
-        no_of_participants,
-        event_id,
-        user_id
-    } = req.body;
-    db.query(SQL_USER_EVENTS.UPDATE_USER_EVENTS, [
-        no_of_participants,
-        event_id,
-        user_id
-    ], (error, results, fields) => {
-        if (error) {
-            logger.request.info("update user events error " + error.message);
-            console.log(error);
-            res.status(404).send({
-                err: error.errno === 1062 ? "Error updating event" : error.code
-            });
-        } else {
-            logger.request.info("update user events successful " + results != null ? JSON.stringify(results) : "No data found");
-            res.send(results);
-        }
-    });
-}
+
 const createEvent = (req, res) => {
     logger.request.info("create new event");
     const {
@@ -192,7 +158,5 @@ module.exports = {
     readEvent,
     getVenue,
     updateEvent,
-    deleteEvent,
-    getuserEvents,
-    updateUserEvents
+    deleteEvent
 };

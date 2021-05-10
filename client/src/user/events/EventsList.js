@@ -68,9 +68,9 @@ export default function EventList(props) {
 			$.alert({
 				width: 'auto',
 				title: 'Message!',
-				content: 'Booking Successful!',
+				content: 'Booking Successful!. Go to <a href="user/myBookings" /> My Bookings',
 				useBootstrap: false, // Key line
-				boxWidth: '20%'
+				boxWidth: '30%'
 			});
 
 			}
