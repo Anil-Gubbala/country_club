@@ -30,6 +30,7 @@ export default function Main() {
     <div>
       <Navi></Navi>
       <DatePicker
+        id = "mainDate"
         className="margin8"
         selected={startDate}
         onChange={(date) => setStartDate(date)}
