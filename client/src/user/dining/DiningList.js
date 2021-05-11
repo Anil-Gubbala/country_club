@@ -55,25 +55,42 @@ export default function DiningList(props) {
   };
 
   const handleBooking = () => {
-    if (attendees > rowData.data.capacity) {
-      setInvalid(true);
-      return;
-    } else {
-      axios
-        .post("http://localhost:3001/user/createdining", {
-          reservation_date: props.date,
-          status: "Approved",
-          no_of_ppl: attendees,
-          dining_id: rowData.data.dining_id,
-        })
-        .then((result) => {
-          SetBookingSuccess(true);
-        })
-        .catch((err) => {
-          setMessage(err.response.data.err);
-          setOpen(true);
-        });
-    }
+    axios
+      .put("http://localhost:3001/user/createdining", {
+        date: props.date,
+        id: rowData.data.dining_id,
+      })
+      .then((result) => {
+        console.log(rowData.data.capacity - result.data[0].available);
+
+        if (attendees > rowData.data.capacity - result.data[0].available) {
+          window.alert(
+            "Available Capacity is - " +
+              String(rowData.data.capacity - result.data[0].available)
+          );
+          setInvalid(true);
+          return;
+        } else {
+          axios
+            .post("http://localhost:3001/user/createdining", {
+              reservation_date: props.date,
+              status: "Approved",
+              no_of_ppl: attendees,
+              dining_id: rowData.data.dining_id,
+            })
+            .then((result) => {
+              SetBookingSuccess(true);
+            })
+            .catch((err) => {
+              setMessage(err.response.data.err);
+              setOpen(true);
+            });
+        }
+      })
+      .catch((err) => {
+        setMessage(err.response.data.err);
+        setOpen(true);
+      });
   };
 
   useEffect(() => {

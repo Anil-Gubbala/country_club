@@ -6,6 +6,7 @@ const {
   GET_RESERVATIONS,
   GET_AVAILABLE_DINING_DETAILS,
   CANCEL_RESERVATION,
+  CHECK_AVAILABILITY,
 } = require("../database/SQL/Dining/diningSql");
 
 const getReservations = (req, res) => {
@@ -54,6 +55,25 @@ const getAvailableDiningDetails = (req, res) => {
   });
 };
 
+const checkAvailability = (req, res) => {
+  logger.request.info("checking available slots - dining");
+  db.query(
+    CHECK_AVAILABILITY,
+    [req.body.date, req.body.id],
+
+    (error, result) => {
+      if (error) {
+        res.status(404).send({ err: error.code });
+        return;
+      } else if (result.length == 0) {
+        res.send([]);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+};
+
 const createReservation = (req, res) => {
   logger.request.info("Create a reservation");
   if (!req.session.user) {
@@ -90,4 +110,5 @@ module.exports = {
   createReservation,
   getAvailableDiningDetails,
   cancelReservation,
+  checkAvailability,
 };

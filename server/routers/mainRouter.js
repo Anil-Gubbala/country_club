@@ -1,69 +1,70 @@
 const express = require("express");
 const {
-    getLogin,
-    registerUser,
-    logout,
-    setLogin,
-    getMembershipTypes,
+  getLogin,
+  registerUser,
+  logout,
+  setLogin,
+  getMembershipTypes,
 } = require("../controllers/mainController");
 const {
-    createEvent,
-    getEvents,
-    readEvent,
-    getVenue,
-    updateEvent,
-    deleteEvent,
+  createEvent,
+  getEvents,
+  readEvent,
+  getVenue,
+  updateEvent,
+  deleteEvent,
 } = require("../controllers/eventsController");
 const {
-    getuserEvents,
-    updateUserEvents,
-    getEventsHistory,
-    cancelEventsBooking
+  getuserEvents,
+  updateUserEvents,
+  getEventsHistory,
+  cancelEventsBooking,
 } = require("../controllers/userEventsController");
 const {
-    createVenue,
-    getVenueDetails,
-    readVenue,
-    getVenueType,
-    updateVenue,
-    deleteVenue,
+  createVenue,
+  getVenueDetails,
+  readVenue,
+  getVenueType,
+  updateVenue,
+  deleteVenue,
 } = require("../controllers/venueController");
 const router = express.Router();
 
 const {
-    partyGetVenues,
-    partyInsert,
-    partyGetBookings,
-    cancelParty,
+  partyGetVenues,
+  partyInsert,
+  partyGetBookings,
+  cancelParty,
 } = require("../controllers/partyController");
 const {
-    getPendingUsers,
-    getUsers,
-    getUsersById,
-    approvePendingUser,
-    deleteUser,
-    updateUser,
-    createNewAdmin,
-    getAdminList,
-    getDependents,
-    deleteDependent,
-    addNewDependent,
-    getUpgradeReq,
-    addUpgradeReq,
-    approveUpgradeReq
+  getPendingUsers,
+  getUsers,
+  getUsersById,
+  approvePendingUser,
+  deleteUser,
+  updateUser,
+  createNewAdmin,
+  getAdminList,
+  getDependents,
+  deleteDependent,
+  addNewDependent,
+  getUpgradeReq,
+  addUpgradeReq,
+  approveUpgradeReq,
 } = require("../controllers/adminController");
 const {
-    getAllSports,
-    getBookingSlot,
-    sportsBookingInsert,
-    cancelSportsBooking,
-    getSportsHistory,
+  getAllSports,
+  getBookingSlot,
+  sportsBookingInsert,
+  cancelSportsBooking,
+  getSportsHistory,
 } = require("../controllers/sportsController");
 const {
-    getReservations,
-    cancelReservation,
-    createReservation,
-    getAvailableDiningDetails,
+  getReservations,
+  cancelReservation,
+  createReservation,
+  getAvailableDiningDetails,
+  checkAvailability,
 } = require("../controllers/DiningController");
 
 router.route("/register").post(registerUser);
@@ -84,9 +85,9 @@ router.route("/admin/users/dependent/insert").post(addNewDependent);
 router.route("/admin/newadmin/create").post(createNewAdmin);
 router.route("/admin/users/adminuser").get(getAdminList);
 
-router.route('/admin/upgrade/list').get(getUpgradeReq)
-router.route('/admin/upgrade/create').post(addUpgradeReq)
-router.route('/admin/upgrade/approve').post(approveUpgradeReq)
+router.route("/admin/upgrade/list").get(getUpgradeReq);
+router.route("/admin/upgrade/create").post(addUpgradeReq);
+router.route("/admin/upgrade/approve").post(approveUpgradeReq);
 
 router.route("/admin").get(getEvents);
 router.route("/admin/events/create").get(getVenue).post(createEvent);
@@ -119,8 +120,9 @@ router.route("/user/getEventsHistory").get(getEventsHistory);
 router.route("/user/dining").get(getReservations).put(cancelReservation);
 
 router
-    .route("/user/createdining")
-    .post(createReservation)
-    .get(getAvailableDiningDetails);
+  .route("/user/createdining")
+  .post(createReservation)
+  .get(getAvailableDiningDetails)
+  .put(checkAvailability);
 
 module.exports = router;
