@@ -123,7 +123,7 @@ const deleteEvent = (req, res) => {
         event_id
     } = req.body;
     db.query(SQL_EVENTS.DELETE_EVENT, [
-        event_id
+        event_id,event_id
     ], (error, results, fields) => {
         if (error) {
             logger.request.error("delete event error: " + error.message);

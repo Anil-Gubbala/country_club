@@ -11,7 +11,7 @@ const SQL_EVENT = {
     UPDATE_EVENT: "UPDATE countryclub.EVENT SET event_name=?,e_description=?,start_date=?,end_date=?,status=?,venue_id=?,capacity=? \
                    where event_id=?",
     
-    DELETE_EVENT: "Update countryclub.EVENT set status='Cancelled' where event_id=?",
+    DELETE_EVENT: "Update countryclub.EVENT set status='Cancelled' where event_id=?; update event_booking set status = 'Cancelled' where event_id = ?;",
 
     GET_VENUE: "SELECT * FROM venue",
 
